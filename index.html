@@ -1,547 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- SEO Meta Tags -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Navaneeth | Cybersecurity Student Portfolio. Projects in hardware, IoT, and security.">
-  <meta name="keywords" content="Navaneeth, Cybersecurity, Hardware, IoT, Portfolio, Student, Kerala">
-  <meta name="author" content="Navaneeth">
-  <title>Navaneeth | Cybersecurity Portfolio</title>
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* ========== ROOT VARIABLES ========== */
-    :root {
-      --bg: #0d1117;
-      --card-bg: #161b22;
-      --accent: #00ff88;
-      --accent-blue: #00e0ff;
-      --text: #f4f4f4;
-      --muted: #8892b0;
-      --shadow: 0 4px 24px rgba(0,255,136,0.07), 0 2px 20px rgba(0,224,255,0.03);
-      --radius: 12px;
-      --transition: 0.2s cubic-bezier(.4,0,.2,1);
-      --nav-height: 64px;
-    }
+    <meta charset="UTF-8">
+    <title>Navaneeth | Cybersecurity Student</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Navaneeth - Cybersecurity student from Kerala. Kali Linux, Offensive Security, Hardware Engineering & IoT.">
 
-    /* ========== BASIC RESET ========== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background: var(--bg); }
-    body {
-      font-family: 'Roboto', 'JetBrains Mono', monospace, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
-    a:hover, a:focus { color: var(--accent-blue); }
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
 
-    /* ========== NAVIGATION ========== */
-    .navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-height);
-      background: rgba(13,17,23,0.98);
-      box-shadow: 0 2px 8px rgba(0,255,136,0.04);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px;
-      z-index: 50;
-    }
-    .navbar__brand {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: bold;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      color: var(--accent);
-      user-select: none;
-      text-shadow: 0 2px 8px rgba(0,255,136,0.2);
-    }
-    .navbar__links {
-      display: flex;
-      gap: 2rem;
-    }
-    .navbar__link {
-      color: var(--text);
-      font-weight: 500;
-      letter-spacing: 1px;
-      padding: 6px 0;
-      position: relative;
-      transition: color var(--transition);
-    }
-    .navbar__link::after {
-      content: "";
-      display: block;
-      height: 2px;
-      width: 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
-      border-radius: 2px;
-      transition: width var(--transition);
-      margin-top: 4px;
-      opacity: 0.7;
-    }
-    .navbar__link:hover::after,
-    .navbar__link:focus::after {
-      width: 100%;
-    }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-      height: 28px;
-      justify-content: center;
-    }
-    .hamburger span {
-      width: 28px; height: 3px;
-      background: var(--accent);
-      border-radius: 2px;
-      transition: 0.25s;
-    }
-    @media (max-width: 900px) {
-      .navbar { padding: 0 16px; }
-      .navbar__links { gap: 1rem; }
-    }
-    @media (max-width: 700px) {
-      .navbar__links {
-        position: absolute;
-        top: var(--nav-height);
-        right: 0;
-        background: var(--card-bg);
-        box-shadow: var(--shadow);
-        flex-direction: column;
-        width: 200px;
-        gap: 0;
-        transition: max-height 0.3s;
-        overflow: hidden;
-        max-height: 0;
-      }
-      .navbar__links.open { max-height: 260px; }
-      .navbar__link { padding: 16px; }
-      .hamburger { display: flex; }
-    }
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --accent: #00ff88;
+            --accent-blue: #00bfff;
+            --text: #c9d1d9;
+            --muted: #8b949e;
+            --radius: 14px;
+        }
 
-    /* ========== SECTIONS ========== */
-    section {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 64px 24px;
-    }
-    .section__title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 32px;
-      letter-spacing: 1.5px;
-      text-shadow: 0 1px 8px rgba(0,255,136,0.09);
-    }
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 32px;
-      margin-bottom: 28px;
-      transition: transform 0.18s, box-shadow 0.18s;
-      border: 1.5px solid rgba(0,255,136,0.04);
-    }
-    .card:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 8px 32px rgba(0,255,136,0.12);
-    }
-    @media (max-width: 600px) {
-      section { padding: 44px 10px; }
-      .card { padding: 20px; margin-bottom: 18px; }
-      .section__title { font-size: 1.35rem; margin-bottom: 18px; }
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* ========== HERO SECTION ========== */
-    #hero {
-      min-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: calc(var(--nav-height) + 36px);
-      gap: 32px;
-    }
-    .hero__title {
-      font-size: 2.7rem;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 2px;
-      color: var(--accent);
-      margin-bottom: 12px;
-      text-shadow: 0 2px 14px rgba(0,255,136,0.13);
-    }
-    .hero__subtitle {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 18px;
-      letter-spacing: 1.2px;
-    }
-    .hero__intro {
-      max-width: 530px;
-      margin-bottom: 18px;
-      font-size: 1.05rem;
-      color: var(--text);
-      opacity: 0.86;
-    }
-    .hero__btns {
-      display: flex; gap: 16px;
-    }
-    .hero__btn {
-      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
-      color: #181C25;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 2px 16px rgba(0,255,136,0.06);
-      padding: 12px 26px;
-      cursor: pointer;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      margin-top: 5px;
-      transition: filter 0.17s, box-shadow 0.17s;
-    }
-    .hero__btn:hover,
-    .hero__btn:focus {
-      filter: brightness(1.15) grayscale(0.1);
-      box-shadow: 0 8px 24px rgba(0,255,136,0.18);
-    }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+        }
 
-    /* ========== ABOUT SECTION ========== */
-    .about__desc {
-      font-size: 1.13rem;
-      color: var(--text);
-      line-height: 1.85;
-      letter-spacing: 0.11px;
-      padding-bottom: 6px;
-      opacity: 0.90;
-    }
+        a {
+            text-decoration: none;
+            color: var(--accent);
+        }
 
-    /* ========== SKILLS SECTION ========== */
-    .skills__grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 22px;
-    }
-    .skills__col {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 22px 14px;
-      box-shadow: var(--shadow);
-      border: 1.5px solid rgba(0,224,255,0.03);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .skills__col h4 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.02rem;
-      color: var(--accent-blue);
-      margin-bottom: 12px;
-      letter-spacing: 1.2px;
-    }
-    .skills__item {
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.06rem;
-      line-height: 1.7;
-      opacity: 0.91;
-    }
-    .skills__icon {
-      font-size: 1.2em;
-      width: 1.3em;
-      color: var(--accent);
-      filter: drop-shadow(0 1px 5px #00ff8877);
-    }
-    @media (max-width: 900px) {
-      .skills__grid { grid-template-columns: 1fr; gap: 18px;}
-      .skills__col { padding: 18px 7px; }
-    }
-    @media (max-width: 600px) {
-      .skills__col { padding: 14px 5px; }
-    }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
 
-    /* ========== PROJECTS SECTION ========== */
-    .projects__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 34px;
-    }
-    .project__card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 28px 20px;
-      border: 1.5px solid rgba(0,255,136,0.045);
-      transition: transform 0.18s, box-shadow 0.17s;
-      display: flex; flex-direction: column; gap: 16px;
-      min-height: 215px;
-    }
-    .project__card:hover, .project__card:focus-within {
-      transform: translateY(-3px) scale(1.012);
-      box-shadow: 0 8px 20px rgba(0,255,136,0.13);
-      border-color: var(--accent-blue);
-    }
-    .project__title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.08rem;
-      color: var(--accent);
-    }
-    .project__desc {
-      color: var(--text);
-      font-size: 1rem;
-      opacity: 0.89;
-    }
-    .project__tech {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 7px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .project__link {
-      color: var(--accent-blue);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.97rem;
-      margin-top: auto;
-      align-self: flex-start;
-    }
-    @media (max-width: 875px) {
-      .projects__grid { grid-template-columns: 1fr; gap: 23px;}
-    }
-    @media (max-width: 650px) {
-      .projects__grid { gap: 11px; }
-      .project__card { padding: 13px 7px; }
-    }
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* ========== CONTACT SECTION ========== */
-    #contact {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 28px;
-      min-height: 180px;
-    }
-    .contact__links {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-    .contact__link {
-      display: flex; align-items: center;
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      color: var(--accent);
-      font-size: 1.15rem;
-      padding: 12px 20px;
-      transition: background 0.17s,transform 0.13s;
-      box-shadow: var(--shadow);
-      border: 1.5px solid rgba(0,224,255,0.03);
-      gap: 10px;
-    }
-    .contact__link:hover,
-    .contact__link:focus {
-      background: linear-gradient(90deg, rgba(0,255,136,0.09),rgba(0,224,255,0.06));
-      transform: translateY(-2px) scale(1.03);
-      color: var(--accent-blue);
-    }
-    .contact__icon {
-      font-size: 1.4em;
-      color: var(--accent-blue);
-    }
-    .footer {
-      width: 100%;
-      text-align: center;
-      color: var(--muted);
-      font-size: 1rem;
-      padding: 36px 0 16px 0;
-      letter-spacing: 1.1px;
-      border-top: 1px solid rgba(0,255,136,0.08);
-      background: linear-gradient(to right, rgba(0,255,136,0.03) 0%, transparent 100%);
-      margin-top: 44px;
-    }
-  </style>
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        nav a {
+            margin-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* HERO */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-left {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .hero h2 {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: var(--radius);
+            background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+            color: black;
+            font-weight: bold;
+            margin-right: 15px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,255,136,0.4);
+        }
+
+        .hero img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            object-fit: cover;
+        }
+
+        /* SECTION */
+        section {
+            padding: 70px 0;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: var(--radius);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border: 1px solid var(--accent);
+        }
+
+        .skills span {
+            display: inline-block;
+            background: #21262d;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 5px;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        @media(max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero img {
+                margin-top: 30px;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- ======== NAVIGATION ======== -->
-  <nav class="navbar" role="navigation" aria-label="Main Navigation">
-    <div class="navbar__brand">Navaneeth</div>
-    <div class="navbar__links" id="navLinks">
-      <a class="navbar__link" href="#hero">Home</a>
-      <a class="navbar__link" href="#about">About</a>
-      <a class="navbar__link" href="#skills">Skills</a>
-      <a class="navbar__link" href="#projects">Projects</a>
-      <a class="navbar__link" href="#contact">Contact</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </nav>
 
-  <!-- ======== HERO SECTION ======== -->
-  <section id="hero">
-    <h1 class="hero__title">Navaneeth</h1>
-    <h2 class="hero__subtitle">Cybersecurity Student&nbsp;&nbsp;|&nbsp;&nbsp;Hardware Builder&nbsp;&nbsp;|&nbsp;&nbsp;IoT Explorer</h2>
-    <p class="hero__intro">
-      Exploring the intersection of cybersecurity, hardware, and embedded systems. Hands-on learning through projects and experimentation.
+<div class="container">
+
+<header>
+    <div class="logo">Navaneeth.dev</div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-left">
+        <h1>Navaneeth</h1>
+        <h2>Cybersecurity Student | Hardware & IoT Enthusiast</h2>
+        <p>
+            11th-grade student from Kerala focused on Offensive Security,
+            Kali Linux, GPU systems, and IoT development.
+            I build, break, analyze, and optimize systems.
+        </p>
+
+        <a class="btn" href="https://github.com/Navaneeth-hacker" target="_blank">
+            View GitHub
+        </a>
+
+        <a class="btn" href="#contact">
+            Contact Me
+        </a>
+    </div>
+
+    <!-- Replace profile.jpg with your actual image file -->
+    <img src="profile.jpg" alt="Navaneeth Photo">
+</section>
+
+<section id="about">
+    <h3>About Me</h3>
+    <p>
+        I am a cybersecurity-focused student exploring ethical hacking,
+        hardware engineering, system architecture, and performance optimization.
+        I experiment with Kali Linux, penetration testing basics,
+        APK analysis, metadata extraction, and IoT hardware builds.
     </p>
-    <div class="hero__btns">
-      <a class="hero__btn" href="#projects">View Projects</a>
-      <a class="hero__btn" href="https://github.com/your-github-profile" target="_blank" rel="noopener">GitHub Profile</a>
-    </div>
-  </section>
+</section>
 
-  <!-- ======== ABOUT SECTION ======== -->
-  <section id="about">
-    <div class="section__title">About Me</div>
-    <div class="about__desc card">
-      I'm an 11th grade student from Kerala, India, specializing in cybersecurity. My learning journey includes hands-on experience with Kali Linux, firmware testing, and embedded systems. I thrive on practical projects that merge hardware and software, with a strong focus on system-level experimentation. I enjoy building custom hardware setups, exploring the inner workings of computers, and collaborating on real-world IoT solutions.
-    </div>
-  </section>
-
-  <!-- ======== SKILLS SECTION ======== -->
-  <section id="skills">
-    <div class="section__title">Skills</div>
-    <div class="skills__grid">
-      <div class="skills__col">
-        <h4>🛡️ Cybersecurity</h4>
-        <div class="skills__item"><span class="skills__icon">🐉</span>Kali Linux</div>
-        <div class="skills__item"><span class="skills__icon">💥</span>Basic offensive testing</div>
-        <div class="skills__item"><span class="skills__icon">🔡</span>Encoding/Decoding</div>
-        <div class="skills__item"><span class="skills__icon">📤</span>Metadata extraction</div>
-      </div>
-      <div class="skills__col">
-        <h4>🖧 Hardware &amp; Systems</h4>
-        <div class="skills__item"><span class="skills__icon">📶</span>ESP32 projects</div>
-        <div class="skills__item"><span class="skills__icon">💾</span>BIOS exploration</div>
-        <div class="skills__item"><span class="skills__icon">🛠️</span>PC building</div>
-        <div class="skills__item"><span class="skills__icon">🎮</span>GPU analysis</div>
-      </div>
-      <div class="skills__col">
-        <h4>⚙️ Tools</h4>
-        <div class="skills__item"><span class="skills__icon">🐧</span>Linux</div>
-        <div class="skills__item"><span class="skills__icon">🔗</span>Git</div>
-        <div class="skills__item"><span class="skills__icon">📝</span>VS Code</div>
-        <div class="skills__item"><span class="skills__icon">💽</span>SD card interfacing</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======== PROJECTS SECTION ======== -->
-  <section id="projects">
-    <div class="section__title">Projects</div>
-    <div class="projects__grid">
-      <div class="project__card" tabindex="0">
-        <div class="project__title">ESP32 Text Storage Device with Battery Monitoring</div>
-        <div class="project__desc">
-          Designed a portable device using ESP32 for storing, reading, and organizing text files, featuring live battery voltage monitoring and microSD support.
+<section id="projects">
+    <h3>Projects</h3>
+    <div class="cards">
+        <div class="card">
+            <h4>Security Lab Setup</h4>
+            <p>Custom Kali Linux lab for testing and learning offensive security fundamentals.</p>
+            <a href="https://github.com/Navaneeth-hacker" target="_blank">View Repo</a>
         </div>
-        <div class="project__tech">ESP32, MicroPython, SD Card, IoT, Voltage Sensing</div>
-        <a class="project__link" href="https://github.com/your-github-text-storage-project" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
-      <div class="project__card" tabindex="0">
-        <div class="project__title">BIOS Firmware Exploration on Laptop Systems</div>
-        <div class="project__desc">
-          Investigated laptop BIOS firmware, extracted and analyzed binary dumps, and experimented with chip-level access for security learning.
+
+        <div class="card">
+            <h4>IoT Monitoring System</h4>
+            <p>Prototype IoT system using sensors and microcontrollers for real-time monitoring.</p>
+            <a href="https://github.com/Navaneeth-hacker" target="_blank">View Repo</a>
         </div>
-        <div class="project__tech">BIOS, Binwalk, Firmware, Hex Editors, Embedded Hardware</div>
-        <a class="project__link" href="https://github.com/your-github-bios-project" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
-      <div class="project__card" tabindex="0">
-        <div class="project__title">Laptop-to-External-Monitor Conversion Experiment</div>
-        <div class="project__desc">
-          Repurposed faulty laptop screens and mainboards to function as standalone external monitors, extending the lifecycle of old hardware.
+
+        <div class="card">
+            <h4>Hardware Optimization Study</h4>
+            <p>Research and testing on GPU configurations and system performance tuning.</p>
+            <a href="https://github.com/Navaneeth-hacker" target="_blank">View Repo</a>
         </div>
-        <div class="project__tech">LVDS, Reuse Hardware, Display Controllers, Diagnostics</div>
-        <a class="project__link" href="https://github.com/your-github-monitor-project" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
-      <div class="project__card" tabindex="0">
-        <div class="project__title">Embedded SD Card File Manager</div>
-        <div class="project__desc">
-          Created a minimal embedded file manager to organize and transfer files between SD cards and microcontrollers securely and efficiently.
-        </div>
-        <div class="project__tech">Embedded C, SD Card, File System, Microcontrollers</div>
-        <a class="project__link" href="https://github.com/your-github-sdfilemgr-project" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
     </div>
-  </section>
+</section>
 
-  <!-- ======== CONTACT SECTION & FOOTER ======== -->
-  <section id="contact">
-    <div class="section__title">Contact</div>
-    <div class="contact__links">
-      <a class="contact__link" href="https://github.com/your-github-profile" target="_blank" rel="noopener">
-        <span class="contact__icon">🐙</span>GitHub
-      </a>
-      <a class="contact__link" href="mailto:your.email@example.com">
-        <span class="contact__icon">✉️</span>Email
-      </a>
+<section id="skills">
+    <h3>Skills</h3>
+    <div class="skills">
+        <span>Kali Linux</span>
+        <span>Offensive Security Basics</span>
+        <span>Linux Terminal</span>
+        <span>Hardware Building</span>
+        <span>GPU Optimization</span>
+        <span>IoT Prototyping</span>
+        <span>HTML & CSS</span>
     </div>
-    <div class="footer">© 2026 Navaneeth</div>
-  </section>
+</section>
 
-  <!-- ======== SMOOTH SCROLL, NAV & REVEAL JS ======== -->
-  <script>
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      hamburger.classList.toggle('active');
-    });
-    // Close menu on link click (mobile)
-    navLinks.querySelectorAll('a').forEach(link =>
-      link.addEventListener('click', () => navLinks.classList.remove('open'))
-    );
+<section id="contact">
+    <h3>Contact</h3>
+    <p>Email: your-email@example.com</p>
+    <p>GitHub: <a href="https://github.com/Navaneeth-hacker" target="_blank">Navaneeth-hacker</a></p>
+</section>
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href').slice(1);
-        const target = document.getElementById(targetId);
-        if (target) {
-          e.preventDefault();
-          const yOffset = window.innerWidth < 700 ? 60 : 0;
-          const y = target.getBoundingClientRect().top + window.pageYOffset - document.querySelector('.navbar').offsetHeight + yOffset;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      });
-    });
+<footer>
+    © 2026 Navaneeth | Built & Hosted on GitHub Pages
+</footer>
 
-    // Scroll reveal (fade-in animation)
-    const revealOnScroll = () => {
-      document.querySelectorAll('section, .card, .project__card, .skills__col').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight - 60;
-        if (inView) el.classList.add('reveal');
-      });
-    };
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('DOMContentLoaded', () => {
-      revealOnScroll();
-      setTimeout(revealOnScroll, 333);
-    });
+</div>
 
-    // Fade-in animation by adding .reveal class
-    const style = document.createElement('style');
-    style.innerHTML = `
-      section, .card, .project__card, .skills__col { 
-        opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1); 
-      }
-      section.reveal, .card.reveal, .project__card.reveal, .skills__col.reveal {
-        opacity: 1; transform: none;
-      }
-    `;
-    document.head.appendChild(style);
-  </script>
 </body>
 </html>
