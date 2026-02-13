@@ -42,6 +42,31 @@
       line-height: 1.6;
     }
 
+    .skip-link {
+      position: absolute;
+      top: -50px;
+      left: 16px;
+      background: var(--gradient-1);
+      color: var(--bg-dark);
+      padding: 10px 14px;
+      border-radius: 8px;
+      z-index: 10001;
+      font-weight: 700;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--secondary);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
     /* Custom Cursor */
     .cursor {
       width: 20px;
@@ -49,10 +74,14 @@
       border: 2px solid var(--primary);
       border-radius: 50%;
       position: fixed;
+      top: 0;
+      left: 0;
       pointer-events: none;
       z-index: 10000;
-      transition: transform 0.1s ease;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, background 0.2s ease, border-color 0.2s ease;
       mix-blend-mode: difference;
+      display: none;
     }
 
     .cursor-dot {
@@ -61,8 +90,23 @@
       background: var(--primary);
       border-radius: 50%;
       position: fixed;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 10000;
+      display: none;
+    }
+
+    .cursor.cursor-active {
+      transform: translate(-50%, -50%) scale(1.7);
+      border-color: var(--secondary);
+      background: rgba(0, 212, 255, 0.15);
+    }
+
+    .js-enhanced.pointer-fine .cursor,
+    .js-enhanced.pointer-fine .cursor-dot {
+      display: block;
     }
 
     /* Scroll Progress Bar */
@@ -411,12 +455,17 @@
       padding: 100px 40px;
       max-width: 1200px;
       margin: 0 auto;
-      opacity: 0;
-      transform: translateY(50px);
+      opacity: 1;
+      transform: none;
       transition: all 0.8s ease;
     }
 
-    section.show {
+    .js-enhanced section:not(.hero) {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .js-enhanced section.show {
       opacity: 1;
       transform: translateY(0);
     }
@@ -513,7 +562,7 @@
     }
 
     .about-card ul li::before {
-      content: '→';
+      content: '->';
       position: absolute;
       left: 0;
       color: var(--primary);
@@ -892,19 +941,51 @@
         transform: translateY(0);
       }
     }
+
+    @media (hover: none), (pointer: coarse) {
+      .cursor,
+      .cursor-dot {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .scroll-indicator {
+        display: none;
+      }
+
+      .js-enhanced section:not(.hero) {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 </head>
 
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<div class="cursor"></div>
-<div class="cursor-dot"></div>
-<div id="progress-bar"></div>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div id="progress-bar" aria-hidden="true"></div>
 
-<nav>
+<nav aria-label="Primary navigation">
   <div class="nav-container">
     <div class="logo">NC</div>
-    <button class="mobile-menu-btn" onclick="toggleMenu()">
+    <button
+      class="mobile-menu-btn"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-controls="nav-menu"
+      aria-expanded="false"
+    >
       <i class="fas fa-bars"></i>
     </button>
     <ul id="nav-menu">
@@ -917,6 +998,7 @@
   </div>
 </nav>
 
+<main id="main-content">
 <section class="hero" id="home">
   <div class="hero-bg">
     <div class="grid-lines"></div>
@@ -934,7 +1016,7 @@
     </div>
     <h1>Navaneeth <span>Chandran</span></h1>
     <p class="hero-tagline">Student | Cybersecurity Enthusiast | Hardware & Systems Explorer</p>
-    <p class="hero-subtitle">Cybersecurity Analyst • IoT Engineer • Student</p>
+    <p class="hero-subtitle">Cybersecurity Analyst | IoT Engineer | Student</p>
     <div class="cta-buttons">
       <a href="#about" class="btn btn-primary">Learn More</a>
       <a href="#contact" class="btn btn-secondary">Get In Touch</a>
@@ -954,7 +1036,7 @@
   </div>
 
   <div class="about-intro">
-    <p>I am an 11th standard student from Kerala with a strong focus on academic excellence and applied technology. Alongside formal education and entrance exam preparation, I actively develop practical skills in cybersecurity, embedded systems, and hardware experimentation. My approach is systems-oriented — I aim to understand how technology functions at both software and hardware levels, analyze limitations, and design efficient solutions.</p>
+    <p>I am an 11th standard student from Kerala with a strong focus on academic excellence and applied technology. Alongside formal education and entrance exam preparation, I actively develop practical skills in cybersecurity, embedded systems, and hardware experimentation. My approach is systems-oriented - I aim to understand how technology functions at both software and hardware levels, analyze limitations, and design efficient solutions.</p>
   </div>
 
   <div class="about-grid">
@@ -1245,12 +1327,166 @@
       </div>
       <div class="contact-info">
         <h4>GitHub</h4>
-        <a href="https://github.com/Navaneeth-hacker" target="_blank">Navaneeth-hacker</a>
+        <a href="https://github.com/Navaneeth-hacker" target="_blank" rel="noopener noreferrer">Navaneeth-hacker</a>
       </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer>
-  <p>© 2026 Navaneeth Chandran • <span class="tag">#OffSec Student</span></p>
+  <p>&copy; 2026 Navaneeth Chandran | <span class="tag">#OffSec Student</span></p>
 </footer>
+
+<script>
+  (() => {
+    const body = document.body;
+    const nav = document.querySelector('nav');
+    const progressBar = document.getElementById('progress-bar');
+    const menuButton = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = Array.from(document.querySelectorAll('#nav-menu a'));
+    const sections = Array.from(document.querySelectorAll('section[id]')).filter((section) => section.id !== 'home');
+
+    const cursor = document.querySelector('.cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const finePointerQuery = window.matchMedia('(pointer: fine)');
+    const prefersReducedMotion = reducedMotionQuery.matches;
+    const hasFinePointer = finePointerQuery.matches;
+
+    body.classList.add('js-enhanced');
+    if (hasFinePointer && !prefersReducedMotion) {
+      body.classList.add('pointer-fine');
+    }
+
+    const setMenuState = (isOpen) => {
+      if (!navMenu || !menuButton) {
+        return;
+      }
+
+      navMenu.classList.toggle('active', isOpen);
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    };
+
+    if (menuButton && navMenu) {
+      menuButton.addEventListener('click', () => {
+        const isOpen = !navMenu.classList.contains('active');
+        setMenuState(isOpen);
+      });
+    }
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => setMenuState(false));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!navMenu || !menuButton || window.innerWidth > 768) {
+        return;
+      }
+
+      const clickedInsideMenu = navMenu.contains(event.target);
+      const clickedMenuButton = menuButton.contains(event.target);
+      if (!clickedInsideMenu && !clickedMenuButton) {
+        setMenuState(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        setMenuState(false);
+      }
+    });
+
+    const updateActiveNav = () => {
+      const offset = window.scrollY + 180;
+      let currentId = sections[0] ? sections[0].id : '';
+
+      sections.forEach((section) => {
+        if (offset >= section.offsetTop) {
+          currentId = section.id;
+        }
+      });
+
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute('href') === `#${currentId}`;
+        link.classList.toggle('active', isActive);
+      });
+    };
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
+
+      if (progressBar) {
+        progressBar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
+      }
+
+      if (nav) {
+        nav.classList.toggle('scrolled', scrollTop > 40);
+      }
+
+      updateActiveNav();
+    };
+
+    if (!prefersReducedMotion) {
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -70px 0px' }
+      );
+
+      sections.forEach((section) => revealObserver.observe(section));
+    } else {
+      sections.forEach((section) => section.classList.add('show'));
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    if (cursor && cursorDot && hasFinePointer && !prefersReducedMotion) {
+      let pointerX = window.innerWidth / 2;
+      let pointerY = window.innerHeight / 2;
+      let cursorX = pointerX;
+      let cursorY = pointerY;
+
+      cursor.style.left = `${cursorX}px`;
+      cursor.style.top = `${cursorY}px`;
+      cursorDot.style.left = `${pointerX}px`;
+      cursorDot.style.top = `${pointerY}px`;
+
+      document.addEventListener('mousemove', (event) => {
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+
+        cursorDot.style.left = `${pointerX}px`;
+        cursorDot.style.top = `${pointerY}px`;
+      });
+
+      const interactiveSelector = 'a, button, .project-card, .skill-item, .about-card, .contact-card, .goal-card, .strength-item';
+      document.querySelectorAll(interactiveSelector).forEach((element) => {
+        element.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
+        element.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
+      });
+
+      const animateCursor = () => {
+        cursorX += (pointerX - cursorX) * 0.2;
+        cursorY += (pointerY - cursorY) * 0.2;
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+        window.requestAnimationFrame(animateCursor);
+      };
+
+      animateCursor();
+    }
+  })();
+</script>
+</body>
+</html>
