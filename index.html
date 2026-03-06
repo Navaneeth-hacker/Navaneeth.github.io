@@ -6,7 +6,6 @@
   <title>Navaneeth Chandran | Cybersecurity Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
   <style>
     :root {
       --primary: #00ff88;
@@ -46,7 +45,6 @@
       position: relative;
     }
 
-    /* Animated Background */
     body::before {
       content: '';
       position: fixed;
@@ -80,24 +78,16 @@
       z-index: 1;
     }
 
-    .skip-link {
-      position: absolute;
-      top: -50px;
-      left: 16px;
-      background: var(--gradient-1);
-      color: var(--bg-dark);
-      padding: 10px 14px;
-      border-radius: 8px;
-      z-index: 10001;
-      font-weight: 700;
-      text-decoration: none;
+    #liquid-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
     }
 
-    .skip-link:focus {
-      top: 12px;
-    }
-
-    /* Custom Cursor */
     .cursor {
       width: 20px;
       height: 20px;
@@ -126,18 +116,6 @@
       display: block;
     }
 
-    /* Liquid Canvas */
-    #liquid-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 999;
-    }
-
-    /* Scroll Progress */
     #progress-bar {
       position: fixed;
       top: 0;
@@ -150,7 +128,6 @@
       filter: drop-shadow(0 0 15px var(--primary-glow));
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 10px;
     }
@@ -166,7 +143,6 @@
       background: var(--gradient-2);
     }
 
-    /* Navigation */
     nav {
       position: fixed;
       width: 100%;
@@ -250,7 +226,6 @@
       width: 100%;
     }
 
-    /* Hero Section */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -292,7 +267,6 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(120px);
-      animation: orbitPulse 8s ease-in-out infinite;
     }
 
     .glow-orb-1 {
@@ -341,8 +315,8 @@
 
     .profile-container {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: clamp(160px, 25vw, 340px);
+      height: clamp(160px, 25vw, 340px);
       margin: 0 auto 50px;
       animation: profileFloat 1s ease-out forwards;
     }
@@ -497,6 +471,9 @@
       font-family: 'Syne', sans-serif;
       position: relative;
       overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .btn::before {
@@ -574,12 +551,8 @@
     }
 
     @keyframes mouseBounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(10px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
     }
 
     .scroll-mouse::before {
@@ -601,7 +574,6 @@
       100% { opacity: 0; transform: translateX(-50%) translateY(14px); }
     }
 
-    /* Sections */
     section {
       padding: 120px 40px;
       max-width: 1200px;
@@ -683,699 +655,347 @@
       }
     }
 
-    /* About Section */
-    #about {
+    /* Resume Section */
+    #resume {
       padding-top: 60px;
     }
 
-    .about-intro {
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto 80px;
-    }
-
-    .about-intro p {
-      color: var(--text-muted);
-      font-size: 1.15rem;
-      line-height: 1.9;
-      animation: fadeInUp 0.8s ease-out 0.2s forwards;
-      opacity: 0;
-    }
-
-    .about-grid {
+    .resume-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+      animation: resumeSlideIn 0.8s ease-out;
     }
 
-    .about-card {
+    @keyframes resumeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .resume-main {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .resume-section {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 40px;
       transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: resumeSectionFade 0.6s ease-out backwards;
       position: relative;
       overflow: hidden;
-      animation: cardSlideIn 0.6s ease-out backwards;
     }
 
-    .about-card:nth-child(1) { animation-delay: 0.1s; }
-    .about-card:nth-child(2) { animation-delay: 0.2s; }
-    .about-card:nth-child(3) { animation-delay: 0.3s; }
-    .about-card:nth-child(4) { animation-delay: 0.4s; }
-    .about-card:nth-child(5) { animation-delay: 0.5s; }
-    .about-card:nth-child(6) { animation-delay: 0.6s; }
+    .resume-section:nth-child(1) { animation-delay: 0.1s; }
+    .resume-section:nth-child(2) { animation-delay: 0.2s; }
+    .resume-section:nth-child(3) { animation-delay: 0.3s; }
+    .resume-section:nth-child(4) { animation-delay: 0.4s; }
 
-    @keyframes cardSlideIn {
+    @keyframes resumeSectionFade {
       from {
         opacity: 0;
-        transform: translateY(40px) scale(0.95);
+        transform: translateX(-30px);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateX(0);
       }
     }
 
-    .about-card::before {
+    .resume-section::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      right: 0;
+      bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
       transition: all 0.4s ease;
       z-index: 0;
     }
 
-    .about-card:hover {
+    .resume-section:hover {
       border-color: var(--primary);
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0, 255, 136, 0.15);
+      transform: translateX(10px);
+      box-shadow: 0 20px 50px rgba(0, 255, 136, 0.1);
     }
 
-    .about-card:hover::before {
+    .resume-section:hover::before {
       opacity: 0.04;
     }
 
-    .about-card > * {
+    .resume-section > * {
       position: relative;
       z-index: 1;
     }
 
-    .about-card-icon {
-      width: 60px;
-      height: 60px;
+    .resume-section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .resume-section-icon {
+      width: 50px;
+      height: 50px;
       background: var(--gradient-1);
-      border-radius: 15px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: var(--bg-dark);
-      margin-bottom: 20px;
       transition: all 0.4s ease;
     }
 
-    .about-card:hover .about-card-icon {
+    .resume-section:hover .resume-section-icon {
       transform: scale(1.15) rotate(-10deg);
+      box-shadow: 0 10px 30px var(--primary-glow);
     }
 
-    .about-card h3 {
+    .resume-section h3 {
       font-size: 1.4rem;
-      margin-bottom: 15px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
+      color: var(--text-main);
     }
 
-    .about-card p, .about-card ul {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
-
-    .about-card ul {
-      list-style: none;
-      margin-top: 12px;
-    }
-
-    .about-card ul li {
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .about-card ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: 700;
-      animation: arrowGlow 0.3s ease;
-    }
-
-    @keyframes arrowGlow {
-      from {
-        opacity: 0;
-        transform: translateX(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Projects Section */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 35px;
-    }
-
-    .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 45px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-      overflow: hidden;
-      animation: projectSlide 0.6s ease-out backwards;
-    }
-
-    .project-card:nth-child(1) { animation-delay: 0.2s; }
-    .project-card:nth-child(2) { animation-delay: 0.3s; }
-    .project-card:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes projectSlide {
-      from {
-        opacity: 0;
-        transform: translateY(50px) rotateX(10deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) rotateX(0);
-      }
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-      transition: all 0.8s ease;
-      z-index: 0;
-    }
-
-    .project-card:hover::before {
-      left: 100%;
-    }
-
-    .project-card:hover {
-      transform: translateY(-15px) scale(1.02);
-      border-color: var(--primary);
-      box-shadow: 
-        0 40px 80px rgba(0, 255, 136, 0.15),
-        inset 0 0 30px rgba(0, 255, 136, 0.05);
-    }
-
-    .project-card > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .project-icon {
-      width: 70px;
-      height: 70px;
-      background: var(--gradient-1);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: var(--bg-dark);
+    .resume-item {
       margin-bottom: 30px;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .project-card:hover .project-icon {
-      transform: translateY(-10px) scale(1.2) rotate(10deg);
-      box-shadow: 0 20px 50px var(--primary-glow);
-    }
-
-    .project-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 18px;
-      font-weight: 700;
-      font-family: 'Syne', sans-serif;
-    }
-
-    .project-card p {
-      color: var(--text-muted);
-      line-height: 1.8;
-      font-size: 1rem;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 25px;
-    }
-
-    .project-tag {
-      font-size: 0.8rem;
-      padding: 8px 16px;
-      background: rgba(0, 255, 136, 0.12);
-      color: var(--primary);
-      border-radius: 25px;
-      font-family: 'Space Mono', monospace;
-      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding-bottom: 25px;
+      border-bottom: 1px solid rgba(0, 255, 136, 0.1);
       transition: all 0.3s ease;
     }
 
-    .project-tag:hover {
-      background: rgba(0, 255, 136, 0.25);
-      border-color: var(--primary);
-      transform: translateY(-3px);
+    .resume-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
-    /* Skills Section */
-    #skills {
-      background: rgba(0, 255, 136, 0.04);
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      margin: 60px auto;
-      max-width: 1100px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #skills::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .skill-item {
-      background: var(--bg-dark);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
-      text-align: center;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      animation: skillPop 0.5s ease-out backwards;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-item:nth-child(1) { animation-delay: 0.1s; }
-    .skill-item:nth-child(2) { animation-delay: 0.15s; }
-    .skill-item:nth-child(3) { animation-delay: 0.2s; }
-    .skill-item:nth-child(4) { animation-delay: 0.25s; }
-    .skill-item:nth-child(5) { animation-delay: 0.3s; }
-    .skill-item:nth-child(6) { animation-delay: 0.35s; }
-    .skill-item:nth-child(7) { animation-delay: 0.4s; }
-    .skill-item:nth-child(8) { animation-delay: 0.45s; }
-
-    @keyframes skillPop {
-      from {
-        opacity: 0;
-        transform: scale(0.8) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .skill-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-1);
-      opacity: 0;
-      transition: all 0.4s ease;
-      z-index: 0;
-    }
-
-    .skill-item:hover {
-      border-color: var(--primary);
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 25px 60px rgba(0, 255, 136, 0.2);
-    }
-
-    .skill-item:hover::before {
-      opacity: 0.08;
-    }
-
-    .skill-item > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .skill-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      background: var(--gradient-1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      transition: all 0.4s ease;
-      display: inline-block;
-    }
-
-    .skill-item:hover .skill-icon {
-      transform: scale(1.3) rotateY(360deg);
-      filter: drop-shadow(0 0 15px var(--primary-glow));
-    }
-
-    .skill-item h4 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-    }
-
-    .skill-item p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* Goals Section */
-    .goals-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-
-    .goal-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 35px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .resume-item-header {
       display: flex;
+      justify-content: space-between;
       align-items: flex-start;
       gap: 20px;
-      position: relative;
-      overflow: hidden;
-      animation: goalSlide 0.6s ease-out backwards;
+      margin-bottom: 8px;
     }
 
-    .goal-card:nth-child(1) { animation-delay: 0.1s; }
-    .goal-card:nth-child(2) { animation-delay: 0.2s; }
-    .goal-card:nth-child(3) { animation-delay: 0.3s; }
-    .goal-card:nth-child(4) { animation-delay: 0.4s; }
-    .goal-card:nth-child(5) { animation-delay: 0.5s; }
-
-    @keyframes goalSlide {
-      from {
-        opacity: 0;
-        transform: translateX(-40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    .resume-item-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Syne', sans-serif;
     }
 
-    .goal-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--gradient-1);
-      opacity: 0;
-      transition: all 0.4s ease;
+    .resume-item-date {
+      font-size: 0.85rem;
+      color: var(--secondary);
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(0, 212, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
     }
 
-    .goal-card:hover {
-      border-color: var(--primary);
-      transform: translateX(10px);
-      background: rgba(0, 255, 136, 0.05);
-    }
-
-    .goal-card:hover::before {
-      opacity: 1;
-      width: 6px;
-    }
-
-    .goal-number {
-      width: 45px;
-      height: 45px;
-      background: var(--gradient-1);
-      border-radius: 50%;
+    .resume-item-organization {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: var(--bg-dark);
-      flex-shrink: 0;
-      font-size: 1.3rem;
-      animation: numberPulse 0.6s ease-out;
+      gap: 8px;
     }
 
-    @keyframes numberPulse {
-      from {
-        transform: scale(0) rotate(-180deg);
-      }
-      to {
-        transform: scale(1) rotate(0);
-      }
-    }
-
-    .goal-card h4 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      font-family: 'Syne', sans-serif;
+    .resume-item-organization::before {
+      content: '→';
+      color: var(--primary);
       font-weight: 700;
     }
 
-    .goal-card p {
+    .resume-item-detail {
       font-size: 0.9rem;
       color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 8px;
     }
 
-    /* Strengths */
-    .strengths-grid {
+    .resume-summary {
+      background: rgba(0, 255, 136, 0.05);
+      border-left: 3px solid var(--primary);
+      padding: 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .resume-summary:hover {
+      background: rgba(0, 255, 136, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+    }
+
+    .resume-summary p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .skills-matrix {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .strength-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px 30px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      animation: strengthSlide 0.6s ease-out backwards;
-    }
-
-    .strength-item:nth-child(1) { animation-delay: 0.1s; }
-    .strength-item:nth-child(2) { animation-delay: 0.2s; }
-    .strength-item:nth-child(3) { animation-delay: 0.3s; }
-    .strength-item:nth-child(4) { animation-delay: 0.4s; }
-    .strength-item:nth-child(5) { animation-delay: 0.5s; }
-
-    @keyframes strengthSlide {
-      from {
-        opacity: 0;
-        transform: translateX(30px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-
-    .strength-item:hover {
-      border-color: var(--secondary);
-      transform: translateX(8px) scale(1.05);
-      background: rgba(0, 212, 255, 0.08);
-      box-shadow: 0 15px 40px rgba(0, 212, 255, 0.1);
-    }
-
-    .strength-icon {
-      color: var(--primary);
-      font-size: 1.4rem;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .strength-item:hover .strength-icon {
-      transform: scale(1.4) rotate(-15deg);
-      color: var(--secondary);
-      filter: drop-shadow(0 0 10px var(--secondary-glow));
-    }
-
-    .strength-item span {
-      font-size: 1.05rem;
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    /* Contact Section */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 35px;
-    }
-
-    .contact-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 45px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      display: flex;
-      align-items: flex-start;
       gap: 25px;
-      position: relative;
-      overflow: hidden;
-      animation: contactSlide 0.6s ease-out backwards;
     }
 
-    .contact-card:nth-child(1) { animation-delay: 0.2s; }
-    .contact-card:nth-child(2) { animation-delay: 0.3s; }
-    .contact-card:nth-child(3) { animation-delay: 0.4s; }
+    .skill-category {
+      animation: skillCategorySlide 0.6s ease-out backwards;
+    }
 
-    @keyframes contactSlide {
+    .skill-category:nth-child(1) { animation-delay: 0.1s; }
+    .skill-category:nth-child(2) { animation-delay: 0.2s; }
+
+    @keyframes skillCategorySlide {
       from {
         opacity: 0;
-        transform: translateY(50px) scale(0.95);
+        transform: translateY(20px);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
     }
 
-    .contact-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-1);
-      opacity: 0;
-      transition: all 0.4s ease;
-      z-index: 0;
+    .skill-category-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-family: 'Syne', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .contact-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-10px);
-      box-shadow: 0 30px 70px rgba(0, 255, 136, 0.2);
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .contact-card:hover::before {
-      opacity: 0.05;
+    .skill-badge {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 212, 255, 0.15));
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
     }
 
-    .contact-card > * {
-      position: relative;
-      z-index: 1;
+    .skill-badge:hover {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.3), rgba(0, 212, 255, 0.3));
+      border-color: var(--secondary);
+      color: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
     }
 
-    .contact-icon {
-      width: 60px;
-      height: 60px;
-      background: var(--gradient-1);
-      border-radius: 15px;
+    .resume-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      height: fit-content;
+    }
+
+    .resume-download {
+      animation: sidebarSlide 0.6s ease-out 0.5s backwards;
+    }
+
+    .resume-download .btn {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: var(--bg-dark);
-      flex-shrink: 0;
-      transition: all 0.4s ease;
+      gap: 10px;
     }
 
-    .contact-card:hover .contact-icon {
-      transform: scale(1.2) rotate(10deg);
-      box-shadow: 0 15px 40px var(--primary-glow);
+    .resume-quick-info {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+      animation: sidebarSlide 0.6s ease-out 0.6s backwards;
     }
 
-    .contact-info h4 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-    }
-
-    .contact-info p {
-      color: var(--text-muted);
-      word-break: break-all;
-      font-size: 0.95rem;
-    }
-
-    .contact-info a {
-      color: var(--secondary);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      display: inline-block;
-    }
-
-    .contact-info a:hover {
-      color: var(--primary);
-      transform: translateX(5px);
-      filter: drop-shadow(0 0 10px var(--primary-glow));
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.05) 100%);
-      margin-top: 100px;
-      border-top: 1px solid var(--border);
-      animation: footerFade 1s ease-out;
-    }
-
-    @keyframes footerFade {
+    @keyframes sidebarSlide {
       from {
         opacity: 0;
+        transform: translateX(40px);
       }
       to {
         opacity: 1;
+        transform: translateX(0);
       }
     }
 
-    footer p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
+    .quick-info-item {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .quick-info-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .quick-info-item:hover {
+      transform: translateX(5px);
+    }
+
+    .quick-info-label {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
       font-family: 'Space Mono', monospace;
     }
 
-    footer .tag {
-      color: var(--primary);
-      font-weight: 700;
-      animation: tagGlow 0.6s ease-out;
+    .quick-info-value {
+      font-size: 1rem;
+      color: var(--text-main);
+      font-weight: 600;
     }
 
-    @keyframes tagGlow {
-      from {
-        opacity: 0;
-        filter: blur(10px);
+    @media (max-width: 1024px) {
+      .resume-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
-      to {
-        opacity: 1;
-        filter: blur(0);
+
+      .resume-sidebar {
+        height: auto;
       }
     }
 
-    /* Mobile */
     @media (max-width: 768px) {
       .nav-container {
         padding: 0 20px;
@@ -1386,52 +1006,35 @@
       }
 
       nav a {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
       }
 
       section {
         padding: 80px 20px;
       }
 
-      .projects-grid,
-      .about-grid {
+      .resume-section {
+        padding: 25px;
+      }
+
+      .resume-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .resume-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .resume-item-date {
+        align-self: flex-start;
+      }
+
+      .skills-matrix {
         grid-template-columns: 1fr;
       }
 
-      .project-card {
-        padding: 30px;
-      }
-
-      .profile-container {
-        width: 150px;
-        height: 150px;
-      }
-
-      .profile-picture {
-        font-size: 3rem;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.2rem, 6vw, 3.5rem);
-      }
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text-main);
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .mobile-menu-btn:hover {
-      transform: scale(1.1);
-      color: var(--primary);
-    }
-
-    @media (max-width: 768px) {
       .mobile-menu-btn {
         display: block;
       }
@@ -1455,6 +1058,21 @@
       }
     }
 
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      transform: scale(1.1);
+      color: var(--primary);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       * {
         animation-duration: 0.01ms !important;
@@ -1467,30 +1085,64 @@
         transform: none;
       }
     }
+
+    /* Quick placeholder styles for other sections */
+    .about-intro {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+
+    .about-intro p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      line-height: 1.9;
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .about-grid, .projects-grid, .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .about-card, .project-card, .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .about-card:hover, .project-card:hover, .contact-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-10px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 80px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+    }
   </style>
 </head>
 
 <body>
-<a class="skip-link" href="#main-content">Skip to main content</a>
-
+<canvas id="liquid-canvas" aria-hidden="true"></canvas>
 <div class="cursor" aria-hidden="true"></div>
 <div id="progress-bar" aria-hidden="true"></div>
-<canvas id="liquid-canvas" aria-hidden="true"></canvas>
 
 <nav aria-label="Primary navigation">
   <div class="nav-container">
     <div class="logo">NC</div>
-    <button
-      class="mobile-menu-btn"
-      type="button"
-      aria-label="Toggle navigation menu"
-      aria-controls="nav-menu"
-      aria-expanded="false"
-    >
+    <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls="nav-menu" aria-expanded="false">
       <i class="fas fa-bars"></i>
     </button>
     <ul id="nav-menu">
       <li><a href="#about">About</a></li>
+      <li><a href="#resume">Resume</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#goals">Goals</a></li>
@@ -1519,7 +1171,7 @@
     <p class="hero-tagline">Student | Cybersecurity Enthusiast | Hardware & Systems Explorer</p>
     <p class="hero-subtitle">Cybersecurity Analyst | IoT Engineer | Student</p>
     <div class="cta-buttons">
-      <a href="#about" class="btn btn-primary">Explore Portfolio</a>
+      <a href="#resume" class="btn btn-primary">View Resume</a>
       <a href="#contact" class="btn btn-secondary">Contact Me</a>
     </div>
   </div>
@@ -1530,304 +1182,109 @@
   </div>
 </section>
 
-<section id="about">
+<section id="resume">
   <div class="section-header">
-    <span class="section-label">About Me</span>
-    <h2 class="section-title">Systems-Oriented Tech Explorer</h2>
+    <span class="section-label">Resume</span>
+    <h2 class="section-title">Education & Certifications</h2>
   </div>
 
-  <div class="about-intro">
-    <p>I am an 11th standard student from Kerala with a strong focus on academic excellence and applied technology. Alongside formal education and entrance exam preparation, I actively develop practical skills in cybersecurity, embedded systems, and hardware experimentation. My approach is systems-oriented - I aim to understand how technology functions at both software and hardware levels, analyze limitations, and design efficient solutions.</p>
-  </div>
-
-  <div class="about-grid">
-    <div class="about-card">
-      <div class="about-card-icon"><i class="fas fa-graduation-cap"></i></div>
-      <h3>Academic Focus</h3>
-      <p>Preparing for higher secondary board examinations with structured planning for engineering entrance preparation. Emphasizing disciplined time management and long-term growth while balancing academic performance with technical skill development.</p>
-    </div>
-
-    <div class="about-card">
-      <div class="about-card-icon"><i class="fas fa-shield-alt"></i></div>
-      <h3>Cybersecurity & Systems</h3>
-      <ul>
-        <li>Linux-based security environments</li>
-        <li>Core offensive security concepts</li>
-        <li>Application analysis & modification</li>
-        <li>Encoding/decoding methodologies</li>
-        <li>Metadata analysis & digital footprint</li>
-        <li>Lab-based controlled experimentation</li>
-      </ul>
-    </div>
-
-    <div class="about-card">
-      <div class="about-card-icon"><i class="fas fa-microchip"></i></div>
-      <h3>Hardware Projects</h3>
-      <ul>
-        <li>Microcontroller-based development</li>
-        <li>External storage integration (SD cards)</li>
-        <li>Battery management & capacity planning</li>
-        <li>Power regulation considerations</li>
-        <li>BIOS & boot configuration research</li>
-        <li>System cooling strategy analysis</li>
-      </ul>
-    </div>
-
-    <div class="about-card">
-      <div class="about-card-icon"><i class="fas fa-lightbulb"></i></div>
-      <h3>Technical Approach</h3>
-      <ul>
-        <li>Linux-based experimentation</li>
-        <li>OS interface exploration</li>
-        <li>System-level troubleshooting</li>
-        <li>Continuous self-learning</li>
-      </ul>
-    </div>
-
-    <div class="about-card">
-      <div class="about-card-icon"><i class="fas fa-palette"></i></div>
-      <h3>Creative & Technical Integration</h3>
-      <ul>
-        <li>Custom font design exploration</li>
-        <li>Video editing</li>
-        <li>AI-assisted image prompt engineering</li>
-        <li>Interface & aesthetic system design</li>
-      </ul>
-    </div>
-
-    <div class="about-card">
-      <div class="about-card-icon"><i class="fas fa-star"></i></div>
-      <h3>Core Strengths</h3>
-      <ul>
-        <li>Systems thinking</li>
-        <li>Hardware-software integration</li>
-        <li>Experimental learning methodology</li>
-        <li>Analytical problem-solving</li>
-        <li>Feasibility-driven execution</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="section-header">
-    <span class="section-label">Portfolio</span>
-    <h2 class="section-title">Featured Projects</h2>
-  </div>
-
-  <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-icon">
-        <i class="fas fa-shield-alt"></i>
+  <div class="resume-container">
+    <div class="resume-main">
+      <div class="resume-section">
+        <div class="resume-section-header">
+          <div class="resume-section-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Education</h3>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">Higher Secondary Education</div>
+            <div class="resume-item-date">Current</div>
+          </div>
+          <div class="resume-item-organization">GHSS Bhoothakulam</div>
+          <div class="resume-item-detail"><strong>Stream:</strong> Computer Science</div>
+          <div class="resume-item-detail"><strong>Curriculum:</strong> CBSE/NCERT</div>
+          <div class="resume-item-detail"><strong>Standard:</strong> Plus One (+1)</div>
+        </div>
       </div>
-      <h3>Offensive Security Lab</h3>
-      <p>Hands-on lab environment using Linux for penetration testing practice and vulnerability analysis. Designed for controlled security research and CTF challenges.</p>
-      <div class="project-tags">
-        <span class="project-tag">Linux</span>
-        <span class="project-tag">Penetration Testing</span>
-        <span class="project-tag">Vulnerability Analysis</span>
+
+      <div class="resume-section">
+        <div class="resume-section-header">
+          <div class="resume-section-icon"><i class="fas fa-certificate"></i></div>
+          <h3>Professional Certifications</h3>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-header">
+            <div class="resume-item-title">OCSA - Cybersecurity Analyst Course</div>
+            <div class="resume-item-date">In Progress</div>
+          </div>
+          <div class="resume-item-organization">Offsec Hackers Academy, Trivandrum</div>
+          <div class="resume-item-detail">Comprehensive cybersecurity analyst training covering offensive security, vulnerability assessment, and penetration testing methodologies.</div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-header">
+          <div class="resume-section-icon"><i class="fas fa-code"></i></div>
+          <h3>Technical Skills</h3>
+        </div>
+        <div class="skills-matrix">
+          <div class="skill-category">
+            <div class="skill-category-title">Languages</div>
+            <div class="skill-list">
+              <div class="skill-badge">Python</div>
+              <div class="skill-badge">C++</div>
+              <div class="skill-badge">Java</div>
+              <div class="skill-badge">Bash</div>
+              <div class="skill-badge">HTML</div>
+            </div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-category-title">Specializations</div>
+            <div class="skill-list">
+              <div class="skill-badge">Cybersecurity</div>
+              <div class="skill-badge">Pen Testing</div>
+              <div class="skill-badge">Linux Systems</div>
+              <div class="skill-badge">Embedded Systems</div>
+              <div class="skill-badge">Security Analysis</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-header">
+          <div class="resume-section-icon"><i class="fas fa-user-tie"></i></div>
+          <h3>Professional Summary</h3>
+        </div>
+        <div class="resume-summary">
+          <p>Dedicated cybersecurity analyst with hands-on experience in offensive security and embedded systems. Passionate about understanding system architectures at both hardware and software levels. Strong foundation in multiple programming languages with focus on secure coding and penetration testing methodologies.</p>
+        </div>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-icon">
-        <i class="fas fa-microchip"></i>
+    <div class="resume-sidebar">
+      <div class="resume-download">
+        <button class="btn btn-primary" onclick="downloadResume()">
+          <i class="fas fa-download"></i> Download Resume
+        </button>
       </div>
-      <h3>IoT Automation Prototype</h3>
-      <p>Embedded system using Python and C++ for smart device communication and control logic development. Focus on efficient protocol implementation.</p>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">C++</span>
-        <span class="project-tag">Embedded Systems</span>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-icon">
-        <i class="fas fa-tools"></i>
-      </div>
-      <h3>System Analysis Toolkit</h3>
-      <p>Custom scripts built for metadata extraction, encoding/decoding, and cybersecurity experimentation. Streamlined workflows for security research.</p>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">Scripting</span>
-        <span class="project-tag">Automation</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="section-header">
-    <span class="section-label">Expertise</span>
-    <h2 class="section-title">Skills & Technologies</h2>
-  </div>
-
-  <div class="skills-grid">
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fab fa-linux"></i></div>
-      <h4>Linux</h4>
-      <p>System admin, bash scripting</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fab fa-python"></i></div>
-      <h4>Python</h4>
-      <p>Security automation, scripting</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
-      <h4>IoT Systems</h4>
-      <p>Embedded programming</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fas fa-code"></i></div>
-      <h4>C++</h4>
-      <p>Microcontroller development</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fas fa-bug"></i></div>
-      <h4>Offensive Security</h4>
-      <p>Vulnerability assessment</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fas fa-lock"></i></div>
-      <h4>Security Fundamentals</h4>
-      <p>Risk assessment</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
-      <h4>System Analysis</h4>
-      <p>Metadata extraction</p>
-    </div>
-
-    <div class="skill-item">
-      <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-      <h4>Hardware</h4>
-      <p>PCB & prototyping</p>
-    </div>
-  </div>
-</section>
-
-<section id="goals">
-  <div class="section-header">
-    <span class="section-label">Future</span>
-    <h2 class="section-title">Current Development Goals</h2>
-  </div>
-
-  <div class="goals-grid">
-    <div class="goal-card">
-      <div class="goal-number">1</div>
-      <div>
-        <h4>Strengthen Core Fundamentals</h4>
-        <p>Deepen cybersecurity fundamentals and security best practices</p>
-      </div>
-    </div>
-
-    <div class="goal-card">
-      <div class="goal-number">2</div>
-      <div>
-        <h4>Build Lab Environments</h4>
-        <p>Create structured practice environments for skill development</p>
-      </div>
-    </div>
-
-    <div class="goal-card">
-      <div class="goal-number">3</div>
-      <div>
-        <h4>Advance Embedded Prototyping</h4>
-        <p>Develop more complex IoT and embedded system projects</p>
-      </div>
-    </div>
-
-    <div class="goal-card">
-      <div class="goal-number">4</div>
-      <div>
-        <h4>Maintain Academic Excellence</h4>
-        <p>Balance technical growth with academic performance</p>
-      </div>
-    </div>
-
-    <div class="goal-card">
-      <div class="goal-number">5</div>
-      <div>
-        <h4>Engage with Communities</h4>
-        <p>Connect with professional communities for guided development</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header" style="margin-top: 80px;">
-    <h2 class="section-title" style="font-size: 2.2rem;">Core Strengths</h2>
-  </div>
-
-  <div class="strengths-grid">
-    <div class="strength-item">
-      <div class="strength-icon"><i class="fas fa-brain"></i></div>
-      <span>Systems Thinking</span>
-    </div>
-
-    <div class="strength-item">
-      <div class="strength-icon"><i class="fas fa-plug"></i></div>
-      <span>Hardware-Software Integration</span>
-    </div>
-
-    <div class="strength-item">
-      <div class="strength-icon"><i class="fas fa-flask"></i></div>
-      <span>Experimental Learning</span>
-    </div>
-
-    <div class="strength-item">
-      <div class="strength-icon"><i class="fas fa-search"></i></div>
-      <span>Analytical Problem-Solving</span>
-    </div>
-
-    <div class="strength-item">
-      <div class="strength-icon"><i class="fas fa-bullseye"></i></div>
-      <span>Feasibility-Driven Execution</span>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="section-header">
-    <span class="section-label">Connect</span>
-    <h2 class="section-title">Get In Touch</h2>
-  </div>
-
-  <div class="contact-grid">
-    <div class="contact-card">
-      <div class="contact-icon">
-        <i class="fas fa-envelope"></i>
-      </div>
-      <div class="contact-info">
-        <h4>Primary Email</h4>
-        <a href="mailto:navaneet3029@gmail.com">navaneet3029@gmail.com</a>
-      </div>
-    </div>
-
-    <div class="contact-card">
-      <div class="contact-icon">
-        <i class="fas fa-envelope-open"></i>
-      </div>
-      <div class="contact-info">
-        <h4>Secondary Email</h4>
-        <a href="mailto:contact.hacktura@gmail.com">contact.hacktura@gmail.com</a>
-      </div>
-    </div>
-
-    <div class="contact-card">
-      <div class="contact-icon">
-        <i class="fab fa-github"></i>
-      </div>
-      <div class="contact-info">
-        <h4>GitHub</h4>
-        <a href="https://github.com/Navaneeth-hacker" target="_blank" rel="noopener noreferrer">Navaneeth-hacker</a>
+      <div class="resume-quick-info">
+        <div class="quick-info-item">
+          <div class="quick-info-label">Status</div>
+          <div class="quick-info-value">Student</div>
+        </div>
+        <div class="quick-info-item">
+          <div class="quick-info-label">Location</div>
+          <div class="quick-info-value">Kerala, India</div>
+        </div>
+        <div class="quick-info-item">
+          <div class="quick-info-label">Focus</div>
+          <div class="quick-info-value">Cybersecurity</div>
+        </div>
+        <div class="quick-info-item">
+          <div class="quick-info-label">Learning</div>
+          <div class="quick-info-value">Hands-on Labs</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1835,10 +1292,64 @@
 </main>
 
 <footer>
-  <p>&copy; 2026 Navaneeth Chandran | <span class="tag">#OffSec Student | #Systems Engineer</span></p>
+  <p>&copy; 2026 Navaneeth Chandran | <span style="color: var(--primary); font-weight: 700;">#OffSec Student | #Systems Engineer</span></p>
 </footer>
 
 <script>
+  window.downloadResume = function() {
+    const resumeContent = `
+NAVANEETH CHANDRAN
+Cybersecurity Analyst | Systems Engineer | IoT Developer
+Kollam, Kerala, India
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+
+Dedicated cybersecurity analyst and systems engineer with hands-on experience in
+offensive security, vulnerability assessment, and embedded systems development.
+Passionate about understanding system architectures at both hardware and software
+levels. Strong foundation in multiple programming languages with focus on secure
+coding practices and penetration testing methodologies.
+
+================================================================================
+EDUCATION
+================================================================================
+
+HIGHER SECONDARY EDUCATION (Plus One - Current)
+GHSS Bhoothakulam, Kerala
+Stream: Computer Science
+Curriculum: CBSE/NCERT
+
+================================================================================
+PROFESSIONAL CERTIFICATIONS
+================================================================================
+
+OCSA - Cybersecurity Analyst Course (In Progress)
+Offsec Hackers Academy, Trivandrum
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+Programming Languages: Python, C++, Java, Bash, HTML
+Specializations: Cybersecurity, Penetration Testing, Linux Systems, 
+                 Embedded Systems, Security Analysis
+
+================================================================================
+Generated: ${new Date().toLocaleDateString()}
+================================================================================
+    `;
+
+    const element = document.createElement('a');
+    const file = new Blob([resumeContent], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'Navaneeth_Chandran_Resume.txt';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   (() => {
     const body = document.body;
     const nav = document.querySelector('nav');
@@ -1846,67 +1357,39 @@
     const menuButton = document.querySelector('.mobile-menu-btn');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = Array.from(document.querySelectorAll('#nav-menu a'));
-    const sections = Array.from(document.querySelectorAll('section[id]')).filter((section) => section.id !== 'home');
+    const sections = Array.from(document.querySelectorAll('section[id]')).filter(s => s.id !== 'home');
     const cursor = document.querySelector('.cursor');
-
-    body.classList.add('js-enhanced');
-
-    // Liquid Splash Effect
     const canvas = document.getElementById('liquid-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
 
+    body.classList.add('js-enhanced');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
     class LiquidParticle {
       constructor(x, y, vx = 0, vy = 0, size = 4, intensity = 1) {
-        this.x = x;
-        this.y = y;
+        this.x = x; this.y = y;
         this.vx = vx + (Math.random() - 0.5) * 6;
         this.vy = vy + (Math.random() - 0.5) * 6;
-        this.size = size;
-        this.maxSize = size;
-        this.life = 1;
-        this.gravity = 0.15;
-        this.friction = 0.97;
-        this.intensity = intensity;
+        this.size = size; this.maxSize = size;
+        this.life = 1; this.gravity = 0.15; this.friction = 0.97; this.intensity = intensity;
       }
 
       update() {
-        this.vy += this.gravity;
-        this.vx *= this.friction;
-        this.vy *= this.friction;
-        this.x += this.vx;
-        this.y += this.vy;
-        this.life -= 0.015;
-        this.size = this.maxSize * this.life;
-
-        if (this.life <= 0) {
-          return false;
-        }
-        return true;
+        this.vy += this.gravity; this.vx *= this.friction; this.vy *= this.friction;
+        this.x += this.vx; this.y += this.vy;
+        this.life -= 0.015; this.size = this.maxSize * this.life;
+        return this.life > 0;
       }
 
       draw(ctx) {
-        const hue = 150 + Math.random() * 30; // Green-cyan range
+        const hue = 150 + Math.random() * 30;
         const saturation = 70 + Math.random() * 30;
-        const lightness = 50;
-        
-        ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${this.life * 0.8})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Glow effect
-        ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${this.life * 0.4})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
+        ctx.fillStyle = `hsla(${hue}, ${saturation}%, 50%, ${this.life * 0.8})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${this.life * 0.4})`; ctx.lineWidth = 1; ctx.stroke();
       }
     }
 
@@ -1916,162 +1399,67 @@
         const velocity = 3 + Math.random() * 4;
         const vx = Math.cos(angle) * velocity;
         const vy = Math.sin(angle) * velocity - Math.random() * 2;
-        const size = 3 + Math.random() * 4;
-        particles.push(new LiquidParticle(x, y, vx, vy, size, intensity));
+        particles.push(new LiquidParticle(x, y, vx, vy, 3 + Math.random() * 4, intensity));
       }
     }
 
     function createTrailSplash(x, y) {
       if (Math.random() > 0.6) {
-        const size = 2 + Math.random() * 2;
-        const vx = (Math.random() - 0.5) * 2;
-        const vy = Math.random() * 0.5;
-        particles.push(new LiquidParticle(x, y, vx, vy, size, 0.6));
+        particles.push(new LiquidParticle(x, y, (Math.random() - 0.5) * 2, Math.random() * 0.5, 2 + Math.random() * 2, 0.6));
       }
     }
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       particles = particles.filter(p => p.update());
-
-      particles.forEach(p => {
-        p.draw(ctx);
-      });
-
-      if (particles.length > 0) {
-        requestAnimationFrame(animateParticles);
-      }
+      particles.forEach(p => p.draw(ctx));
+      if (particles.length > 0) requestAnimationFrame(animateParticles);
     }
 
     let lastTrailTime = 0;
     document.addEventListener('mousemove', (e) => {
       const now = Date.now();
-      if (now - lastTrailTime > 20) {
-        createTrailSplash(e.clientX, e.clientY);
-        lastTrailTime = now;
-      }
-      if (particles.length === 0 && Math.random() > 0.7) {
-        animateParticles();
-      }
+      if (now - lastTrailTime > 20) { createTrailSplash(e.clientX, e.clientY); lastTrailTime = now; }
+      if (particles.length === 0 && Math.random() > 0.7) animateParticles();
     });
 
-    // Click/Tap splash
-    document.addEventListener('click', (e) => {
-      createSplash(e.clientX, e.clientY, 1.5, 16);
-      animateParticles();
-    });
+    document.addEventListener('click', (e) => { createSplash(e.clientX, e.clientY, 1.5, 16); animateParticles(); });
+    document.addEventListener('touchstart', (e) => { if (e.touches.length > 0) { const t = e.touches[0]; createSplash(t.clientX, t.clientY, 1.5, 16); animateParticles(); } });
 
-    document.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        createSplash(touch.clientX, touch.clientY, 1.5, 16);
-        animateParticles();
-      }
-    });
+    const setMenuState = (isOpen) => { if (navMenu && menuButton) { navMenu.classList.toggle('active', isOpen); menuButton.setAttribute('aria-expanded', String(isOpen)); } };
 
-    const setMenuState = (isOpen) => {
-      if (!navMenu || !menuButton) return;
-      navMenu.classList.toggle('active', isOpen);
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-    };
-
-    if (menuButton && navMenu) {
-      menuButton.addEventListener('click', () => {
-        const isOpen = !navMenu.classList.contains('active');
-        setMenuState(isOpen);
-      });
-    }
-
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => setMenuState(false));
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!navMenu || !menuButton || window.innerWidth > 768) return;
-      const clickedInsideMenu = navMenu.contains(event.target);
-      const clickedMenuButton = menuButton.contains(event.target);
-      if (!clickedInsideMenu && !clickedMenuButton) {
-        setMenuState(false);
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        setMenuState(false);
-      }
-    });
+    if (menuButton && navMenu) menuButton.addEventListener('click', () => setMenuState(!navMenu.classList.contains('active')));
+    navLinks.forEach(link => link.addEventListener('click', () => setMenuState(false)));
+    document.addEventListener('click', (e) => { if (navMenu && menuButton && window.innerWidth <= 768 && !navMenu.contains(e.target) && !menuButton.contains(e.target)) setMenuState(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 768) setMenuState(false); });
 
     const updateActiveNav = () => {
       const offset = window.scrollY + 180;
       let currentId = sections[0] ? sections[0].id : '';
-
-      sections.forEach((section) => {
-        if (offset >= section.offsetTop) {
-          currentId = section.id;
-        }
-      });
-
-      navLinks.forEach((link) => {
-        const isActive = link.getAttribute('href') === `#${currentId}`;
-        link.classList.toggle('active', isActive);
-      });
+      sections.forEach(s => { if (offset >= s.offsetTop) currentId = s.id; });
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`));
     };
 
-    const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
-
-      if (progressBar) {
-        progressBar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
-      }
-
-      if (nav) {
-        nav.classList.toggle('scrolled', scrollTop > 40);
-      }
-
+      if (progressBar) progressBar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
+      if (nav) nav.classList.toggle('scrolled', scrollTop > 40);
       updateActiveNav();
-    };
+    }, { passive: true });
 
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -100px 0px' }
-    );
+    const revealObserver = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); } }); }, { threshold: 0.15, rootMargin: '0px 0px -100px 0px' });
+    sections.forEach(section => revealObserver.observe(section));
 
-    sections.forEach((section) => revealObserver.observe(section));
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    // Cursor
     if (cursor && window.matchMedia('(pointer: fine)').matches) {
-      let pointerX = window.innerWidth / 2;
-      let pointerY = window.innerHeight / 2;
-      let cursorX = pointerX;
-      let cursorY = pointerY;
-
-      cursor.style.left = `${cursorX}px`;
-      cursor.style.top = `${cursorY}px`;
-
-      document.addEventListener('mousemove', (event) => {
-        pointerX = event.clientX;
-        pointerY = event.clientY;
+      let pointerX = window.innerWidth / 2, pointerY = window.innerHeight / 2, cursorX = pointerX, cursorY = pointerY;
+      cursor.style.left = `${cursorX}px`; cursor.style.top = `${cursorY}px`;
+      document.addEventListener('mousemove', (e) => { pointerX = e.clientX; pointerY = e.clientY; });
+      document.querySelectorAll('a, button, .resume-section, .skill-badge, .quick-info-item').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
       });
-
-      const interactiveSelector = 'a, button, .project-card, .skill-item, .about-card, .contact-card, .goal-card, .strength-item';
-      document.querySelectorAll(interactiveSelector).forEach((element) => {
-        element.addEventListener('mouseenter', () => cursor.classList.add('active'));
-        element.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-      });
-
       const animateCursor = () => {
         cursorX += (pointerX - cursorX) * 0.25;
         cursorY += (pointerY - cursorY) * 0.25;
@@ -2079,7 +1467,6 @@
         cursor.style.top = `${cursorY}px`;
         requestAnimationFrame(animateCursor);
       };
-
       animateCursor();
     }
   })();
