@@ -666,7 +666,6 @@
       }
     }
 
-    /* About Section */
     #about {
       padding-top: 60px;
     }
@@ -796,7 +795,11 @@
       font-weight: 700;
     }
 
-    /* Projects Section */
+    #transition-countdown {
+      animation: fadeInUp 0.6s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -912,7 +915,6 @@
       transform: translateY(-3px);
     }
 
-    /* Skills Section */
     #skills {
       background: rgba(0, 255, 136, 0.04);
       border: 1px solid var(--border);
@@ -1028,7 +1030,6 @@
       color: var(--text-muted);
     }
 
-    /* Contact Section */
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1138,7 +1139,6 @@
       filter: drop-shadow(0 0 10px var(--primary-glow));
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 80px 20px;
@@ -1168,7 +1168,6 @@
       font-weight: 700;
     }
 
-    /* Mobile Responsive */
     @media (max-width: 768px) {
       .nav-container {
         padding: 0 20px;
@@ -1215,10 +1214,6 @@
 
       .project-card, .about-card, .contact-card {
         padding: 30px;
-      }
-
-      .project-card {
-        padding: 25px;
       }
 
       .skills-grid {
@@ -1359,9 +1354,10 @@
       <h3>Education</h3>
       <ul>
         <li><strong>School:</strong> GHSS Bhoothakulam</li>
-        <li><strong>Standard:</strong> Plus One (+1)</li>
+        <li><strong>Standard:</strong> <span id="current-standard">Plus One (+1)</span></li>
         <li><strong>Stream:</strong> Computer Science</li>
         <li><strong>Curriculum:</strong> CBSE/NCERT</li>
+        <li id="transition-countdown" style="color: var(--primary); font-size: 0.85rem; margin-top: 8px; font-weight: 500;"></li>
       </ul>
     </div>
 
@@ -1509,6 +1505,33 @@
 </footer>
 
 <script>
+  // Standard Counter - Automatically updates from 11th to 12th after May 31, 2026
+  function updateStandardInfo() {
+    const transitionDate = new Date('2026-06-01T00:00:00').getTime();
+    const today = new Date().getTime();
+    const standardSpan = document.getElementById('current-standard');
+    const countdownEl = document.getElementById('transition-countdown');
+
+    if (today >= transitionDate) {
+      // After May 31, 2026 - Show Plus Two
+      standardSpan.textContent = 'Plus Two (+2)';
+      countdownEl.innerHTML = '<i class="fas fa-check"></i> Promoted to 12th standard!';
+      countdownEl.style.color = 'var(--secondary)';
+    } else {
+      // Before May 31, 2026 - Show countdown
+      standardSpan.textContent = 'Plus One (+1)';
+      const timeRemaining = transitionDate - today;
+      const daysRemaining = Math.ceil(timeRemaining / (1000 * 60 * 60 * 24));
+      countdownEl.innerHTML = `<i class="fas fa-hourglass-end"></i> Transition in ${daysRemaining} days`;
+    }
+  }
+
+  // Update on page load
+  updateStandardInfo();
+
+  // Update every minute to keep countdown accurate
+  setInterval(updateStandardInfo, 60000);
+
   (() => {
     const body = document.body;
     const nav = document.querySelector('nav');
