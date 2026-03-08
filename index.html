@@ -530,6 +530,16 @@
       object-fit: cover;
       border-radius: 50%;
       display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      color: var(--primary);
+      display: none;
+      z-index: 2;
+      line-height: 1;
+
     }
 
     .profile-ring {
@@ -3063,38 +3073,330 @@ Location: Kollam, Kerala, India
       });
     }
 
-    // ===============================
+     // ===============================
     // ADVANCED ACCELEROMETER — KALMAN FILTER
     // ===============================
-    const acc = {
-      // Kalman state
-      estX: 0, estY: 0,
-      errX: 1, errY: 1,
-      kgX: 0.05, kgY: 0.05,
-      // Gravity
-      gX: 0, gY: 0,
-      // Velocity
-      vX: 0, vY: 0,
-      // Target rotation
-      tRotX: 0, tRotY: 0,
-      // Current rotation
-      cRotX: 0, cRotY: 0,
-      // Config
-      friction: 0.92,
-      maxVel: 25,
-      maxRot: 35,
-      baseSens: 2.5,
-      curSens: 2.5,
-      // State
-      active: false,
-      lastTime: 0,
-      timeout: null,
-      gSmooth: 0.95,
-      // Sensor support
+
+    // Advanced accelerometer state management
+    const accelerometerState = {
+      // Kalman filter state
+      kalman: {
+        estX: 0, estY: 0,
+        errX: 1, errY: 1,
+        kgX: 0.05, kgY: 0.05,
+        measurementError: 0.8
+      },
+      
+      // Gravity compensation
+      gravity: { x: 0, y: 0, smoothFactor: 0.95 },
+      
+      // Velocity and momentum
+      velocity: { x: 0, y: 0, friction: 0.92, maxVelocity: 25 },
+      
+      // Current and target rotation
+      rotation: {
+        targetX: 0, targetY: 0,
+        currentX: 0, currentY: 0,
+        maxRotation: 35,
+        lerpSpeed: 0.15
+      },
+      
+      // Adaptive sensitivity
+      sensitivity: { base: 2.5, current: 2.5, maxReduction: 0.3 },
+      
+      // Motion tracking
+      isMoving: false,
+      motionTimeout: null,
+      lastUpdateTime: 0,
+      
+      // Device detection
+      isIOS: /iPhone|iPad|iPod/i.test(navigator.userAgent),
       hasDeviceMotion: 'ondevicemotion' in window,
       hasDeviceOrientation: 'ondeviceorientation' in window,
-      isIOS: /iPhone|iPad|iPod/i.test(navigator.userAgent)
+      
+      // Animation frame
+      animationFrameId: null
     };
+
+    // Kalman filter implementation
+    function kalmanFilter(measurement, estimate, estimateError, gainFactor, measurementError) {
+      const priorEstimate = estimate;
+      const priorError = estimateError + 0.001;
+      const kalmanGain = priorError / (priorError + measurementError);
+      const newEstimate = priorEstimate + kalmanGain * (measurement - priorEstimate);
+      const newError = (1 - kalmanGain) * priorError;
+      return { estimate: newEstimate, error: newError };
+    }
+
+    // Calculate motion intensity (0-1)
+    function calculateMotionIntensity(x, y) {
+      const magnitude = Math.sqrt(x * x + y * y);
+      return Math.min(1, magnitude / 20);
+    }
+
+    // Update adaptive sensitivity based on motion intensity
+    function updateAdaptiveSensitivity(intensity) {
+      accelerometerState.sensitivity.current =
+        accelerometerState.sensitivity.base * (1 - intensity * accelerometerState.sensitivity.maxReduction);
+    }
+
+    // Smooth Linear Interpolation (LERP)
+    function smoothLerp(current, target, speed) {
+      const diff = target - current;
+      const maxDiff = 40;
+      const constrainedDiff = Math.max(-maxDiff, Math.min(maxDiff, diff));
+      return current + constrainedDiff * speed;
+    }
+
+    // Main animation loop - runs every frame at 60fps
+    function animationLoop() {
+      // Apply velocity momentum with friction
+      accelerometerState.velocity.x *= accelerometerState.velocity.friction;
+      accelerometerState.velocity.y *= accelerometerState.velocity.friction;
+      
+      // Clamp velocities
+      accelerometerState.velocity.x = Math.max(
+        -accelerometerState.velocity.maxVelocity,
+        Math.min(accelerometerState.velocity.maxVelocity, accelerometerState.velocity.x)
+      );
+      accelerometerState.velocity.y = Math.max(
+        -accelerometerState.velocity.maxVelocity,
+        Math.min(accelerometerState.velocity.maxVelocity, accelerometerState.velocity.y)
+      );
+      
+      // Smooth interpolation to target rotation (with velocity influence)
+      accelerometerState.rotation.currentX = smoothLerp(
+        accelerometerState.rotation.currentX,
+        accelerometerState.rotation.targetX + accelerometerState.velocity.y * 0.3,
+        accelerometerState.rotation.lerpSpeed
+      );
+      accelerometerState.rotation.currentY = smoothLerp(
+        accelerometerState.rotation.currentY,
+        accelerometerState.rotation.targetY - accelerometerState.velocity.x * 0.3,
+        accelerometerState.rotation.lerpSpeed
+      );
+      
+      // Clamp final rotation to max
+      accelerometerState.rotation.currentX = Math.max(
+        -accelerometerState.rotation.maxRotation,
+        Math.min(accelerometerState.rotation.maxRotation, accelerometerState.rotation.currentX)
+      );
+      accelerometerState.rotation.currentY = Math.max(
+        -accelerometerState.rotation.maxRotation,
+        Math.min(accelerometerState.rotation.maxRotation, accelerometerState.rotation.currentY)
+      );
+      
+      // Apply rotation to tilt cards
+      const tiltCards = document.querySelectorAll(
+        '.about-card, .tool-card, .lab-card, .project-card, .skill-item, .contact-card'
+      );
+      
+      tiltCards.forEach(card => {
+        gsap.to(card, {
+          rotateX: accelerometerState.rotation.currentX,
+          rotateY: accelerometerState.rotation.currentY,
+          transformPerspective: 900,
+          duration: 0.1,
+          ease: 'power1.inOut',
+          overwrite: 'auto'
+        });
+      });
+      
+      // Continue animation loop
+      accelerometerState.animationFrameId = requestAnimationFrame(animationLoop);
+    }
+
+    // DeviceMotion handler (Accelerometer - BEST)
+    function handleDeviceMotion(event) {
+      const acc = event.accelerationIncludingGravity;
+      if (!acc || acc.x === null) return;
+      
+      const now = Date.now();
+      const dt = accelerometerState.lastUpdateTime
+        ? Math.min((now - accelerometerState.lastUpdateTime) / 1000, 0.1)
+        : 0.016;
+      accelerometerState.lastUpdateTime = now;
+      
+      // Gravity compensation
+      accelerometerState.gravity.x =
+        accelerometerState.gravity.x * accelerometerState.gravity.smoothFactor +
+        acc.x * (1 - accelerometerState.gravity.smoothFactor);
+      accelerometerState.gravity.y =
+        accelerometerState.gravity.y * accelerometerState.gravity.smoothFactor +
+        acc.y * (1 - accelerometerState.gravity.smoothFactor);
+      
+      const cleanX = acc.x - accelerometerState.gravity.x;
+      const cleanY = acc.y - accelerometerState.gravity.y;
+      
+      // Apply Kalman filter
+      const filteredX = kalmanFilter(
+        cleanX,
+        accelerometerState.kalman.estX,
+        accelerometerState.kalman.errX,
+        accelerometerState.kalman.kgX,
+        accelerometerState.kalman.measurementError
+      );
+      const filteredY = kalmanFilter(
+        cleanY,
+        accelerometerState.kalman.estY,
+        accelerometerState.kalman.errY,
+        accelerometerState.kalman.kgY,
+        accelerometerState.kalman.measurementError
+      );
+      
+      accelerometerState.kalman.estX = filteredX.estimate;
+      accelerometerState.kalman.errX = filteredX.error;
+      accelerometerState.kalman.estY = filteredY.estimate;
+      accelerometerState.kalman.errY = filteredY.error;
+      
+      // Calculate motion intensity and update adaptive sensitivity
+      const intensity = calculateMotionIntensity(cleanX, cleanY);
+      updateAdaptiveSensitivity(intensity);
+      
+      // Calculate velocity from acceleration
+      accelerometerState.velocity.x += cleanX * dt * accelerometerState.sensitivity.current * 0.5;
+      accelerometerState.velocity.y += cleanY * dt * accelerometerState.sensitivity.current * 0.5;
+      
+      // Convert to rotation
+      const clampedX = Math.max(-1, Math.min(1, accelerometerState.kalman.estX / 10));
+      const clampedY = Math.max(-1, Math.min(1, accelerometerState.kalman.estY / 10));
+      
+      accelerometerState.rotation.targetX = -clampedX * accelerometerState.sensitivity.current * 18;
+      accelerometerState.rotation.targetY = clampedY * accelerometerState.sensitivity.current * 18;
+      
+      accelerometerState.isMoving = true;
+      
+      // Auto-reset motion after stillness
+      clearTimeout(accelerometerState.motionTimeout);
+      accelerometerState.motionTimeout = setTimeout(() => {
+        accelerometerState.isMoving = false;
+        accelerometerState.rotation.targetX = 0;
+        accelerometerState.rotation.targetY = 0;
+        accelerometerState.velocity.x *= 0.5;
+        accelerometerState.velocity.y *= 0.5;
+      }, 1200);
+    }
+
+    // DeviceOrientation handler (Gyroscope - FALLBACK)
+    function handleDeviceOrientation(event) {
+      if (event.beta === null || event.gamma === null) return;
+      
+      const filteredX = kalmanFilter(
+        event.beta,
+        accelerometerState.kalman.estX,
+        accelerometerState.kalman.errX,
+        accelerometerState.kalman.kgX,
+        accelerometerState.kalman.measurementError
+      );
+      const filteredY = kalmanFilter(
+        event.gamma,
+        accelerometerState.kalman.estY,
+        accelerometerState.kalman.errY,
+        accelerometerState.kalman.kgY,
+        accelerometerState.kalman.measurementError
+      );
+      
+      accelerometerState.kalman.estX = filteredX.estimate;
+      accelerometerState.kalman.errX = filteredX.error;
+      accelerometerState.kalman.estY = filteredY.estimate;
+      accelerometerState.kalman.errY = filteredY.error;
+      
+      accelerometerState.rotation.targetX = Math.max(
+        -accelerometerState.rotation.maxRotation,
+        Math.min(accelerometerState.rotation.maxRotation, accelerometerState.kalman.estX * 0.5)
+      );
+      accelerometerState.rotation.targetY = Math.max(
+        -accelerometerState.rotation.maxRotation,
+        Math.min(accelerometerState.rotation.maxRotation, accelerometerState.kalman.estY * 0.5)
+      );
+      
+      accelerometerState.isMoving = true;
+      
+      clearTimeout(accelerometerState.motionTimeout);
+      accelerometerState.motionTimeout = setTimeout(() => {
+        accelerometerState.isMoving = false;
+      }, 1500);
+    }
+
+    // Start sensors with auto-detection
+    function startAccelerometerSensors() {
+      // Start the animation loop
+      accelerometerState.animationFrameId = requestAnimationFrame(animationLoop);
+      
+      // Add motion listeners
+      if (accelerometerState.hasDeviceMotion) {
+        window.addEventListener('devicemotion', handleDeviceMotion, { passive: true });
+        console.log('✅ DeviceMotion (Accelerometer) enabled');
+      } else if (accelerometerState.hasDeviceOrientation) {
+        window.addEventListener('deviceorientation', handleDeviceOrientation, { passive: true });
+        console.log('✅ DeviceOrientation (Gyroscope) fallback enabled');
+      }
+    }
+
+    // iOS 13+ Permission handling
+    if (accelerometerState.isIOS && typeof DeviceMotionEvent?.requestPermission === 'function') {
+      const permissionBtn = document.createElement('div');
+      permissionBtn.innerHTML = '📱 Enable Motion Tilt<br><small style="font-size:0.65rem;opacity:0.8">Shake to calibrate</small>';
+      Object.assign(permissionBtn.style, {
+        position: 'fixed',
+        bottom: '90px',
+        right: '20px',
+        zIndex: '9999',
+        background: 'linear-gradient(135deg, #00ff88, #00d4ff)',
+        color: '#050507',
+        padding: '14px 20px',
+        borderRadius: '50px',
+        fontFamily: "'Syne', sans-serif",
+        fontWeight: '700',
+        fontSize: '0.85rem',
+        cursor: 'pointer',
+        textAlign: 'center',
+        lineHeight: '1.4',
+        boxShadow: '0 10px 40px rgba(0, 255, 136, 0.5)',
+        transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        border: '2px solid rgba(255, 255, 255, 0.3)',
+        userSelect: 'none'
+      });
+      
+      permissionBtn.onmouseenter = () => {
+        permissionBtn.style.transform = 'scale(1.08)';
+        permissionBtn.style.boxShadow = '0 15px 50px rgba(0, 255, 136, 0.6)';
+      };
+      permissionBtn.onmouseleave = () => {
+        permissionBtn.style.transform = 'scale(1)';
+        permissionBtn.style.boxShadow = '0 10px 40px rgba(0, 255, 136, 0.5)';
+      };
+      
+      permissionBtn.onclick = async () => {
+        try {
+          const permission = await DeviceMotionEvent.requestPermission();
+          if (permission === 'granted') {
+            startAccelerometerSensors();
+            gsap.to(permissionBtn, {
+              opacity: 0,
+              y: 20,
+              duration: 0.5,
+              onComplete: () => permissionBtn.remove()
+            });
+          }
+        } catch (error) {
+          console.error('Permission error:', error);
+        }
+      };
+      
+      document.body.appendChild(permissionBtn);
+      
+      // Auto-fade after 5 seconds
+      setTimeout(() => {
+        if (permissionBtn.parentElement) {
+          gsap.to(permissionBtn, { opacity: 0.3, duration: 1 });
+        }
+      }, 5000);
+    } else if (!accelerometerState.isIOS) {
+      // Android: Auto-start (no permission needed)
+      startAccelerometerSensors();
+    }
+
 
     // Kalman filter step
     function kalman(measurement, est, err, kg, mErr = 0.8) {
