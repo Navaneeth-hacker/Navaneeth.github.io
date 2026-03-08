@@ -113,10 +113,9 @@
       height: 800px;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 0;
+      z-index: 2;
       transform: translate(-50%, -50%);
       background: radial-gradient(circle, rgba(0, 255, 136, 0.07) 0%, rgba(0, 212, 255, 0.04) 40%, transparent 70%);
-      transition: opacity 0.4s ease;
       will-change: transform;
     }
 
@@ -332,7 +331,7 @@
       font-family: 'Syne', sans-serif;
       user-select: none;
       will-change: color;
-      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     nav a::after {
@@ -350,7 +349,6 @@
     nav a.active,
     nav a:hover {
       color: var(--primary);
-      letter-spacing: 0.04em;
     }
 
     nav a.active::after,
@@ -671,6 +669,7 @@
       gap: 12px;
       user-select: none;
       pointer-events: none;
+      animation: scrollBounce 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
 
     .scroll-indicator span {
@@ -700,6 +699,24 @@
       height: 8px;
       background: var(--primary);
       border-radius: 2px;
+      animation: scrollWheel 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollWheel {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      60% {
+        opacity: 0.2;
+        transform: translateX(-50%) translateY(12px);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(14px);
+      }
     }
 
     /* Tech Badges */
@@ -767,6 +784,28 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       user-select: none;
+    }
+
+    /* Stagger letter spans injected by JS */
+    .stagger-letter {
+      display: inline-block;
+      animation: staggerLetterIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      background: inherit;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes staggerLetterIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px) rotate(6deg);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
     }
 
     /* ===============================
@@ -917,6 +956,10 @@
       background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.02) 100%);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      /* Prevent the full-width borders from causing side overflow */
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .tools-grid {
@@ -2685,8 +2728,8 @@ Location: Kollam, Kerala, India
       .from('.hero-tagline', { duration: 0.9, opacity: 0, y: 25, ease: 'power3.out' }, 0.65)
       .from('.hero-subtitle', { duration: 0.9, opacity: 0, y: 25, ease: 'power3.out' }, 0.75)
       .from('.tech-badges .badge', { duration: 0.7, opacity: 0, scale: 0.7, stagger: 0.12, ease: 'back.out(2.5)' }, 0.85)
-      .from('.cta-buttons .btn', { duration: 0.9, opacity: 0, y: 35, stagger: 0.18, ease: 'back.out(1.7)' }, 1.0)
-      .from('.scroll-indicator', { duration: 1.1, opacity: 0, y: 25 }, 1.2);
+      .from('.cta-buttons .btn', { duration: 0.9, opacity: 0, y: 35, stagger: 0.18, ease: 'back.out(1.7)' }, 1.0);
+    // Note: .scroll-indicator is animated by CSS keyframe — do not GSAP-animate it to avoid conflicts
 
     // Profile ring spinning — smoother with power1.inOut
     gsap.to('.profile-ring', { rotation: 360, duration: 16, repeat: -1, ease: 'none' });
@@ -2697,21 +2740,19 @@ Location: Kollam, Kerala, India
     gsap.to('.glow-orb-3', { x: 30, y: 40, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 
     // ===============================
-    // MOUSE-FOLLOW GRADIENT
+    // MOUSE-FOLLOW GRADIENT (single listener with lerp via ticker)
     // ===============================
     const mouseGradient = document.getElementById('mouse-gradient');
     let mgX = window.innerWidth / 2, mgY = window.innerHeight / 2;
     document.addEventListener('mousemove', e => {
-      mgX += (e.clientX - mgX) * 0.07;
-      mgY += (e.clientY - mgY) * 0.07;
-      gsap.set(mouseGradient, { x: mgX, y: mgY });
+      window._mx = e.clientX;
+      window._my = e.clientY;
     });
-    // Animate the lerp every frame for ultra-smooth
     gsap.ticker.add(() => {
-      mgX += ((window._mx || mgX) - mgX) * 0.03;
-      mgY += ((window._my || mgY) - mgY) * 0.03;
+      mgX += ((window._mx || mgX) - mgX) * 0.06;
+      mgY += ((window._my || mgY) - mgY) * 0.06;
+      if (mouseGradient) gsap.set(mouseGradient, { x: mgX, y: mgY });
     });
-    document.addEventListener('mousemove', e => { window._mx = e.clientX; window._my = e.clientY; });
 
     // ===============================
     // 3D CARD TILT + RADIAL SPOTLIGHT
@@ -2904,48 +2945,22 @@ Location: Kollam, Kerala, India
       }
     });
 
-    // ===============================
-    // SMOOTH BUTTON HOVER ANIMATIONS
-    // ===============================
+    // Touch feedback only (hover is handled by 3D tilt + CSS transitions)
     gsap.utils.toArray('.btn').forEach(btn => {
-      const tl = gsap.timeline({ paused: true });
-      tl.to(btn, { duration: 0.3, y: -5, boxShadow: '0 25px 70px rgba(0, 255, 136, 0.6)' }, 0);
-
-      // Hover effects work on all devices
-      btn.addEventListener('mouseenter', () => tl.play());
-      btn.addEventListener('mouseleave', () => tl.reverse());
-
-      // Touch feedback on top of hover
       btn.addEventListener('touchstart', () => {
-        gsap.to(btn, { duration: 0.2, scale: 0.95 });
+        gsap.to(btn, { duration: 0.15, scale: 0.95, overwrite: 'auto' });
       }, { passive: true });
-
       btn.addEventListener('touchend', () => {
-        gsap.to(btn, { duration: 0.2, scale: 1 });
+        gsap.to(btn, { duration: 0.25, scale: 1, ease: 'back.out(2)', overwrite: 'auto' });
       }, { passive: true });
     });
 
-    // ===============================
-    // SMOOTH CARD HOVER ANIMATIONS
-    // ===============================
     gsap.utils.toArray('.about-card, .tool-card, .lab-card, .project-card, .contact-card').forEach(card => {
-      const tl = gsap.timeline({ paused: true });
-      const icon = card.querySelector('[class*="-icon"]');
-
-      tl.to(card, { duration: 0.4, y: -10, boxShadow: '0 30px 60px rgba(0, 255, 136, 0.4)' }, 0);
-      if (icon) tl.to(icon, { duration: 0.4, scale: 1.15, rotation: -10 }, 0);
-
-      // Hover effects work on all devices
-      card.addEventListener('mouseenter', () => tl.play());
-      card.addEventListener('mouseleave', () => tl.reverse());
-
-      // Touch feedback on top of hover
       card.addEventListener('touchstart', () => {
-        gsap.to(card, { duration: 0.2, scale: 0.97 });
+        gsap.to(card, { duration: 0.15, scale: 0.97, overwrite: 'auto' });
       }, { passive: true });
-
       card.addEventListener('touchend', () => {
-        gsap.to(card, { duration: 0.2, scale: 1 });
+        gsap.to(card, { duration: 0.25, scale: 1, ease: 'back.out(1.5)', overwrite: 'auto' });
       }, { passive: true });
     });
 
