@@ -3,43 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Navaneeth Chandran - Cybersecurity Portfolio | Penetration Testing | Security Research | IoT Development">
-  <meta name="keywords" content="cybersecurity, hacking, penetration testing, security researcher, portfolio">
+  <meta name="description" content="Navaneeth Chandran - Cybersecurity Portfolio | Penetration Testing | Security Research">
   <meta name="author" content="Navaneeth Chandran">
   <meta name="theme-color" content="#00ff88">
   
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://navaneeth-chandran.com">
-  <meta property="og:title" content="Navaneeth Chandran | Cybersecurity Portfolio">
-  <meta property="og:description" content="Cybersecurity Analyst & IoT Developer - Penetration Testing & Security Research">
-  <meta property="og:image" content="https://navaneeth-chandran.com/og-image.jpg">
-  
-  <!-- Twitter Card -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://navaneeth-chandran.com">
-  <meta property="twitter:title" content="Navaneeth Chandran | Cybersecurity Portfolio">
-  <meta property="twitter:description" content="Cybersecurity Analyst & IoT Developer">
-  <meta property="twitter:image" content="https://navaneeth-chandran.com/og-image.jpg">
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Navaneeth Chandran",
-    "url": "https://navaneeth-chandran.com",
-    "jobTitle": "Cybersecurity Analyst",
-    "email": "navaneet3029@gmail.com",
-    "sameAs": [
-      "https://github.com/Navaneeth-hacker"
-    ]
-  }
-  </script>
-  
-  <title>Navaneeth Chandran | Cybersecurity Portfolio & Security Lab</title>
+  <title>Navaneeth Chandran | Cybersecurity Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- GSAP for smooth animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
   <style>
     /* ===============================
@@ -81,7 +55,6 @@
       --gradient-1: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
       --gradient-2: linear-gradient(135deg, #ff00ff 0%, #00d4ff 100%);
       --gradient-3: linear-gradient(135deg, #00ff88 0%, #ff00ff 100%);
-      --gradient-neon: linear-gradient(90deg, #00ff88, #00d4ff, #ff00ff, #00ff88);
     }
 
     [data-theme="light"] {
@@ -140,20 +113,6 @@
         radial-gradient(circle at 80% 80%, var(--secondary-glow) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
-      animation: bgShift 15s ease-in-out infinite;
-    }
-
-    @keyframes bgShift {
-      0%, 100% { 
-        background: 
-          radial-gradient(circle at 20% 50%, var(--primary-glow) 0%, transparent 50%),
-          radial-gradient(circle at 80% 80%, var(--secondary-glow) 0%, transparent 50%);
-      }
-      50% { 
-        background: 
-          radial-gradient(circle at 80% 50%, var(--primary-glow) 0%, transparent 50%),
-          radial-gradient(circle at 20% 80%, var(--secondary-glow) 0%, transparent 50%);
-      }
     }
 
     body > * {
@@ -207,10 +166,10 @@
       pointer-events: none;
       z-index: 10000;
       transform: translate(-50%, -50%);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
       mix-blend-mode: screen;
       display: none;
       box-shadow: 0 0 10px var(--primary-glow);
+      will-change: transform;
     }
 
     .cursor.active {
@@ -235,7 +194,7 @@
       width: 0%;
       z-index: 9999;
       box-shadow: 0 0 30px var(--secondary-glow);
-      filter: drop-shadow(0 0 15px var(--primary-glow));
+      will-change: width;
     }
 
     /* Scrollbar Styling */
@@ -269,7 +228,7 @@
       border-bottom: 1px solid var(--border);
       padding: 20px 0;
       z-index: 1000;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: backdrop-filter;
     }
 
     nav.scrolled {
@@ -295,14 +254,14 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      transition: all 0.3s ease;
       letter-spacing: -1px;
       cursor: pointer;
+      user-select: none;
+      will-change: transform;
     }
 
     .logo:hover {
       filter: drop-shadow(0 0 15px var(--primary-glow));
-      transform: scale(1.05);
     }
 
     .nav-right {
@@ -323,10 +282,11 @@
       color: var(--text-muted);
       font-weight: 500;
       font-size: 0.95rem;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       padding: 8px 0;
       font-family: 'Syne', sans-serif;
+      user-select: none;
+      will-change: color;
     }
 
     nav a::after {
@@ -337,14 +297,12 @@
       width: 0;
       height: 2px;
       background: var(--gradient-1);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: 0 0 15px var(--primary-glow);
     }
 
     nav a.active,
     nav a:hover {
       color: var(--primary);
-      transform: translateY(-2px);
     }
 
     nav a.active::after,
@@ -361,7 +319,7 @@
       border-radius: 50px;
       position: relative;
       cursor: pointer;
-      transition: all 0.3s ease;
+      will-change: background;
     }
 
     .theme-toggle:hover {
@@ -377,11 +335,12 @@
       height: 24px;
       background: var(--primary);
       border-radius: 50%;
-      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
+      user-select: none;
+      will-change: left;
     }
 
     .theme-toggle.light .slider {
@@ -422,12 +381,6 @@
         linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
       background-size: 80px 80px;
-      animation: gridDrift 30s linear infinite;
-    }
-
-    @keyframes gridDrift {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(80px, 80px); }
     }
 
     /* Glow Orbs */
@@ -435,6 +388,7 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(120px);
+      will-change: transform;
     }
 
     .glow-orb-1 {
@@ -443,7 +397,6 @@
       background: var(--primary-glow);
       top: 5%;
       left: 10%;
-      animation: orbitPulse 8s ease-in-out infinite;
     }
 
     .glow-orb-2 {
@@ -452,7 +405,6 @@
       background: var(--secondary-glow);
       bottom: 10%;
       right: 10%;
-      animation: orbitPulse 10s ease-in-out infinite -2s;
     }
 
     .glow-orb-3 {
@@ -461,18 +413,6 @@
       background: var(--accent-glow);
       top: 50%;
       right: 5%;
-      animation: orbitPulse 12s ease-in-out infinite -4s;
-    }
-
-    @keyframes orbitPulse {
-      0%, 100% { 
-        transform: translate(0, 0) scale(1);
-        opacity: 0.6;
-      }
-      50% { 
-        transform: translate(-40px, 40px) scale(1.1);
-        opacity: 0.8;
-      }
     }
 
     .hero-content {
@@ -489,6 +429,7 @@
       margin-bottom: 30px;
       min-height: 60px;
       text-align: center;
+      user-select: none;
     }
 
     .terminal-text::after {
@@ -508,18 +449,6 @@
       width: clamp(200px, 30vw, 400px);
       height: clamp(200px, 30vw, 400px);
       margin: 0 auto 50px;
-      animation: profileFloat 1s ease-out forwards;
-    }
-
-    @keyframes profileFloat {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
     }
 
     .profile-picture {
@@ -538,20 +467,7 @@
         0 0 120px var(--primary-glow),
         inset 0 0 60px rgba(0, 255, 136, 0.2);
       position: relative;
-      animation: profilePulse 3s ease-in-out infinite;
-    }
-
-    @keyframes profilePulse {
-      0%, 100% {
-        box-shadow: 
-          0 0 120px var(--primary-glow),
-          inset 0 0 60px rgba(0, 255, 136, 0.2);
-      }
-      50% {
-        box-shadow: 
-          0 0 160px var(--primary-glow),
-          inset 0 0 100px rgba(0, 255, 136, 0.3);
-      }
+      will-change: transform;
     }
 
     .profile-picture img {
@@ -570,36 +486,20 @@
       height: calc(100% + 40px);
       border-radius: 50%;
       border: 3px solid var(--secondary);
-      animation: spinRing 12s linear infinite;
       opacity: 0.7;
+      pointer-events: none;
+      will-change: transform;
     }
 
-    @keyframes spinRing {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Hero Title with Glitch */
+    /* Hero Title */
     .hero h1 {
       font-size: clamp(2.5rem, 8vw, 5.5rem);
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 15px;
-      animation: heroTitleIn 1s ease-out 0.2s forwards;
-      opacity: 0;
       font-family: 'Syne', sans-serif;
       position: relative;
-    }
-
-    @keyframes heroTitleIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      user-select: none;
     }
 
     .hero h1 span {
@@ -607,33 +507,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: gradientShift 4s ease-in-out infinite;
-    }
-
-    @keyframes gradientShift {
-      0%, 100% {
-        background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
-        -webkit-background-clip: text;
-      }
-      50% {
-        background: linear-gradient(135deg, #00d4ff 0%, #ff00ff 100%);
-        -webkit-background-clip: text;
-      }
-    }
-
-    /* Subtle Glitch Effect */
-    .glitch-text {
-      position: relative;
-      animation: glitchShift 0.5s infinite;
-    }
-
-    @keyframes glitchShift {
-      0%, 100% { 
-        text-shadow: 2px 0 #ff00ff, -2px 0 #00d4ff;
-      }
-      50% { 
-        text-shadow: -2px 0 #ff00ff, 2px 0 #00d4ff;
-      }
     }
 
     .hero-tagline {
@@ -641,19 +514,17 @@
       color: var(--text-muted);
       margin-bottom: 15px;
       font-weight: 400;
-      animation: fadeInUp 1s ease-out 0.4s forwards;
-      opacity: 0;
+      user-select: none;
     }
 
     .hero-subtitle {
       font-size: clamp(0.95rem, 2.5vw, 1.3rem);
       color: var(--primary);
       margin-bottom: 40px;
-      animation: fadeInUp 1s ease-out 0.6s forwards;
-      opacity: 0;
       font-family: 'Space Mono', monospace;
       font-weight: 400;
       letter-spacing: 2px;
+      user-select: none;
     }
 
     .cta-buttons {
@@ -662,8 +533,6 @@
       justify-content: center;
       flex-wrap: wrap;
       margin-top: 50px;
-      animation: fadeInUp 1s ease-out 0.8s forwards;
-      opacity: 0;
     }
 
     /* Button Styles */
@@ -673,7 +542,6 @@
       font-weight: 600;
       font-size: 1rem;
       text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
       border: none;
       font-family: 'Syne', sans-serif;
@@ -682,6 +550,12 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      user-select: none;
+      will-change: transform;
+      /* Better tap targets on mobile */
+      min-height: 48px;
+      min-width: 48px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn::before {
@@ -693,7 +567,6 @@
       height: 100%;
       background: var(--gradient-1);
       z-index: -1;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .btn-primary {
@@ -704,9 +577,7 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-5px);
       box-shadow: 0 25px 70px var(--primary-glow);
-      filter: drop-shadow(0 0 20px var(--primary-glow));
     }
 
     .btn-secondary {
@@ -723,12 +594,6 @@
       box-shadow: 0 15px 50px var(--primary-glow);
     }
 
-    .btn-small {
-      padding: 10px 24px;
-      font-size: 0.85rem;
-      border-radius: 8px;
-    }
-
     .scroll-indicator {
       position: absolute;
       bottom: 40px;
@@ -738,8 +603,8 @@
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      animation: fadeInUp 1s ease-out 1.2s forwards;
-      opacity: 0;
+      user-select: none;
+      pointer-events: none;
     }
 
     .scroll-indicator span {
@@ -756,12 +621,7 @@
       border: 2px solid var(--primary);
       border-radius: 12px;
       position: relative;
-      animation: mouseBounce 2s ease-in-out infinite;
-    }
-
-    @keyframes mouseBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(10px); }
+      will-change: transform;
     }
 
     .scroll-mouse::before {
@@ -774,24 +634,15 @@
       height: 8px;
       background: var(--primary);
       border-radius: 2px;
-      animation: scrollWheel 2s ease-in-out infinite;
     }
 
-    @keyframes scrollWheel {
-      0% { opacity: 1; transform: translateX(-50%) translateY(0); }
-      50% { opacity: 0.3; }
-      100% { opacity: 0; transform: translateX(-50%) translateY(14px); }
-    }
-
-    /* Floating Tech Badges */
+    /* Tech Badges */
     .tech-badges {
       display: flex;
       gap: 15px;
       justify-content: center;
       flex-wrap: wrap;
       margin-top: 40px;
-      animation: fadeInUp 1s ease-out 1s forwards;
-      opacity: 0;
     }
 
     .badge {
@@ -802,34 +653,13 @@
       color: var(--primary);
       font-family: 'Space Mono', monospace;
       background: rgba(0, 255, 136, 0.1);
-      transition: all 0.3s ease;
-      animation: floatBadge 3s ease-in-out infinite;
-    }
-
-    .badge:nth-child(1) { animation-delay: 0s; }
-    .badge:nth-child(2) { animation-delay: 0.2s; }
-    .badge:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes floatBadge {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      user-select: none;
+      will-change: transform;
     }
 
     .badge:hover {
       background: rgba(0, 255, 136, 0.2);
       box-shadow: 0 0 20px var(--primary-glow);
-      transform: translateY(-10px);
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     /* ===============================
@@ -844,42 +674,9 @@
       z-index: 1;
     }
 
-    section:not(.hero) {
-      animation: sectionReveal 0.8s ease-out forwards;
-      opacity: 0;
-      transform: translateY(60px);
-    }
-
-    section.show {
-      animation: sectionReveal 0.8s ease-out forwards;
-    }
-
-    @keyframes sectionReveal {
-      from {
-        opacity: 0;
-        transform: translateY(60px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .section-header {
       text-align: center;
       margin-bottom: 80px;
-      animation: headerSlideIn 0.6s ease-out;
-    }
-
-    @keyframes headerSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .section-label {
@@ -891,7 +688,7 @@
       text-transform: uppercase;
       margin-bottom: 20px;
       font-family: 'Space Mono', monospace;
-      animation: fadeInUp 0.6s ease-out;
+      user-select: none;
     }
 
     .section-title {
@@ -903,18 +700,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: titleGlow 0.8s ease-out;
-    }
-
-    @keyframes titleGlow {
-      from {
-        opacity: 0;
-        filter: blur(10px);
-      }
-      to {
-        opacity: 1;
-        filter: blur(0);
-      }
+      user-select: none;
     }
 
     /* ===============================
@@ -935,8 +721,6 @@
       color: var(--text-muted);
       font-size: 1.15rem;
       line-height: 1.9;
-      animation: fadeInUp 0.8s ease-out 0.2s forwards;
-      opacity: 0;
     }
 
     .about-grid {
@@ -950,25 +734,9 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 40px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
-      animation: cardSlideIn 0.6s ease-out backwards;
-    }
-
-    .about-card:nth-child(1) { animation-delay: 0.1s; }
-    .about-card:nth-child(2) { animation-delay: 0.2s; }
-    .about-card:nth-child(3) { animation-delay: 0.3s; }
-
-    @keyframes cardSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      will-change: transform;
     }
 
     .about-card::before {
@@ -980,13 +748,12 @@
       height: 100%;
       background: var(--gradient-1);
       opacity: 0;
-      transition: all 0.4s ease;
+      transition: opacity 0.4s ease;
       z-index: 0;
     }
 
     .about-card:hover {
       border-color: var(--primary);
-      transform: translateY(-10px);
       box-shadow: 0 30px 60px var(--primary-glow);
     }
 
@@ -1010,7 +777,7 @@
       font-size: 1.8rem;
       color: var(--bg-dark);
       margin-bottom: 20px;
-      transition: all 0.4s ease;
+      will-change: transform;
     }
 
     .about-card:hover .about-card-icon {
@@ -1022,6 +789,7 @@
       margin-bottom: 15px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
+      user-select: none;
     }
 
     .about-card p, .about-card ul {
@@ -1039,7 +807,6 @@
       position: relative;
       padding-left: 24px;
       margin-bottom: 10px;
-      transition: all 0.3s ease;
     }
 
     .about-card ul li::before {
@@ -1050,13 +817,8 @@
       font-weight: 700;
     }
 
-    #transition-countdown {
-      animation: fadeInUp 0.6s ease-out 0.3s forwards;
-      opacity: 0;
-    }
-
     /* ===============================
-       CYBERSECURITY TOOLS SECTION
+       TOOLS SECTION
        =============================== */
     
     #tools {
@@ -1076,30 +838,10 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 30px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
-      animation: toolSlide 0.6s ease-out backwards;
       cursor: pointer;
-    }
-
-    .tool-card:nth-child(1) { animation-delay: 0.05s; }
-    .tool-card:nth-child(2) { animation-delay: 0.1s; }
-    .tool-card:nth-child(3) { animation-delay: 0.15s; }
-    .tool-card:nth-child(4) { animation-delay: 0.2s; }
-    .tool-card:nth-child(5) { animation-delay: 0.25s; }
-    .tool-card:nth-child(6) { animation-delay: 0.3s; }
-    .tool-card:nth-child(7) { animation-delay: 0.35s; }
-
-    @keyframes toolSlide {
-      from {
-        opacity: 0;
-        transform: translateY(40px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      will-change: transform;
     }
 
     .tool-card::before {
@@ -1111,7 +853,7 @@
       bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
-      transition: all 0.4s ease;
+      transition: opacity 0.4s ease;
       z-index: 0;
     }
 
@@ -1141,7 +883,7 @@
       font-size: 1.6rem;
       color: var(--bg-dark);
       margin-bottom: 15px;
-      transition: all 0.4s ease;
+      will-change: transform;
     }
 
     .tool-card:hover .tool-icon {
@@ -1154,6 +896,7 @@
       margin-bottom: 10px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
+      user-select: none;
     }
 
     .tool-card .tool-desc {
@@ -1171,10 +914,11 @@
       padding: 8px 12px;
       border-radius: 6px;
       border-left: 2px solid var(--primary);
+      user-select: none;
     }
 
     /* ===============================
-       CYBER LAB SECTION
+       LAB SECTION
        =============================== */
     
     #lab {
@@ -1192,25 +936,9 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 40px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
-      animation: labSlide 0.6s ease-out backwards;
-    }
-
-    .lab-card:nth-child(1) { animation-delay: 0.15s; }
-    .lab-card:nth-child(2) { animation-delay: 0.25s; }
-    .lab-card:nth-child(3) { animation-delay: 0.35s; }
-
-    @keyframes labSlide {
-      from {
-        opacity: 0;
-        transform: translateY(50px) rotateX(10deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) rotateX(0);
-      }
+      will-change: transform;
     }
 
     .lab-card::before {
@@ -1251,7 +979,7 @@
       font-size: 2rem;
       color: var(--bg-dark);
       margin-bottom: 30px;
-      transition: all 0.4s ease;
+      will-change: transform;
     }
 
     .lab-card:hover .lab-icon {
@@ -1264,6 +992,7 @@
       margin-bottom: 18px;
       font-weight: 700;
       font-family: 'Syne', sans-serif;
+      user-select: none;
     }
 
     .lab-card p {
@@ -1296,6 +1025,7 @@
       border-radius: 4px;
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
+      user-select: none;
     }
 
     .difficulty {
@@ -1304,6 +1034,7 @@
       border-radius: 4px;
       font-weight: 600;
       font-family: 'Space Mono', monospace;
+      user-select: none;
     }
 
     .difficulty.easy {
@@ -1322,145 +1053,6 @@
     }
 
     /* ===============================
-       TIMELINE SECTION
-       =============================== */
-    
-    #timeline {
-      position: relative;
-    }
-
-    .timeline {
-      position: relative;
-      padding: 40px 0;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 3px;
-      height: 100%;
-      background: var(--gradient-1);
-      box-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    .timeline-item {
-      margin-bottom: 50px;
-      opacity: 0;
-      animation: timelineSlide 0.6s ease-out forwards;
-    }
-
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
-
-    @keyframes timelineSlide {
-      from {
-        opacity: 0;
-        transform: translateX(-100px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .timeline-item:nth-child(odd) {
-      text-align: right;
-      padding-right: 52%;
-    }
-
-    .timeline-item:nth-child(even) {
-      text-align: left;
-      padding-left: 52%;
-    }
-
-    .timeline-content {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 25px;
-      transition: all 0.4s ease;
-    }
-
-    .timeline-item:hover .timeline-content {
-      border-color: var(--primary);
-      box-shadow: 0 15px 40px var(--primary-glow);
-      transform: translateY(-5px);
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 20px;
-      background: var(--primary);
-      border: 3px solid var(--bg-dark);
-      border-radius: 50%;
-      top: 10px;
-      box-shadow: 0 0 30px var(--primary-glow);
-      z-index: 2;
-    }
-
-    .timeline-content h4 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      color: var(--primary);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-    }
-
-    .timeline-content .year {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-family: 'Space Mono', monospace;
-      margin-bottom: 10px;
-    }
-
-    .timeline-content p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .timeline-milestone {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .milestone-tag {
-      background: rgba(0, 255, 136, 0.12);
-      color: var(--primary);
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-family: 'Space Mono', monospace;
-    }
-
-    @media (max-width: 768px) {
-      .timeline::before {
-        left: 0;
-      }
-
-      .timeline-item:nth-child(odd),
-      .timeline-item:nth-child(even) {
-        text-align: left;
-        padding-left: 50px;
-        padding-right: 0;
-      }
-
-      .timeline-dot {
-        left: 0;
-      }
-    }
-
-    /* ===============================
        PROJECTS SECTION
        =============================== */
     
@@ -1475,25 +1067,9 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 45px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
-      animation: projectSlide 0.6s ease-out backwards;
-    }
-
-    .project-card:nth-child(1) { animation-delay: 0.2s; }
-    .project-card:nth-child(2) { animation-delay: 0.3s; }
-    .project-card:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes projectSlide {
-      from {
-        opacity: 0;
-        transform: translateY(50px) rotateX(10deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) rotateX(0);
-      }
+      will-change: transform;
     }
 
     .project-card::before {
@@ -1534,7 +1110,7 @@
       font-size: 2rem;
       color: var(--bg-dark);
       margin-bottom: 30px;
-      transition: all 0.4s ease;
+      will-change: transform;
     }
 
     .project-card:hover .project-icon {
@@ -1547,6 +1123,7 @@
       margin-bottom: 18px;
       font-weight: 700;
       font-family: 'Syne', sans-serif;
+      user-select: none;
     }
 
     .project-card p {
@@ -1570,7 +1147,8 @@
       border-radius: 25px;
       font-family: 'Space Mono', monospace;
       border: 1px solid rgba(0, 255, 136, 0.3);
-      transition: all 0.3s ease;
+      user-select: none;
+      will-change: transform;
     }
 
     .project-tag:hover {
@@ -1620,27 +1198,9 @@
       border-radius: 16px;
       padding: 35px 30px;
       text-align: center;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      animation: skillPop 0.5s ease-out backwards;
       position: relative;
       overflow: hidden;
-    }
-
-    .skill-item:nth-child(1) { animation-delay: 0.1s; }
-    .skill-item:nth-child(2) { animation-delay: 0.15s; }
-    .skill-item:nth-child(3) { animation-delay: 0.2s; }
-    .skill-item:nth-child(4) { animation-delay: 0.25s; }
-    .skill-item:nth-child(5) { animation-delay: 0.3s; }
-
-    @keyframes skillPop {
-      from {
-        opacity: 0;
-        transform: scale(0.8) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+      will-change: transform;
     }
 
     .skill-item::before {
@@ -1652,7 +1212,7 @@
       bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
-      transition: all 0.4s ease;
+      transition: opacity 0.4s ease;
       z-index: 0;
     }
 
@@ -1677,12 +1237,13 @@
       background: var(--gradient-1);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: all 0.4s ease;
       display: inline-block;
+      user-select: none;
+      will-change: transform;
     }
 
     .skill-item:hover .skill-icon {
-      transform: scale(1.3) rotateY(360deg);
+      transform: scale(1.3);
       filter: drop-shadow(0 0 15px var(--primary-glow));
     }
 
@@ -1691,11 +1252,13 @@
       margin-bottom: 8px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
+      user-select: none;
     }
 
     .skill-item p {
       font-size: 0.85rem;
       color: var(--text-muted);
+      user-select: none;
     }
 
     /* ===============================
@@ -1715,19 +1278,7 @@
       font-family: 'Space Mono', monospace;
       max-width: 700px;
       margin: 0 auto;
-      animation: terminalAppear 0.8s ease-out;
       box-shadow: 0 0 40px var(--primary-glow), inset 0 0 40px rgba(0, 255, 136, 0.05);
-    }
-
-    @keyframes terminalAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
     }
 
     .terminal-header {
@@ -1743,6 +1294,7 @@
       height: 12px;
       border-radius: 50%;
       cursor: pointer;
+      pointer-events: none;
     }
 
     .terminal-button.red { background: #ff5f5f; }
@@ -1756,22 +1308,11 @@
       color: var(--primary);
       font-size: 0.9rem;
       line-height: 1.6;
+      user-select: text;
     }
 
     .terminal-line {
       margin: 5px 0;
-      animation: typeIn 0.3s ease-out;
-    }
-
-    @keyframes typeIn {
-      from {
-        opacity: 0;
-        transform: translateX(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
     }
 
     .terminal-input {
@@ -1784,6 +1325,7 @@
       content: '> ';
       color: var(--secondary);
       font-weight: bold;
+      user-select: none;
     }
 
     .terminal-input input {
@@ -1816,28 +1358,12 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 45px;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
       align-items: flex-start;
       gap: 25px;
       position: relative;
       overflow: hidden;
-      animation: contactSlide 0.6s ease-out backwards;
-    }
-
-    .contact-card:nth-child(1) { animation-delay: 0.2s; }
-    .contact-card:nth-child(2) { animation-delay: 0.3s; }
-    .contact-card:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes contactSlide {
-      from {
-        opacity: 0;
-        transform: translateY(50px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      will-change: transform;
     }
 
     .contact-card::before {
@@ -1849,7 +1375,7 @@
       bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
-      transition: all 0.4s ease;
+      transition: opacity 0.4s ease;
       z-index: 0;
     }
 
@@ -1879,7 +1405,7 @@
       font-size: 1.8rem;
       color: var(--bg-dark);
       flex-shrink: 0;
-      transition: all 0.4s ease;
+      will-change: transform;
     }
 
     .contact-card:hover .contact-icon {
@@ -1892,11 +1418,11 @@
       margin-bottom: 8px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
+      user-select: none;
     }
 
     .contact-info p {
       color: var(--text-muted);
-      word-break: break-all;
       font-size: 0.95rem;
     }
 
@@ -1924,16 +1450,6 @@
       background: linear-gradient(180deg, transparent 0%, var(--primary-glow) 100%);
       margin-top: 100px;
       border-top: 1px solid var(--border);
-      animation: footerFade 1s ease-out;
-    }
-
-    @keyframes footerFade {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
     }
 
     footer p {
@@ -1941,6 +1457,7 @@
       font-size: 0.95rem;
       font-family: 'Space Mono', monospace;
       margin-bottom: 10px;
+      user-select: none;
     }
 
     footer .tag {
@@ -1965,6 +1482,8 @@
       border-radius: 50%;
       color: var(--primary);
       transition: all 0.3s ease;
+      text-decoration: none;
+      will-change: transform;
     }
 
     footer .social-links a:hover {
@@ -1995,6 +1514,14 @@
         padding: 0 20px;
       }
 
+      /* Improve mobile tap targets */
+      button, a {
+        min-height: 44px;
+        min-width: 44px;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+      }
+
       nav ul {
         gap: 30px;
         position: fixed;
@@ -2005,7 +1532,6 @@
         flex-direction: column;
         padding: 30px;
         transform: translateY(-150%);
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         z-index: 999;
       }
 
@@ -2094,7 +1620,9 @@
       color: var(--text-main);
       font-size: 1.5rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      user-select: none;
+      padding: 8px;
+      will-change: transform;
     }
 
     .mobile-menu-btn:hover {
@@ -2108,21 +1636,14 @@
       }
     }
 
-    /* Accessibility & Motion Preferences */
     @media (prefers-reduced-motion: reduce) {
       * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
-
-      section {
-        opacity: 1;
-        transform: none;
-      }
     }
 
-    /* Print Styles */
     @media print {
       nav, #progress-bar, #scanlines, .cursor, .scroll-indicator {
         display: none;
@@ -2132,43 +1653,6 @@
         background: white;
         color: black;
       }
-    }
-
-    /* ===============================
-       CODE PROTECTION STYLES
-       =============================== */
-    
-    /* Disable text selection at CSS level */
-    * {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
-
-    /* Ensure no dragging */
-    img, a {
-      -webkit-user-drag: none;
-      user-drag: none;
-      pointer-events: auto;
-    }
-
-    /* Disable right-click feedback */
-    ::selection {
-      background: transparent;
-      color: inherit;
-    }
-
-    ::-moz-selection {
-      background: transparent;
-      color: inherit;
-    }
-
-    /* Disable context menu via CSS */
-    body {
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
     }
   </style>
 </head>
@@ -2181,7 +1665,7 @@
 
   <nav aria-label="Primary navigation">
     <div class="nav-container">
-      <div class="logo" onclick="document.getElementById('home').scrollIntoView({behavior: 'smooth'})">⚡ NC</div>
+      <div class="logo" onclick="gsap.to(window, {scrollTo: 0, duration: 1})" role="button" tabindex="0">⚡ NC</div>
       <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls="nav-menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
       </button>
@@ -2203,9 +1687,7 @@
   </nav>
 
   <main id="main-content">
-    <!-- ==================
-         HERO SECTION
-         ================== -->
+    <!-- HERO SECTION -->
     <section class="hero" id="home">
       <div class="hero-bg">
         <div class="grid-lines"></div>
@@ -2220,8 +1702,8 @@
         <div class="profile-container">
           <div class="profile-ring"></div>
           <div class="profile-picture">
-            <img src="profile.jpg" alt="Navaneeth Chandran" onerror="this.style.display='none'">
-            <i class="fas fa-user-secret" style="display:none" id="placeholder-icon"></i>
+            <img src="profile.jpg" alt="Navaneeth Chandran" onerror="this.parentElement.style.display='flex'; this.style.display='none'; document.getElementById('placeholder-icon').style.display='block'">
+            <i class="fas fa-user-secret" id="placeholder-icon"></i>
           </div>
         </div>
 
@@ -2247,9 +1729,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         ABOUT SECTION
-         ================== -->
+    <!-- ABOUT SECTION -->
     <section id="about">
       <div class="section-header">
         <span class="section-label">About Me</span>
@@ -2269,7 +1749,7 @@
             <li><strong>Standard:</strong> <span id="current-standard">Plus One (+1)</span></li>
             <li><strong>Stream:</strong> Computer Science</li>
             <li><strong>Curriculum:</strong> CBSE/NCERT</li>
-            <li id="transition-countdown" style="color: var(--primary); font-size: 0.85rem; margin-top: 8px; font-weight: 500;"></li>
+            <li id="transition-countdown"></li>
           </ul>
         </div>
 
@@ -2297,9 +1777,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         CYBERSECURITY TOOLS SECTION
-         ================== -->
+    <!-- TOOLS SECTION -->
     <section id="tools">
       <div class="section-header">
         <span class="section-label">Arsenal</span>
@@ -2358,9 +1836,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         CYBER LAB SECTION
-         ================== -->
+    <!-- LAB SECTION -->
     <section id="lab">
       <div class="section-header">
         <span class="section-label">Research</span>
@@ -2412,77 +1888,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         LEARNING TIMELINE
-         ================== -->
-    <section id="timeline">
-      <div class="section-header">
-        <span class="section-label">Journey</span>
-        <h2 class="section-title">Learning Timeline</h2>
-      </div>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>Foundation Building</h4>
-            <div class="year">2024 - Early Cybersecurity</div>
-            <p>Started exploring cybersecurity basics, Linux fundamentals, and networking concepts.</p>
-            <div class="timeline-milestone">
-              <span class="milestone-tag">Linux Basics</span>
-              <span class="milestone-tag">Networking</span>
-              <span class="milestone-tag">Python Intro</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>Hands-on Learning</h4>
-            <div class="year">2024 - Present</div>
-            <p>Pursuing OCSA Certification, practicing on HackTheBox and TryHackMe, building security tools.</p>
-            <div class="timeline-milestone">
-              <span class="milestone-tag">OCSA Certification</span>
-              <span class="milestone-tag">HackTheBox</span>
-              <span class="milestone-tag">Tool Development</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>Advanced Research</h4>
-            <div class="year">2025 - Advanced Topics</div>
-            <p>Deep diving into penetration testing, vulnerability research, and security architecture design.</p>
-            <div class="timeline-milestone">
-              <span class="milestone-tag">Pentest Practice</span>
-              <span class="milestone-tag">Vulnerability Research</span>
-              <span class="milestone-tag">Security Architecture</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>Professional Development</h4>
-            <div class="year">2026 - Career Preparation</div>
-            <p>Preparing for KEAM entrance exam, building portfolio, and pursuing cybersecurity career path.</p>
-            <div class="timeline-milestone">
-              <span class="milestone-tag">KEAM Prep</span>
-              <span class="milestone-tag">Portfolio Building</span>
-              <span class="milestone-tag">Industry Skills</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================
-         PROJECTS SECTION
-         ================== -->
+    <!-- PROJECTS SECTION -->
     <section id="projects">
       <div class="section-header">
         <span class="section-label">Portfolio</span>
@@ -2528,9 +1934,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         SKILLS SECTION
-         ================== -->
+    <!-- SKILLS SECTION -->
     <section id="skills">
       <div class="section-header">
         <span class="section-label">Expertise</span>
@@ -2570,9 +1974,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         TERMINAL SECTION
-         ================== -->
+    <!-- TERMINAL SECTION -->
     <section id="terminal-section">
       <div class="section-header">
         <span class="section-label">Interactive</span>
@@ -2592,9 +1994,7 @@
       </div>
     </section>
 
-    <!-- ==================
-         CONTACT SECTION
-         ================== -->
+    <!-- CONTACT SECTION -->
     <section id="contact">
       <div class="section-header">
         <span class="section-label">Connect</span>
@@ -2606,7 +2006,7 @@
           <div class="contact-icon"><i class="fas fa-envelope"></i></div>
           <div class="contact-info">
             <h4>Email</h4>
-            <a href="/cdn-cgi/l/email-protection#d9b7b8afb8b7bcbcadeae9ebe099beb4b8b0b5f7bab6b4"><span class="__cf_email__" data-cfemail="f69897809798939382c5c6c4cfb6919b979f9ad895999b">[email&#160;protected]</span></a>
+            <p>navaneet3029@gmail.com</p>
           </div>
         </div>
 
@@ -2635,148 +2035,46 @@
       <a href="https://github.com/Navaneeth-hacker" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
         <i class="fab fa-github"></i>
       </a>
-      <a href="/cdn-cgi/l/email-protection#412f2037202f2424357271737801262c20282d6f222e2c" aria-label="Email">
+      <a href="mailto:navaneet3029@gmail.com" aria-label="Email">
         <i class="fas fa-envelope"></i>
       </a>
     </div>
   </footer>
 
-  <!-- ==================
-       JAVASCRIPT
-       ================== -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
+    // Register GSAP plugins
+    gsap.registerPlugin(ScrollTrigger);
+
     // ===============================
-    // 0. CODE PROTECTION & SECURITY
+    // DEVICE DETECTION & OPTIMIZATION
     // ===============================
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTablet = /iPad|Android(?!.*Mobile)/i.test(navigator.userAgent);
+    const particleCount = isMobile ? 8 : 16;  // Fewer particles on mobile for smooth performance
     
-    // Disable right-click context menu
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    // Disable text selection
-    document.addEventListener('selectstart', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    // Disable drag and drop
-    document.addEventListener('dragstart', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    document.addEventListener('drop', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    // Disable copy action
-    document.addEventListener('copy', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    // Disable cut action
-    document.addEventListener('cut', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    // Block keyboard shortcuts for developer tools
-    document.addEventListener('keydown', (e) => {
-      // F12 - Developer Tools
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Ctrl+Shift+I - Inspect Element
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Ctrl+Shift+C - Inspect Element
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Ctrl+Shift+J - Console
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Ctrl+Shift+K - Web Console
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 75) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Cmd+Option+I (Safari)
-      if (e.metaKey && e.altKey && e.keyCode === 73) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Cmd+Option+J (Safari)
-      if (e.metaKey && e.altKey && e.keyCode === 74) {
-        e.preventDefault();
-        return false;
-      }
-
-      // Cmd+Option+U (Safari)
-      if (e.metaKey && e.altKey && e.keyCode === 85) {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    // Detect DevTools by checking console size
-    const checkDevTools = () => {
-      const threshold = 160;
-      if (window.outerHeight - window.innerHeight > threshold || window.outerWidth - window.innerWidth > threshold) {
-        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:monospace;color:#ff6b6b;background:#000;"><div style="text-align:center;"><h1>⚠️ ACCESS DENIED</h1><p>Developer Tools are not allowed.</p><p>This portfolio is protected.</p></div></div>';
-        return false;
-      }
-    };
-
-    // Run check periodically
-    setInterval(checkDevTools, 1000);
-
-    // Disable console methods
-    const noop = () => {};
-    console.log = noop;
-    console.warn = noop;
-    console.error = noop;
-    console.info = noop;
-    console.debug = noop;
-    console.table = noop;
-    console.trace = noop;
-
-    // Prevent iframe access
-    if (window.self !== window.top) {
-      window.top.location = window.self.location;
-    }
-
-    // Block access to common debugging methods
-    try {
-      Object.defineProperty(window, 'chrome', {
-        get: () => { throw new Error('Access denied'); }
-      });
-    } catch(e) {}
-
-    // Disable User Scalable to prevent zoom inspection
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0');
+    // Optimize GSAP settings for mobile
+    if (isMobile) {
+      gsap.config({ autoSleep: 120, force3D: 'auto' });
     }
 
     // ===============================
-    // 1. STANDARD COUNTER
+    // SETUP VARIABLES
+    // ===============================
+    const body = document.body;
+    const nav = document.querySelector('nav');
+    const progressBar = document.getElementById('progress-bar');
+    const menuButton = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = Array.from(document.querySelectorAll('#nav-menu a'));
+    const cursor = document.querySelector('.cursor');
+    const canvas = document.getElementById('liquid-canvas');
+    const ctx = canvas?.getContext('2d');
+    let particles = [];
+
+    body.classList.add('js-enhanced');
+
+    // ===============================
+    // STANDARD COUNTER
     // ===============================
     function updateStandardInfo() {
       const transitionDate = new Date('2026-06-01T00:00:00').getTime();
@@ -2800,7 +2098,7 @@
     setInterval(updateStandardInfo, 60000);
 
     // ===============================
-    // 2. THEME TOGGLE
+    // THEME TOGGLE
     // ===============================
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
@@ -2810,13 +2108,16 @@
       htmlElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       const slider = themeToggle.querySelector('.slider');
-      if (theme === 'light') {
-        themeToggle.classList.add('light');
-        slider.textContent = '☀️';
-      } else {
-        themeToggle.classList.remove('light');
-        slider.textContent = '🌙';
-      }
+      gsap.to(slider, { duration: 0.3, opacity: 0.5, onComplete: () => {
+        if (theme === 'light') {
+          themeToggle.classList.add('light');
+          slider.textContent = '☀️';
+        } else {
+          themeToggle.classList.remove('light');
+          slider.textContent = '🌙';
+        }
+        gsap.to(slider, { duration: 0.3, opacity: 1 });
+      }});
     }
 
     setTheme(savedTheme);
@@ -2826,7 +2127,7 @@
     });
 
     // ===============================
-    // 3. TERMINAL TYPING EFFECT
+    // TERMINAL TYPING EFFECT
     // ===============================
     const terminalText = document.getElementById('terminal-text');
     const commands = [
@@ -2864,12 +2165,28 @@
     typeCommand();
 
     // ===============================
-    // 4. INTERACTIVE TERMINAL
+    // TERMINAL COMMANDS
     // ===============================
     const terminalOutput = document.getElementById('terminal-output');
     const terminalInput = document.getElementById('terminal-input');
     const commandHistory = [];
     let historyIndex = -1;
+
+    function addLine(text, isCommand = false) {
+      const line = document.createElement('div');
+      line.className = 'terminal-line';
+      if (isCommand) {
+        line.innerHTML = `<span style="color: var(--secondary);">$ ${text}</span>`;
+      } else {
+        line.innerHTML = text;
+      }
+      terminalOutput.appendChild(line);
+      gsap.from(line, { duration: 0.3, opacity: 0, y: 20 });
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    addLine('Cyber Lab Terminal v1.0 - Ready');
+    addLine('Type "help" for available commands');
 
     const terminalCommands = {
       help: () => `
@@ -2928,18 +2245,6 @@ Location: Kollam, Kerala, India
       }
     };
 
-    function addLine(text, isCommand = false) {
-      const line = document.createElement('div');
-      line.className = 'terminal-line';
-      if (isCommand) {
-        line.innerHTML = `<span style="color: var(--secondary);">$ ${text}</span>`;
-      } else {
-        line.innerHTML = text;
-      }
-      terminalOutput.appendChild(line);
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
     terminalInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const command = terminalInput.value.trim().toLowerCase();
@@ -2951,6 +2256,8 @@ Location: Kollam, Kerala, India
           const output = terminalCommands[command]?.();
           if (output !== null) {
             if (output) addLine(output);
+          } else {
+            addLine(`<span style="color: #ff6464;">Command not found: ${command}</span>`);
           }
         }
         terminalInput.value = '';
@@ -2966,34 +2273,230 @@ Location: Kollam, Kerala, India
     });
 
     // ===============================
-    // 5. MAIN APPLICATION LOGIC
+    // SMOOTH HERO ANIMATIONS
     // ===============================
-    (() => {
-      const body = document.body;
-      const nav = document.querySelector('nav');
-      const progressBar = document.getElementById('progress-bar');
-      const menuButton = document.querySelector('.mobile-menu-btn');
-      const navMenu = document.getElementById('nav-menu');
-      const navLinks = Array.from(document.querySelectorAll('#nav-menu a'));
-      const sections = Array.from(document.querySelectorAll('section[id]')).filter(s => s.id !== 'home');
-      const cursor = document.querySelector('.cursor');
-      const canvas = document.getElementById('liquid-canvas');
-      const ctx = canvas.getContext('2d');
-      let particles = [];
+    gsap.timeline()
+      .from('.terminal-text', { duration: 0.8, opacity: 0, y: 30 }, 0.2)
+      .from('.profile-container', { duration: 1, opacity: 0, scale: 0.8, y: 40 }, 0.3)
+      .from('.hero h1', { duration: 1, opacity: 0, y: 40 }, 0.4)
+      .from('.hero-tagline', { duration: 0.8, opacity: 0, y: 20 }, 0.5)
+      .from('.hero-subtitle', { duration: 0.8, opacity: 0, y: 20 }, 0.6)
+      .from('.tech-badges .badge', { duration: 0.6, opacity: 0, scale: 0.8, stagger: 0.1 }, 0.7)
+      .from('.cta-buttons .btn', { duration: 0.8, opacity: 0, y: 30, stagger: 0.15 }, 0.8)
+      .from('.scroll-indicator', { duration: 1, opacity: 0, y: 20 }, 1);
 
-      body.classList.add('js-enhanced');
+    // Profile ring spinning animation
+    gsap.to('.profile-ring', { rotation: 360, duration: 12, repeat: -1, ease: 'none' });
 
-      // Canvas setup
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    // Glow orbs floating animation
+    gsap.to('.glow-orb-1', { y: 50, duration: 6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to('.glow-orb-2', { y: -50, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to('.glow-orb-3', { y: 30, duration: 7, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+    // Note: Scroll indicator animation is handled by CSS keyframes
+    // (GSAP cannot animate CSS pseudo-elements like ::before)
+
+    // Badge floating animation
+    gsap.to('.badge', { y: -10, duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut', stagger: 0.2 });
+
+    // ===============================
+    // SCROLL ANIMATIONS WITH GSAP
+    // ===============================
+    
+    // Animate section labels on scroll
+    gsap.utils.toArray('.section-label').forEach(label => {
+      gsap.from(label, {
+        scrollTrigger: {
+          trigger: label,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        },
+        duration: 0.8,
+        opacity: 0,
+        x: -30
+      });
+    });
+
+    // Animate section titles on scroll
+    gsap.utils.toArray('.section-title').forEach(title => {
+      gsap.from(title, {
+        scrollTrigger: {
+          trigger: title,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        },
+        duration: 1,
+        opacity: 0,
+        y: 40
+      });
+    });
+
+    // Animate cards on scroll with stagger
+    gsap.utils.toArray('.about-card, .tool-card, .lab-card, .project-card, .contact-card').forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        duration: 0.8,
+        opacity: 0,
+        y: 50,
+        x: index % 2 === 0 ? -30 : 30,
+        delay: (index % 3) * 0.15
+      });
+    });
+
+    // Animate skill items with wave effect
+    gsap.utils.toArray('.skill-item').forEach((skill, index) => {
+      gsap.from(skill, {
+        scrollTrigger: {
+          trigger: skill,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        duration: 0.8,
+        opacity: 0,
+        scale: 0.8,
+        delay: (index % 4) * 0.1
+      });
+    });
+
+    // ===============================
+    // SMOOTH PROGRESS BAR
+    // ===============================
+    gsap.to(window, {
+      scrollTo: { autoKill: false },
+      ease: 'none',
+      onUpdate: function() {
+        const scrollTop = window.scrollY;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
+        gsap.to(progressBar, { width: `${progress}%`, duration: 0.1 });
+        
+        if (nav) nav.classList.toggle('scrolled', scrollTop > 40);
+      }
+    });
+
+    // ===============================
+    // SMOOTH NAV LINK SCROLL
+    // ===============================
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
+        if (target) {
+          gsap.to(window, { scrollTo: target, duration: 1, ease: 'power2.inOut' });
+          setMenuState(false);
+        }
+      });
+    });
+
+    // ===============================
+    // MENU MANAGEMENT
+    // ===============================
+    const setMenuState = (isOpen) => {
+      if (navMenu && menuButton) {
+        if (isOpen) {
+          gsap.to(navMenu, { duration: 0.4, y: 0, opacity: 1, pointerEvents: 'auto' });
+        } else {
+          gsap.to(navMenu, { duration: 0.4, y: -150, opacity: 0, pointerEvents: 'none' });
+        }
+        navMenu.classList.toggle('active', isOpen);
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+      }
+    };
+
+    if (menuButton && navMenu) {
+      menuButton.addEventListener('click', () => {
+        setMenuState(!navMenu.classList.contains('active'));
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (navMenu && menuButton && window.innerWidth <= 768 && !navMenu.contains(e.target) && !menuButton.contains(e.target)) {
+        setMenuState(false);
+      }
+    });
+
+    // ===============================
+    // SMOOTH BUTTON HOVER ANIMATIONS
+    // ===============================
+    gsap.utils.toArray('.btn').forEach(btn => {
+      const tl = gsap.timeline({ paused: true });
+      tl.to(btn, { duration: 0.3, y: -5, boxShadow: '0 25px 70px rgba(0, 255, 136, 0.6)' }, 0);
+      
+      // Only enable hover on desktop (not touch devices)
+      if (!isMobile) {
+        btn.addEventListener('mouseenter', () => tl.play());
+        btn.addEventListener('mouseleave', () => tl.reverse());
+      }
+      
+      // Mobile tap feedback
+      btn.addEventListener('touchstart', () => {
+        gsap.to(btn, { duration: 0.2, scale: 0.98 });
+      }, { passive: true });
+      
+      btn.addEventListener('touchend', () => {
+        gsap.to(btn, { duration: 0.2, scale: 1 });
+      }, { passive: true });
+    });
+
+    // ===============================
+    // SMOOTH CARD HOVER ANIMATIONS
+    // ===============================
+    gsap.utils.toArray('.about-card, .tool-card, .lab-card, .project-card, .contact-card').forEach(card => {
+      const tl = gsap.timeline({ paused: true });
+      const icon = card.querySelector('[class*="-icon"]');
+      
+      tl.to(card, { duration: 0.4, y: -10, boxShadow: '0 30px 60px rgba(0, 255, 136, 0.4)' }, 0);
+      if (icon) tl.to(icon, { duration: 0.4, scale: 1.15, rotation: -10 }, 0);
+      
+      // Only enable hover on desktop
+      if (!isMobile) {
+        card.addEventListener('mouseenter', () => tl.play());
+        card.addEventListener('mouseleave', () => tl.reverse());
+      }
+      
+      // Mobile tap feedback
+      card.addEventListener('touchstart', () => {
+        gsap.to(card, { duration: 0.2, scale: 0.99 });
+      }, { passive: true });
+      
+      card.addEventListener('touchend', () => {
+        gsap.to(card, { duration: 0.2, scale: 1 });
+      }, { passive: true });
+    });
+
+    // ===============================
+    // SMOOTH CUSTOM CURSOR
+    // ===============================
+    if (cursor && window.matchMedia('(pointer: fine)').matches) {
+      let pointerX = window.innerWidth / 2;
+      let pointerY = window.innerHeight / 2;
+
+      document.addEventListener('mousemove', (e) => {
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+        gsap.to(cursor, { x: pointerX, y: pointerY, duration: 0.1, overwrite: 'auto' });
       });
 
-      // Particle class
-      class LiquidParticle {
-        constructor(x, y, vx = 0, vy = 0, size = 4, intensity = 1) {
+      gsap.utils.toArray('a, button, .project-card, .skill-item, .about-card, .contact-card, .tool-card, .lab-card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+      });
+    }
+
+    // ===============================
+    // PARTICLE EFFECTS
+    // ===============================
+    if (canvas && ctx) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      class Particle {
+        constructor(x, y, vx = 0, vy = 0, size = 4) {
           this.x = x;
           this.y = y;
           this.vx = vx + (Math.random() - 0.5) * 6;
@@ -3003,7 +2506,6 @@ Location: Kollam, Kerala, India
           this.life = 1;
           this.gravity = 0.15;
           this.friction = 0.97;
-          this.intensity = intensity;
         }
 
         update() {
@@ -3019,150 +2521,68 @@ Location: Kollam, Kerala, India
 
         draw(ctx) {
           const hue = 150 + Math.random() * 30;
-          const saturation = 70 + Math.random() * 30;
-          ctx.fillStyle = `hsla(${hue}, ${saturation}%, 50%, ${this.life * 0.8})`;
+          ctx.fillStyle = `hsla(${hue}, 70%, 50%, ${this.life * 0.8})`;
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
           ctx.fill();
-          ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${this.life * 0.4})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
         }
       }
 
-      function createSplash(x, y, intensity = 1, count = 8) {
-        for (let i = 0; i < count; i++) {
-          const angle = (i / count) * Math.PI * 2;
-          const velocity = 3 + Math.random() * 4;
-          const vx = Math.cos(angle) * velocity;
-          const vy = Math.sin(angle) * velocity - Math.random() * 2;
-          particles.push(new LiquidParticle(x, y, vx, vy, 3 + Math.random() * 4, intensity));
-        }
-      }
-
-      function createTrailSplash(x, y) {
-        if (Math.random() > 0.6) {
-          particles.push(new LiquidParticle(x, y, (Math.random() - 0.5) * 2, Math.random() * 0.5, 2 + Math.random() * 2, 0.6));
-        }
-      }
-
-      function animateParticles() {
+      function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles = particles.filter(p => p.update());
         particles.forEach(p => p.draw(ctx));
-        if (particles.length > 0) requestAnimationFrame(animateParticles);
+        if (particles.length > 0) requestAnimationFrame(animate);
       }
 
-      let lastTrailTime = 0;
-      document.addEventListener('mousemove', (e) => {
-        const now = Date.now();
-        if (now - lastTrailTime > 20) {
-          createTrailSplash(e.clientX, e.clientY);
-          lastTrailTime = now;
+      function createParticles(x, y) {
+        for (let i = 0; i < particleCount; i++) {
+          const angle = (i / particleCount) * Math.PI * 2;
+          const velocity = 3 + Math.random() * 4;
+          const vx = Math.cos(angle) * velocity;
+          const vy = Math.sin(angle) * velocity - Math.random() * 2;
+          particles.push(new Particle(x, y, vx, vy, 3 + Math.random() * 4));
         }
-        if (particles.length === 0 && Math.random() > 0.7) animateParticles();
-      }, { passive: true });
+        animate();
+      }
 
+      // Click events
       document.addEventListener('click', (e) => {
-        createSplash(e.clientX, e.clientY, 1.5, 16);
-        animateParticles();
+        createParticles(e.clientX, e.clientY);
       });
 
+      // Touch events for mobile
       document.addEventListener('touchstart', (e) => {
         if (e.touches.length > 0) {
-          const t = e.touches[0];
-          createSplash(t.clientX, t.clientY, 1.5, 16);
-          animateParticles();
+          const touch = e.touches[0];
+          createParticles(touch.clientX, touch.clientY);
         }
-      });
-
-      // Menu management
-      const setMenuState = (isOpen) => {
-        if (navMenu && menuButton) {
-          navMenu.classList.toggle('active', isOpen);
-          menuButton.setAttribute('aria-expanded', String(isOpen));
-        }
-      };
-
-      if (menuButton && navMenu) {
-        menuButton.addEventListener('click', () => setMenuState(!navMenu.classList.contains('active')));
-      }
-
-      navLinks.forEach(link => link.addEventListener('click', () => setMenuState(false)));
-
-      document.addEventListener('click', (e) => {
-        if (navMenu && menuButton && window.innerWidth <= 768 && !navMenu.contains(e.target) && !menuButton.contains(e.target)) {
-          setMenuState(false);
-        }
-      });
-
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) setMenuState(false);
-      });
-
-      // Navigation active state
-      const updateActiveNav = () => {
-        const offset = window.scrollY + 180;
-        let currentId = sections[0] ? sections[0].id : '';
-        sections.forEach(s => {
-          if (offset >= s.offsetTop) currentId = s.id;
-        });
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
-        });
-      };
-
-      // Scroll listeners
-      window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
-        if (progressBar) progressBar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
-        if (nav) nav.classList.toggle('scrolled', scrollTop > 40);
-        updateActiveNav();
       }, { passive: true });
 
-      // Intersection Observer for section reveal
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('show');
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -100px 0px' });
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
 
-      sections.forEach(section => revealObserver.observe(section));
+    // ===============================
+    // MOBILE PERFORMANCE OPTIMIZATION
+    // ===============================
+    if (isMobile) {
+      // Reduce animation complexity on mobile
+      ScrollTrigger.defaults({
+        markers: false,
+        onUpdate: () => {} // Minimal updates
+      });
 
-      // Custom cursor
-      if (cursor && window.matchMedia('(pointer: fine)').matches) {
-        let pointerX = window.innerWidth / 2;
-        let pointerY = window.innerHeight / 2;
-        let cursorX = pointerX;
-        let cursorY = pointerY;
-
-        cursor.style.left = `${cursorX}px`;
-        cursor.style.top = `${cursorY}px`;
-
-        document.addEventListener('mousemove', (e) => {
-          pointerX = e.clientX;
-          pointerY = e.clientY;
-        });
-
-        document.querySelectorAll('a, button, .project-card, .skill-item, .about-card, .contact-card, .tool-card, .lab-card').forEach(el => {
-          el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-          el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-        });
-
-        const animateCursor = () => {
-          cursorX += (pointerX - cursorX) * 0.25;
-          cursorY += (pointerY - cursorY) * 0.25;
-          cursor.style.left = `${cursorX}px`;
-          cursor.style.top = `${cursorY}px`;
-          requestAnimationFrame(animateCursor);
-        };
-
-        animateCursor();
+      // Disable some floating animations on very low-end phones
+      if (isLowEndDevice()) {
+        // Still enable but with longer durations for less power
+        gsap.to('.glow-orb-1', { y: 50, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+        gsap.to('.glow-orb-2', { y: -50, duration: 10, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+        gsap.to('.glow-orb-3', { y: 30, duration: 12, yoyo: true, repeat: -1, ease: 'sine.inOut' });
       }
-
-      // Placeholder icon fallback
-      document.addEventListener('DOMContentLoaded', () => {
+    }
+  </script>
+</body>
+</html>
