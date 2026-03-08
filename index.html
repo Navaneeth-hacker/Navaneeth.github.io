@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Navaneeth Chandran - Cybersecurity Portfolio | Penetration Testing | Security Research">
+  <meta name="description"
+    content="Navaneeth Chandran - Cybersecurity Portfolio | Penetration Testing | Security Research">
   <meta name="author" content="Navaneeth Chandran">
   <meta name="theme-color" content="#00ff88">
-  
+
   <title>Navaneeth Chandran | Cybersecurity Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+
   <!-- GSAP for smooth animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-  
+
   <style>
     /* ===============================
        CSS CUSTOM PROPERTIES & THEMES
        =============================== */
-    
+
     :root {
       /* Primary Colors */
       --primary: #00ff88;
       --primary-glow: rgba(0, 255, 136, 0.4);
       --primary-dark: #00cc6f;
-      
+
       /* Secondary Colors */
       --secondary: #00d4ff;
       --secondary-glow: rgba(0, 212, 255, 0.4);
       --secondary-dark: #00a8cc;
-      
+
       /* Accent Colors */
       --accent: #ff00ff;
       --accent-glow: rgba(255, 0, 255, 0.3);
       --accent-dark: #cc00cc;
-      
+
       /* Background Colors */
       --bg-dark: #050507;
       --bg-card: rgba(255, 255, 255, 0.03);
       --bg-card-hover: rgba(255, 255, 255, 0.08);
       --bg-terminal: rgba(5, 5, 20, 0.95);
-      
+
       /* Text Colors */
       --text-main: #ffffff;
       --text-muted: #8b9dc3;
       --text-dim: #6b7d9f;
-      
+
       /* Border & Divider */
       --border: rgba(255, 255, 255, 0.08);
       --border-bright: rgba(0, 255, 136, 0.2);
-      
+
       /* Gradients */
       --gradient-1: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
       --gradient-2: linear-gradient(135deg, #ff00ff 0%, #00d4ff 100%);
@@ -79,7 +82,7 @@
     /* ===============================
        GLOBAL STYLES
        =============================== */
-    
+
     * {
       margin: 0;
       padding: 0;
@@ -98,7 +101,23 @@
       overflow-x: hidden;
       line-height: 1.6;
       position: relative;
-      transition: background 0.6s ease, color 0.6s ease;
+      transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ===============================
+       ULTRA MOUSE-FOLLOW GRADIENT
+       =============================== */
+    #mouse-gradient {
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.07) 0%, rgba(0, 212, 255, 0.04) 40%, transparent 70%);
+      transition: opacity 0.4s ease;
+      will-change: transform;
     }
 
     /* Animated Background */
@@ -109,14 +128,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
+      background:
         radial-gradient(circle at 20% 50%, var(--primary-glow) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, var(--secondary-glow) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
 
-    body > * {
+    body>* {
       position: relative;
       z-index: 1;
     }
@@ -140,26 +159,29 @@
       height: 100%;
       pointer-events: none;
       z-index: 998;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 255, 136, 0.03) 0px,
-        rgba(0, 255, 136, 0.03) 1px,
-        transparent 1px,
-        transparent 2px
-      );
+      background: repeating-linear-gradient(0deg,
+          rgba(0, 255, 136, 0.03) 0px,
+          rgba(0, 255, 136, 0.03) 1px,
+          transparent 1px,
+          transparent 2px);
       animation: scanlineShift 8s linear infinite;
     }
 
     @keyframes scanlineShift {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(10px); }
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(10px);
+      }
     }
 
-    /* Custom Cursor */
+    /* Custom Cursor — outer ring */
     .cursor {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--primary);
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(0, 255, 136, 0.7);
       border-radius: 50%;
       position: fixed;
       top: 0;
@@ -169,19 +191,41 @@
       transform: translate(-50%, -50%);
       mix-blend-mode: screen;
       display: none;
-      box-shadow: 0 0 10px var(--primary-glow);
+      box-shadow: 0 0 14px var(--primary-glow), inset 0 0 8px rgba(0, 255, 136, 0.08);
+      will-change: transform;
+      transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        height 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    /* Cursor dot center */
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10001;
+      transform: translate(-50%, -50%);
+      display: none;
+      box-shadow: 0 0 8px var(--primary);
       will-change: transform;
     }
 
     .cursor.active {
-      width: 30px;
-      height: 30px;
+      width: 56px;
+      height: 56px;
       border-color: var(--secondary);
-      background: rgba(0, 212, 255, 0.1);
-      box-shadow: 0 0 25px var(--secondary-glow);
+      background: rgba(0, 212, 255, 0.06);
+      box-shadow: 0 0 35px var(--secondary-glow);
     }
 
-    .js-enhanced .cursor {
+    .js-enhanced .cursor,
+    .js-enhanced .cursor-dot {
       display: block;
     }
 
@@ -202,17 +246,17 @@
     ::-webkit-scrollbar {
       width: 12px;
     }
-    
+
     ::-webkit-scrollbar-track {
       background: var(--bg-card);
     }
-    
+
     ::-webkit-scrollbar-thumb {
       background: var(--gradient-1);
       border-radius: 6px;
       border: 2px solid var(--bg-dark);
     }
-    
+
     ::-webkit-scrollbar-thumb:hover {
       background: var(--gradient-2);
     }
@@ -220,7 +264,7 @@
     /* ===============================
        NAVIGATION
        =============================== */
-    
+
     nav {
       position: fixed;
       width: 100%;
@@ -288,6 +332,7 @@
       font-family: 'Syne', sans-serif;
       user-select: none;
       will-change: color;
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), letter-spacing 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     nav a::after {
@@ -299,11 +344,13 @@
       height: 2px;
       background: var(--gradient-1);
       box-shadow: 0 0 15px var(--primary-glow);
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     nav a.active,
     nav a:hover {
       color: var(--primary);
+      letter-spacing: 0.04em;
     }
 
     nav a.active::after,
@@ -352,7 +399,7 @@
     /* ===============================
        HERO SECTION
        =============================== */
-    
+
     .hero {
       min-height: 100vh;
       display: flex;
@@ -378,13 +425,13 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background-image: 
+      background-image:
         linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
       background-size: 80px 80px;
     }
 
-    /* Glow Orbs with Marquee */
+    /* Glow Orbs */
     .glow-orb {
       position: absolute;
       border-radius: 50%;
@@ -398,7 +445,6 @@
       background: var(--primary-glow);
       top: 5%;
       left: 10%;
-      animation: marquee-vertical 25s linear infinite;
     }
 
     .glow-orb-2 {
@@ -407,7 +453,6 @@
       background: var(--secondary-glow);
       bottom: 10%;
       right: 10%;
-      animation: marquee-horizontal 20s linear infinite;
     }
 
     .glow-orb-3 {
@@ -416,19 +461,6 @@
       background: var(--accent-glow);
       top: 50%;
       right: 5%;
-      animation: marquee-vertical 22s linear infinite reverse;
-    }
-
-    @keyframes marquee-horizontal {
-      0% { transform: translateX(-100px); }
-      50% { transform: translateX(100px); }
-      100% { transform: translateX(-100px); }
-    }
-
-    @keyframes marquee-vertical {
-      0% { transform: translateY(-100px); }
-      50% { transform: translateY(100px); }
-      100% { transform: translateY(-100px); }
     }
 
     .hero-content {
@@ -455,8 +487,16 @@
     }
 
     @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
     }
 
     /* Profile Picture */
@@ -479,7 +519,7 @@
       font-size: 5rem;
       color: var(--primary);
       overflow: hidden;
-      box-shadow: 
+      box-shadow:
         0 0 120px var(--primary-glow),
         inset 0 0 60px rgba(0, 255, 136, 0.2);
       position: relative;
@@ -507,7 +547,7 @@
       will-change: transform;
     }
 
-    /* Hero Title with Glitch Effect */
+    /* Hero Title */
     .hero h1 {
       font-size: clamp(2.5rem, 8vw, 5.5rem);
       font-weight: 800;
@@ -523,22 +563,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      position: relative;
-      display: inline-block;
-    }
-
-    .glitch-text {
-      position: relative;
-      display: inline-block;
-      animation: glitch-main 3s infinite;
-    }
-
-    @keyframes glitch-main {
-      0%, 100% { text-shadow: none; }
-      20% { text-shadow: -2px 0 var(--primary), 2px 0 var(--secondary); }
-      40% { text-shadow: 2px 0 var(--primary), -2px 0 var(--accent); }
-      60% { text-shadow: -2px 0 var(--secondary), 2px 0 var(--primary); }
-      80% { text-shadow: 2px 0 var(--accent), -2px 0 var(--secondary); }
     }
 
     .hero-tagline {
@@ -567,7 +591,7 @@
       margin-top: 50px;
     }
 
-    /* Magnetic Button Styles */
+    /* Button Styles */
     .btn {
       padding: 16px 40px;
       border-radius: 50px;
@@ -587,29 +611,27 @@
       min-height: 48px;
       min-width: 48px;
       -webkit-tap-highlight-color: transparent;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    /* Shimmer sweep */
     .btn::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: var(--gradient-1);
-      z-index: -1;
+      top: -50%;
+      left: -80%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.18) 50%, transparent 80%);
+      transform: skewX(-20deg);
+      transition: left 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .btn::after {
-      content: '';
-      position: absolute;
-      inset: -8px;
-      border-radius: inherit;
-      background: radial-gradient(circle, rgba(0, 255, 136, 0.3) 0%, transparent 70%);
-      opacity: 0;
-      z-index: -1;
-      pointer-events: none;
+    .btn:hover::before {
+      left: 130%;
     }
 
     .btn-primary {
@@ -620,8 +642,7 @@
     }
 
     .btn-primary:hover {
-      box-shadow: 0 25px 70px var(--primary-glow);
-      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 30px 80px var(--primary-glow), 0 0 0 1px rgba(0, 255, 136, 0.4);
     }
 
     .btn-secondary {
@@ -634,9 +655,9 @@
 
     .btn-secondary:hover {
       color: var(--bg-dark);
-      border-color: var(--primary);
-      box-shadow: 0 15px 50px var(--primary-glow);
-      transform: translateY(-3px);
+      background: var(--gradient-1);
+      border-color: transparent;
+      box-shadow: 0 20px 60px var(--primary-glow);
     }
 
     .scroll-indicator {
@@ -679,13 +700,6 @@
       height: 8px;
       background: var(--primary);
       border-radius: 2px;
-      animation: scroll-wheel 2s infinite;
-    }
-
-    @keyframes scroll-wheel {
-      0% { opacity: 1; transform: translateX(-50%) translateY(0); }
-      50% { opacity: 0.3; }
-      100% { opacity: 0; transform: translateX(-50%) translateY(14px); }
     }
 
     /* Tech Badges */
@@ -707,19 +721,17 @@
       background: rgba(0, 255, 136, 0.1);
       user-select: none;
       will-change: transform;
-      transition: all 0.3s ease;
     }
 
     .badge:hover {
       background: rgba(0, 255, 136, 0.2);
       box-shadow: 0 0 20px var(--primary-glow);
-      transform: translateY(-3px);
     }
 
     /* ===============================
        SECTIONS
        =============================== */
-    
+
     section {
       padding: 120px 40px;
       max-width: 1400px;
@@ -755,35 +767,12 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       user-select: none;
-      animation: stagger-letters-anim 0.8s ease-out forwards;
-    }
-
-    .section-title .letter {
-      display: inline-block;
-      opacity: 0;
-      animation: letter-reveal 0.6s ease-out forwards;
-    }
-
-    @keyframes letter-reveal {
-      0% {
-        opacity: 0;
-        transform: translateY(30px) rotateX(90deg);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0);
-      }
-    }
-
-    @keyframes stagger-letters-anim {
-      0% { opacity: 1; }
-      100% { opacity: 1; }
     }
 
     /* ===============================
        ABOUT SECTION
        =============================== */
-    
+
     #about {
       padding-top: 60px;
     }
@@ -814,7 +803,9 @@
       position: relative;
       overflow: hidden;
       will-change: transform;
-      perspective: 1000px;
+      transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       transform-style: preserve-3d;
     }
 
@@ -827,21 +818,39 @@
       height: 100%;
       background: var(--gradient-1);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
+    }
+
+    /* Tilt shine overlay */
+    .about-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 255, 136, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+
+    .about-card:hover::after {
+      opacity: 1;
     }
 
     .about-card:hover {
       border-color: var(--primary);
-      box-shadow: 0 30px 60px var(--primary-glow);
-      transform: translateY(-15px) rotateX(2deg) rotateY(-2deg);
+      box-shadow: 0 30px 80px var(--primary-glow);
     }
 
     .about-card:hover::before {
-      opacity: 0.04;
+      opacity: 0.05;
     }
 
-    .about-card > * {
+    .about-card>* {
       position: relative;
       z-index: 1;
     }
@@ -858,11 +867,12 @@
       color: var(--bg-dark);
       margin-bottom: 20px;
       will-change: transform;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
 
     .about-card:hover .about-card-icon {
-      transform: scale(1.15) rotate(-10deg);
+      transform: scale(1.2) rotate(-12deg);
+      box-shadow: 0 10px 30px var(--primary-glow);
     }
 
     .about-card h3 {
@@ -873,7 +883,8 @@
       user-select: none;
     }
 
-    .about-card p, .about-card ul {
+    .about-card p,
+    .about-card ul {
       color: var(--text-muted);
       font-size: 0.95rem;
       line-height: 1.8;
@@ -901,7 +912,7 @@
     /* ===============================
        TOOLS SECTION
        =============================== */
-    
+
     #tools {
       background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.02) 100%);
       border-top: 1px solid var(--border);
@@ -923,8 +934,9 @@
       overflow: hidden;
       cursor: pointer;
       will-change: transform;
-      perspective: 1000px;
-      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.35s ease,
+        box-shadow 0.4s ease;
     }
 
     .tool-card::before {
@@ -936,21 +948,21 @@
       bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
 
     .tool-card:hover {
-      transform: translateY(-15px) rotateX(5deg) rotateY(-5deg);
+      transform: translateY(-18px) scale(1.02);
       border-color: var(--primary);
-      box-shadow: 0 25px 60px var(--primary-glow);
+      box-shadow: 0 30px 70px var(--primary-glow);
     }
 
     .tool-card:hover::before {
-      opacity: 0.08;
+      opacity: 0.09;
     }
 
-    .tool-card > * {
+    .tool-card>* {
       position: relative;
       z-index: 1;
     }
@@ -967,12 +979,12 @@
       color: var(--bg-dark);
       margin-bottom: 15px;
       will-change: transform;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
 
     .tool-card:hover .tool-icon {
-      transform: scale(1.2) rotate(10deg);
-      box-shadow: 0 15px 40px var(--primary-glow);
+      transform: scale(1.25) rotate(12deg);
+      box-shadow: 0 18px 45px var(--primary-glow);
     }
 
     .tool-card h4 {
@@ -1004,7 +1016,7 @@
     /* ===============================
        LAB SECTION
        =============================== */
-    
+
     #lab {
       background: linear-gradient(180deg, rgba(0, 255, 136, 0.02) 0%, transparent 100%);
     }
@@ -1023,8 +1035,9 @@
       position: relative;
       overflow: hidden;
       will-change: transform;
-      perspective: 1000px;
-      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.35s ease,
+        box-shadow 0.45s ease;
     }
 
     .lab-card::before {
@@ -1034,22 +1047,22 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-      transition: all 0.8s ease;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.12), transparent);
+      transition: left 0.9s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
 
     .lab-card:hover::before {
-      left: 100%;
+      left: 110%;
     }
 
     .lab-card:hover {
-      transform: translateY(-15px) scale(1.02) rotateX(3deg) rotateY(3deg);
+      transform: translateY(-18px) scale(1.025);
       border-color: var(--primary);
-      box-shadow: 0 40px 80px var(--primary-glow);
+      box-shadow: 0 50px 100px var(--primary-glow);
     }
 
-    .lab-card > * {
+    .lab-card>* {
       position: relative;
       z-index: 1;
     }
@@ -1066,12 +1079,12 @@
       color: var(--bg-dark);
       margin-bottom: 30px;
       will-change: transform;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
 
     .lab-card:hover .lab-icon {
-      transform: translateY(-10px) scale(1.2) rotate(10deg);
-      box-shadow: 0 20px 50px var(--primary-glow);
+      transform: translateY(-12px) scale(1.25) rotate(12deg);
+      box-shadow: 0 25px 60px var(--primary-glow);
     }
 
     .lab-card h3 {
@@ -1142,7 +1155,7 @@
     /* ===============================
        PROJECTS SECTION
        =============================== */
-    
+
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1157,8 +1170,9 @@
       position: relative;
       overflow: hidden;
       will-change: transform;
-      perspective: 1000px;
-      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.35s ease,
+        box-shadow 0.45s ease;
     }
 
     .project-card::before {
@@ -1168,22 +1182,22 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-      transition: all 0.8s ease;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.12), transparent);
+      transition: left 0.9s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
 
     .project-card:hover::before {
-      left: 100%;
+      left: 110%;
     }
 
     .project-card:hover {
-      transform: translateY(-15px) scale(1.02) rotateX(3deg) rotateY(3deg);
+      transform: translateY(-18px) scale(1.025);
       border-color: var(--primary);
-      box-shadow: 0 40px 80px var(--primary-glow);
+      box-shadow: 0 50px 100px var(--primary-glow);
     }
 
-    .project-card > * {
+    .project-card>* {
       position: relative;
       z-index: 1;
     }
@@ -1200,12 +1214,12 @@
       color: var(--bg-dark);
       margin-bottom: 30px;
       will-change: transform;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
 
     .project-card:hover .project-icon {
-      transform: translateY(-10px) scale(1.2) rotate(10deg);
-      box-shadow: 0 20px 50px var(--primary-glow);
+      transform: translateY(-12px) scale(1.25) rotate(12deg);
+      box-shadow: 0 25px 60px var(--primary-glow);
     }
 
     .project-card h3 {
@@ -1239,7 +1253,6 @@
       border: 1px solid rgba(0, 255, 136, 0.3);
       user-select: none;
       will-change: transform;
-      transition: all 0.3s ease;
     }
 
     .project-tag:hover {
@@ -1251,7 +1264,7 @@
     /* ===============================
        SKILLS SECTION
        =============================== */
-    
+
     #skills {
       background: rgba(0, 255, 136, 0.04);
       border: 1px solid var(--border);
@@ -1269,7 +1282,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: 
+      background:
         radial-gradient(circle at 20% 50%, var(--primary-glow) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, var(--secondary-glow) 0%, transparent 50%);
       pointer-events: none;
@@ -1292,8 +1305,9 @@
       position: relative;
       overflow: hidden;
       will-change: transform;
-      perspective: 1000px;
-      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.35s ease,
+        box-shadow 0.4s ease;
     }
 
     .skill-item::before {
@@ -1305,21 +1319,21 @@
       bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
 
     .skill-item:hover {
       border-color: var(--primary);
-      transform: translateY(-10px) scale(1.08) rotateX(5deg);
-      box-shadow: 0 25px 60px var(--primary-glow);
+      transform: translateY(-12px) scale(1.1);
+      box-shadow: 0 30px 70px var(--primary-glow);
     }
 
     .skill-item:hover::before {
-      opacity: 0.08;
+      opacity: 0.1;
     }
 
-    .skill-item > * {
+    .skill-item>* {
       position: relative;
       z-index: 1;
     }
@@ -1333,12 +1347,12 @@
       display: inline-block;
       user-select: none;
       will-change: transform;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
     }
 
     .skill-item:hover .skill-icon {
-      transform: scale(1.3);
-      filter: drop-shadow(0 0 15px var(--primary-glow));
+      transform: scale(1.35) rotate(-5deg);
+      filter: drop-shadow(0 0 18px var(--primary));
     }
 
     .skill-item h4 {
@@ -1358,7 +1372,7 @@
     /* ===============================
        TERMINAL SECTION
        =============================== */
-    
+
     #terminal-section {
       background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.02) 100%);
       border-top: 1px solid var(--border);
@@ -1391,9 +1405,17 @@
       pointer-events: none;
     }
 
-    .terminal-button.red { background: #ff5f5f; }
-    .terminal-button.yellow { background: #ffbd2e; }
-    .terminal-button.green { background: #26de81; }
+    .terminal-button.red {
+      background: #ff5f5f;
+    }
+
+    .terminal-button.yellow {
+      background: #ffbd2e;
+    }
+
+    .terminal-button.green {
+      background: #26de81;
+    }
 
     .terminal-output {
       height: 300px;
@@ -1440,7 +1462,7 @@
     /* ===============================
        CONTACT SECTION
        =============================== */
-    
+
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1458,8 +1480,9 @@
       position: relative;
       overflow: hidden;
       will-change: transform;
-      perspective: 1000px;
-      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.35s ease,
+        box-shadow 0.4s ease;
     }
 
     .contact-card::before {
@@ -1471,21 +1494,21 @@
       bottom: 0;
       background: var(--gradient-1);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
 
     .contact-card:hover {
       border-color: var(--primary);
-      transform: translateY(-10px) rotateX(3deg) rotateY(3deg);
-      box-shadow: 0 30px 70px var(--primary-glow);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 40px 90px var(--primary-glow);
     }
 
     .contact-card:hover::before {
-      opacity: 0.05;
+      opacity: 0.06;
     }
 
-    .contact-card > * {
+    .contact-card>* {
       position: relative;
       z-index: 1;
     }
@@ -1502,12 +1525,12 @@
       color: var(--bg-dark);
       flex-shrink: 0;
       will-change: transform;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
 
     .contact-card:hover .contact-icon {
-      transform: scale(1.2) rotate(10deg);
-      box-shadow: 0 15px 40px var(--primary-glow);
+      transform: scale(1.25) rotate(12deg);
+      box-shadow: 0 18px 50px var(--primary-glow);
     }
 
     .contact-info h4 {
@@ -1540,7 +1563,7 @@
     /* ===============================
        FOOTER
        =============================== */
-    
+
     footer {
       text-align: center;
       padding: 80px 20px;
@@ -1578,95 +1601,23 @@
       border: 1px solid var(--primary);
       border-radius: 50%;
       color: var(--primary);
-      transition: all 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.3s ease,
+        box-shadow 0.35s ease;
       text-decoration: none;
       will-change: transform;
     }
 
     footer .social-links a:hover {
       background: var(--primary-glow);
-      transform: scale(1.1);
-    }
-
-    /* ===============================
-       ADVANCED ANIMATION EFFECTS
-       =============================== */
-
-    /* Ripple effect for clicks */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 255, 136, 0.8) 0%, transparent 70%);
-      pointer-events: none;
-      animation: ripple-burst 0.8s ease-out;
-    }
-
-    @keyframes ripple-burst {
-      0% {
-        width: 20px;
-        height: 20px;
-        opacity: 1;
-      }
-      100% {
-        width: 300px;
-        height: 300px;
-        opacity: 0;
-      }
-    }
-
-    /* Cursor particle trail */
-    .cursor-particle {
-      position: fixed;
-      pointer-events: none;
-      font-size: 0.7rem;
-      opacity: 0.8;
-      will-change: transform, opacity;
-      animation: particle-fade 1.5s ease-out forwards;
-    }
-
-    @keyframes particle-fade {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--vx), var(--vy))) scale(0.3);
-      }
-    }
-
-    /* Text reveal on scroll */
-    .text-reveal {
-      overflow: hidden;
-    }
-
-    .text-reveal-word {
-      display: inline-block;
-      overflow: hidden;
-    }
-
-    .text-reveal-char {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: char-reveal-scroll 0.5s ease-out forwards;
-    }
-
-    @keyframes char-reveal-scroll {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      transform: scale(1.2) rotate(8deg);
+      box-shadow: 0 8px 25px var(--primary-glow);
     }
 
     /* ===============================
        RESPONSIVE DESIGN
        =============================== */
-    
+
     @media (max-width: 1024px) {
       section {
         padding: 80px 30px;
@@ -1686,7 +1637,9 @@
         padding: 0 20px;
       }
 
-      button, a {
+      /* Improve mobile tap targets */
+      button,
+      a {
         min-height: 44px;
         min-width: 44px;
         -webkit-tap-highlight-color: transparent;
@@ -1727,11 +1680,19 @@
         padding: 80px 20px;
       }
 
-      .about-grid, .projects-grid, .contact-grid, .tools-grid, .lab-grid {
+      .about-grid,
+      .projects-grid,
+      .contact-grid,
+      .tools-grid,
+      .lab-grid {
         grid-template-columns: 1fr;
       }
 
-      .project-card, .about-card, .contact-card, .tool-card, .lab-card {
+      .project-card,
+      .about-card,
+      .contact-card,
+      .tool-card,
+      .lab-card {
         padding: 30px;
       }
 
@@ -1816,13 +1777,270 @@
     }
 
     @media print {
-      nav, #progress-bar, #scanlines, .cursor, .scroll-indicator {
+
+      nav,
+      #progress-bar,
+      #scanlines,
+      .cursor,
+      .cursor-dot,
+      .scroll-indicator {
         display: none;
       }
 
       body {
         background: white;
         color: black;
+      }
+    }
+
+    /* ================================================
+       ULTRA FINE ANIMATION KEYFRAMES
+       ================================================ */
+
+    /* Glitch effect for hero title */
+    @keyframes glitch {
+      0% {
+        text-shadow: none;
+        transform: translate(0);
+      }
+
+      4% {
+        text-shadow: -3px 0 var(--accent), 3px 0 var(--secondary);
+        transform: translate(-2px, 1px);
+      }
+
+      8% {
+        text-shadow: 3px 0 var(--accent), -3px 0 var(--secondary);
+        transform: translate(2px, -1px);
+      }
+
+      12% {
+        text-shadow: none;
+        transform: translate(0);
+      }
+
+      94% {
+        text-shadow: none;
+        transform: translate(0);
+      }
+
+      96% {
+        text-shadow: -2px 0 var(--secondary), 2px 0 var(--accent);
+        transform: translate(1px, 0);
+      }
+
+      100% {
+        text-shadow: none;
+        transform: translate(0);
+      }
+    }
+
+    .glitch-text {
+      animation: glitch 5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    /* Floating subtle pulse */
+    @keyframes floatPulse {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-12px) scale(1.02);
+      }
+    }
+
+    /* Ripple on click */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 255, 136, 0.35);
+      pointer-events: none;
+      transform: scale(0);
+      animation: rippleAnim 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      z-index: 100;
+    }
+
+    @keyframes rippleAnim {
+      to {
+        transform: scale(4.5);
+        opacity: 0;
+      }
+    }
+
+    /* Scroll mouse bounce */
+    @keyframes scrollBounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      60% {
+        transform: translateX(-50%) translateY(18px);
+        opacity: 0.5;
+      }
+    }
+
+    .scroll-indicator {
+      animation: scrollBounce 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Section label shimmer text */
+    @keyframes labelShimmer {
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .section-label {
+      background: linear-gradient(90deg, var(--primary) 30%, var(--secondary) 50%, var(--primary) 70%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: labelShimmer 3.5s linear infinite;
+    }
+
+    /* Glow orb drift with rotation */
+    @keyframes orbDrift {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -20px) rotate(120deg) scale(1.08);
+      }
+
+      66% {
+        transform: translate(-20px, 15px) rotate(240deg) scale(0.94);
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(360deg) scale(1);
+      }
+    }
+
+    /* Profile picture inner shimmer */
+    @keyframes profileShimmer {
+      0% {
+        box-shadow: 0 0 80px var(--primary-glow), inset 0 0 40px rgba(0, 255, 136, 0.15);
+      }
+
+      50% {
+        box-shadow: 0 0 160px var(--primary-glow), 0 0 40px var(--secondary-glow), inset 0 0 60px rgba(0, 255, 136, 0.25);
+      }
+
+      100% {
+        box-shadow: 0 0 80px var(--primary-glow), inset 0 0 40px rgba(0, 255, 136, 0.15);
+      }
+    }
+
+    .profile-picture {
+      animation: profileShimmer 4s ease-in-out infinite;
+    }
+
+    /* Profile ring pulse */
+    @keyframes ringPulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+        transform: scale(1) rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.9;
+        transform: scale(1.04) rotate(180deg);
+      }
+    }
+
+    .profile-ring {
+      animation: ringPulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Badge float wave */
+    @keyframes badgeWave {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .badge:nth-child(1) {
+      animation: badgeWave 3.0s ease-in-out infinite;
+    }
+
+    .badge:nth-child(2) {
+      animation: badgeWave 3.0s ease-in-out 0.3s infinite;
+    }
+
+    .badge:nth-child(3) {
+      animation: badgeWave 3.0s ease-in-out 0.6s infinite;
+    }
+
+    /* Progress bar glow pulse */
+    @keyframes progressGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 15px var(--secondary-glow);
+      }
+
+      50% {
+        box-shadow: 0 0 40px var(--secondary-glow), 0 0 60px var(--primary-glow);
+      }
+    }
+
+    #progress-bar {
+      animation: progressGlow 2s ease-in-out infinite;
+    }
+
+    /* Card reveal sweep */
+    .card-reveal {
+      animation: cardReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Hero subtitle character fade */
+    .char-reveal {
+      display: inline-block;
+      opacity: 0;
+      animation: charIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes charIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) rotate(8deg);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
       }
     }
   </style>
@@ -1832,12 +2050,15 @@
   <canvas id="liquid-canvas" aria-hidden="true"></canvas>
   <div id="scanlines" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div id="mouse-gradient" aria-hidden="true"></div>
   <div id="progress-bar" aria-hidden="true"></div>
 
   <nav aria-label="Primary navigation">
     <div class="nav-container">
       <div class="logo" onclick="gsap.to(window, {scrollTo: 0, duration: 1})" role="button" tabindex="0">⚡ NC</div>
-      <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls="nav-menu" aria-expanded="false">
+      <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls="nav-menu"
+        aria-expanded="false">
         <i class="fas fa-bars"></i>
       </button>
       <div class="nav-right">
@@ -1866,21 +2087,20 @@
         <div class="glow-orb glow-orb-2"></div>
         <div class="glow-orb glow-orb-3"></div>
       </div>
-      
+
       <div class="hero-content">
         <div class="terminal-text" id="terminal-text"></div>
-        
+
         <div class="profile-container">
           <div class="profile-ring"></div>
           <div class="profile-picture">
-            <img src="profile.jpg" alt="Navaneeth Chandran" onerror="this.parentElement.style.display='flex'; this.style.display='none'; document.getElementById('placeholder-icon').style.display='block'">
+            <img src="profile.jpg" alt="Navaneeth Chandran"
+              onerror="this.parentElement.style.display='flex'; this.style.display='none'; document.getElementById('placeholder-icon').style.display='block'">
             <i class="fas fa-user-secret" id="placeholder-icon"></i>
           </div>
         </div>
 
-        <h1 class="glitch-text" data-text="Navaneeth Chandran">
-          <span class="glitch-text">Navaneeth</span> <span class="glitch-text" data-text="Chandran">Chandran</span>
-        </h1>
+        <h1 class="glitch-text">Navaneeth <span>Chandran</span></h1>
         <p class="hero-tagline">Cybersecurity Analyst | Penetration Tester | Security Researcher</p>
         <p class="hero-subtitle">// Exploring systems. Breaking barriers. Building security.</p>
 
@@ -1910,7 +2130,9 @@
       </div>
 
       <div class="about-intro">
-        <p>I'm an 11th standard student from Kerala pursuing Computer Science education while actively developing cybersecurity and embedded systems skills. My passion lies in understanding how technology works at both hardware and software levels, analyzing vulnerabilities, and building secure solutions.</p>
+        <p>I'm an 11th standard student from Kerala pursuing Computer Science education while actively developing
+          cybersecurity and embedded systems skills. My passion lies in understanding how technology works at both
+          hardware and software levels, analyzing vulnerabilities, and building secure solutions.</p>
       </div>
 
       <div class="about-grid">
@@ -2020,7 +2242,8 @@
         <div class="lab-card">
           <div class="lab-icon"><i class="fas fa-flask"></i></div>
           <h3>Network Vulnerability Assessment</h3>
-          <p>Comprehensive network scanning and vulnerability identification using Nmap and Nessus. Analyzing network architecture for security weaknesses and potential attack vectors.</p>
+          <p>Comprehensive network scanning and vulnerability identification using Nmap and Nessus. Analyzing network
+            architecture for security weaknesses and potential attack vectors.</p>
           <div class="lab-meta">
             <div class="lab-tools">
               <span class="lab-tool-tag">Nmap</span>
@@ -2034,7 +2257,8 @@
         <div class="lab-card">
           <div class="lab-icon"><i class="fas fa-code"></i></div>
           <h3>Custom Security Scripts</h3>
-          <p>Developing Python and Bash scripts for automation of security tasks. Includes log analysis, network monitoring, and vulnerability scanning automation tools.</p>
+          <p>Developing Python and Bash scripts for automation of security tasks. Includes log analysis, network
+            monitoring, and vulnerability scanning automation tools.</p>
           <div class="lab-meta">
             <div class="lab-tools">
               <span class="lab-tool-tag">Python</span>
@@ -2048,7 +2272,8 @@
         <div class="lab-card">
           <div class="lab-icon"><i class="fas fa-lock"></i></div>
           <h3>Web Application Penetration Testing</h3>
-          <p>Testing web applications for OWASP Top 10 vulnerabilities including SQL injection, XSS, CSRF, and authentication bypasses using Burp Suite and manual testing.</p>
+          <p>Testing web applications for OWASP Top 10 vulnerabilities including SQL injection, XSS, CSRF, and
+            authentication bypasses using Burp Suite and manual testing.</p>
           <div class="lab-meta">
             <div class="lab-tools">
               <span class="lab-tool-tag">Burp Suite</span>
@@ -2072,7 +2297,8 @@
         <div class="project-card">
           <div class="project-icon"><i class="fas fa-shield-alt"></i></div>
           <h3>Offensive Security Lab</h3>
-          <p>Hands-on laboratory environment for penetration testing practice and vulnerability analysis. Implementing offensive security techniques in controlled environments with multiple VMs and isolated networks.</p>
+          <p>Hands-on laboratory environment for penetration testing practice and vulnerability analysis. Implementing
+            offensive security techniques in controlled environments with multiple VMs and isolated networks.</p>
           <div class="project-tags">
             <span class="project-tag">Linux</span>
             <span class="project-tag">Penetration Testing</span>
@@ -2084,7 +2310,8 @@
         <div class="project-card">
           <div class="project-icon"><i class="fas fa-microchip"></i></div>
           <h3>IoT System Development</h3>
-          <p>Embedded systems programming using Python and C++ for smart device communication and automation logic. Focus on efficient protocol implementation and secure IoT architecture design.</p>
+          <p>Embedded systems programming using Python and C++ for smart device communication and automation logic.
+            Focus on efficient protocol implementation and secure IoT architecture design.</p>
           <div class="project-tags">
             <span class="project-tag">Python</span>
             <span class="project-tag">C++</span>
@@ -2096,7 +2323,8 @@
         <div class="project-card">
           <div class="project-icon"><i class="fas fa-tools"></i></div>
           <h3>Security Analysis Tools</h3>
-          <p>Custom-built scripts for system analysis, metadata extraction, and security research. Streamlined workflows for cybersecurity experimentation and automated vulnerability detection.</p>
+          <p>Custom-built scripts for system analysis, metadata extraction, and security research. Streamlined workflows
+            for cybersecurity experimentation and automated vulnerability detection.</p>
           <div class="project-tags">
             <span class="project-tag">Python</span>
             <span class="project-tag">Bash</span>
@@ -2203,7 +2431,8 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 Navaneeth Chandran | <span class="tag">#Cybersecurity | #SecurityResearcher | #SystemsEngineer</span></p>
+    <p>&copy; 2026 Navaneeth Chandran | <span class="tag">#Cybersecurity | #SecurityResearcher | #SystemsEngineer</span>
+    </p>
     <div class="social-links">
       <a href="https://github.com/Navaneeth-hacker" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
         <i class="fab fa-github"></i>
@@ -2221,10 +2450,10 @@
     // ===============================
     // DEVICE DETECTION & OPTIMIZATION
     // ===============================
-    const isMobile = /Android|webOS|iPhone|iPad|iPok|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isTablet = /iPad|Android(?!.*Mobile)/i.test(navigator.userAgent);
-    const particleCount = 16;  // Full 16 particles on all devices
-    
+    const particleCount = 16;  // Full 16 particles on all devices (phones can handle it!)
+
     // Optimize GSAP settings
     gsap.config({ autoSleep: 120, force3D: 'auto' });
 
@@ -2279,16 +2508,18 @@
       htmlElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       const slider = themeToggle.querySelector('.slider');
-      gsap.to(slider, { duration: 0.3, opacity: 0.5, onComplete: () => {
-        if (theme === 'light') {
-          themeToggle.classList.add('light');
-          slider.textContent = '☀️';
-        } else {
-          themeToggle.classList.remove('light');
-          slider.textContent = '🌙';
+      gsap.to(slider, {
+        duration: 0.3, opacity: 0.5, onComplete: () => {
+          if (theme === 'light') {
+            themeToggle.classList.add('light');
+            slider.textContent = '☀️';
+          } else {
+            themeToggle.classList.remove('light');
+            slider.textContent = '🌙';
+          }
+          gsap.to(slider, { duration: 0.3, opacity: 1 });
         }
-        gsap.to(slider, { duration: 0.3, opacity: 1 });
-      }});
+      });
     }
 
     setTheme(savedTheme);
@@ -2336,142 +2567,6 @@
     typeCommand();
 
     // ===============================
-    // STAGGERED LETTER ANIMATIONS
-    // ===============================
-    function staggerLetters(element) {
-      if (!element) return;
-      const text = element.textContent;
-      element.innerHTML = '';
-      let delay = 0;
-      
-      for (let char of text) {
-        const span = document.createElement('span');
-        span.className = 'stagger-letter';
-        span.textContent = char;
-        span.style.animationDelay = `${delay * 0.05}s`;
-        element.appendChild(span);
-        delay++;
-      }
-    }
-
-    // Apply stagger to section titles
-    document.querySelectorAll('.section-title').forEach(title => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            staggerLetters(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      observer.observe(title);
-    });
-
-    // ===============================
-    // RIPPLE EFFECT ON CLICK
-    // ===============================
-    function createRipple(event) {
-      const rect = event.target.getBoundingClientRect();
-      const ripple = document.createElement('div');
-      ripple.className = 'ripple';
-      ripple.style.left = (event.clientX - rect.left) + 'px';
-      ripple.style.top = (event.clientY - rect.top) + 'px';
-      ripple.style.position = 'absolute';
-      event.target.appendChild(ripple);
-      
-      setTimeout(() => ripple.remove(), 800);
-    }
-
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        if (e.target === this || e.target.parentElement === this) {
-          createRipple.call(this, e);
-        }
-      });
-    });
-
-    // ===============================
-    // CURSOR PARTICLE TRAILS
-    // ===============================
-    let lastParticleTime = 0;
-    const particleTrailEmojis = ['✨', '⚡', '🎯', '💫', '🔮'];
-
-    document.addEventListener('mousemove', (e) => {
-      const now = Date.now();
-      if (now - lastParticleTime > 50) {
-        const particle = document.createElement('div');
-        particle.className = 'cursor-particle';
-        particle.textContent = particleTrailEmojis[Math.floor(Math.random() * particleTrailEmojis.length)];
-        particle.style.left = e.clientX + 'px';
-        particle.style.top = e.clientY + 'px';
-        particle.style.color = Math.random() > 0.5 ? 'var(--primary)' : 'var(--secondary)';
-        document.body.appendChild(particle);
-        lastParticleTime = now;
-        
-        setTimeout(() => particle.remove(), 1500);
-      }
-    });
-
-    // ===============================
-    // 3D TILT ON CARDS
-    // ===============================
-    const tiltCards = document.querySelectorAll('.about-card, .tool-card, .lab-card, .project-card, .skill-item, .contact-card');
-    
-    tiltCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-      });
-    });
-
-    // ===============================
-    // MAGNETIC BUTTON EFFECT
-    // ===============================
-    const magneticButtons = document.querySelectorAll('.btn');
-    
-    magneticButtons.forEach(btn => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const distanceX = (x - centerX) * 0.3;
-        const distanceY = (y - centerY) * 0.3;
-        
-        gsap.to(btn, {
-          x: distanceX,
-          y: distanceY,
-          duration: 0.3,
-          overwrite: 'auto'
-        });
-      });
-      
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.3
-        });
-      });
-    });
-
-    // ===============================
     // TERMINAL COMMANDS
     // ===============================
     const terminalOutput = document.getElementById('terminal-output');
@@ -2506,7 +2601,7 @@
   <div><strong>contact</strong> - Get in touch</div>
   <div><strong>clear</strong> - Clear terminal</div>
 </div>`,
-      
+
       about: () => `
 <span style="color: var(--secondary);">$ whoami</span>
 <div style="margin-top: 10px; color: var(--text-muted);">
@@ -2514,7 +2609,7 @@ I'm Navaneeth, a 11th standard student passionate about cybersecurity,
 systems engineering, and exploring how technology works at its core.
 Currently pursuing OCSA certification from Offsec Hackers Academy.
 </div>`,
-      
+
       skills: () => `
 <span style="color: var(--secondary);">$ cat skills.txt</span>
 <div style="margin-top: 10px; color: var(--text-muted);">
@@ -2522,7 +2617,7 @@ Languages: Python, C++, Java, Bash, HTML
 Tools: Kali Linux, Metasploit, Wireshark, Burp Suite, Nmap
 Focus: Penetration Testing, Vulnerability Analysis, Security Research
 </div>`,
-      
+
       projects: () => `
 <span style="color: var(--secondary);">$ ls projects/</span>
 <div style="margin-top: 10px; color: var(--text-muted);">
@@ -2530,14 +2625,14 @@ Focus: Penetration Testing, Vulnerability Analysis, Security Research
 2. IoT System Development - Embedded systems with security focus
 3. Security Analysis Tools - Custom Python/Bash scripts
 </div>`,
-      
+
       tools: () => `
 <span style="color: var(--secondary);">$ cat arsenal.txt</span>
 <div style="margin-top: 10px; color: var(--text-muted);">
 Kali Linux | Wireshark | Metasploit | Nmap | Burp Suite | 
 Hydra | John the Ripper | VirtualBox | Docker | Git
 </div>`,
-      
+
       contact: () => `
 <span style="color: var(--secondary);">$ cat contact.txt</span>
 <div style="margin-top: 10px; color: var(--text-muted);">
@@ -2545,7 +2640,7 @@ Email: navaneet3029@gmail.com
 GitHub: https://github.com/Navaneeth-hacker
 Location: Kollam, Kerala, India
 </div>`,
-      
+
       clear: () => {
         terminalOutput.innerHTML = '';
         return null;
@@ -2582,107 +2677,196 @@ Location: Kollam, Kerala, India
     // ===============================
     // SMOOTH HERO ANIMATIONS
     // ===============================
-    gsap.timeline()
-      .from('.terminal-text', { duration: 0.8, opacity: 0, y: 30 }, 0.2)
-      .from('.profile-container', { duration: 1, opacity: 0, scale: 0.8, y: 40 }, 0.3)
-      .from('.hero h1', { duration: 1, opacity: 0, y: 40 }, 0.4)
-      .from('.hero-tagline', { duration: 0.8, opacity: 0, y: 20 }, 0.5)
-      .from('.hero-subtitle', { duration: 0.8, opacity: 0, y: 20 }, 0.6)
-      .from('.tech-badges .badge', { duration: 0.6, opacity: 0, scale: 0.8, stagger: 0.1 }, 0.7)
-      .from('.cta-buttons .btn', { duration: 0.8, opacity: 0, y: 30, stagger: 0.15 }, 0.8)
-      .from('.scroll-indicator', { duration: 1, opacity: 0, y: 20 }, 1);
+    const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    heroTL
+      .from('.terminal-text', { duration: 1.0, opacity: 0, y: 40, ease: 'power4.out' }, 0.2)
+      .from('.profile-container', { duration: 1.2, opacity: 0, scale: 0.75, y: 50, ease: 'back.out(2)' }, 0.35)
+      .from('.hero h1', { duration: 1.1, opacity: 0, y: 50, ease: 'back.out(1.8)' }, 0.5)
+      .from('.hero-tagline', { duration: 0.9, opacity: 0, y: 25, ease: 'power3.out' }, 0.65)
+      .from('.hero-subtitle', { duration: 0.9, opacity: 0, y: 25, ease: 'power3.out' }, 0.75)
+      .from('.tech-badges .badge', { duration: 0.7, opacity: 0, scale: 0.7, stagger: 0.12, ease: 'back.out(2.5)' }, 0.85)
+      .from('.cta-buttons .btn', { duration: 0.9, opacity: 0, y: 35, stagger: 0.18, ease: 'back.out(1.7)' }, 1.0)
+      .from('.scroll-indicator', { duration: 1.1, opacity: 0, y: 25 }, 1.2);
 
-    // Profile ring spinning animation
-    gsap.to('.profile-ring', { rotation: 360, duration: 12, repeat: -1, ease: 'none' });
+    // Profile ring spinning — smoother with power1.inOut
+    gsap.to('.profile-ring', { rotation: 360, duration: 16, repeat: -1, ease: 'none' });
 
-    // Marquee parallax on orbs
-    gsap.to('.glow-orb-1', { y: 50, duration: 6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-    gsap.to('.glow-orb-2', { y: -50, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-    gsap.to('.glow-orb-3', { y: 30, duration: 7, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    // Glow orbs — organic multi-axis drift
+    gsap.to('.glow-orb-1', { x: 40, y: 60, duration: 7, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to('.glow-orb-2', { x: -50, y: -40, duration: 9, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to('.glow-orb-3', { x: 30, y: 40, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 
-    // Badge floating animation
-    gsap.to('.badge', { y: -10, duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut', stagger: 0.2 });
+    // ===============================
+    // MOUSE-FOLLOW GRADIENT
+    // ===============================
+    const mouseGradient = document.getElementById('mouse-gradient');
+    let mgX = window.innerWidth / 2, mgY = window.innerHeight / 2;
+    document.addEventListener('mousemove', e => {
+      mgX += (e.clientX - mgX) * 0.07;
+      mgY += (e.clientY - mgY) * 0.07;
+      gsap.set(mouseGradient, { x: mgX, y: mgY });
+    });
+    // Animate the lerp every frame for ultra-smooth
+    gsap.ticker.add(() => {
+      mgX += ((window._mx || mgX) - mgX) * 0.03;
+      mgY += ((window._my || mgY) - mgY) * 0.03;
+    });
+    document.addEventListener('mousemove', e => { window._mx = e.clientX; window._my = e.clientY; });
+
+    // ===============================
+    // 3D CARD TILT + RADIAL SPOTLIGHT
+    // ===============================
+    const tiltCards = document.querySelectorAll('.about-card, .tool-card, .lab-card, .project-card, .contact-card, .skill-item');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const rotY = dx * 10;
+        const rotX = -dy * 10;
+        gsap.to(card, {
+          rotateX: rotX,
+          rotateY: rotY,
+          transformPerspective: 900,
+          duration: 0.4,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+        // Dynamic spotlight position
+        const px = ((e.clientX - rect.left) / rect.width) * 100;
+        const py = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', px + '%');
+        card.style.setProperty('--my', py + '%');
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotateX: 0,
+          rotateY: 0,
+          duration: 0.7,
+          ease: 'elastic.out(1, 0.5)',
+          overwrite: 'auto'
+        });
+      });
+    });
+
+    // ===============================
+    // MAGNETIC BUTTON EFFECT
+    // ===============================
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        gsap.to(btn, {
+          x: dx * 0.28,
+          y: dy * 0.28,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+      });
+    });
+
+    // ===============================
+    // RIPPLE EFFECT ON CARDS & BUTTONS
+    // ===============================
+    document.querySelectorAll('.btn, .about-card, .tool-card, .lab-card, .project-card, .skill-item, .contact-card').forEach(el => {
+      el.style.position = 'relative';
+      el.style.overflow = 'hidden';
+      el.addEventListener('click', e => {
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 1.4;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px;`;
+        el.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
 
     // ===============================
     // SCROLL ANIMATIONS WITH GSAP
     // ===============================
-    
     gsap.utils.toArray('.section-label').forEach(label => {
       gsap.from(label, {
-        scrollTrigger: {
-          trigger: label,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        },
-        duration: 0.8,
-        opacity: 0,
-        x: -30
+        scrollTrigger: { trigger: label, start: 'top 82%', toggleActions: 'play none none reverse' },
+        duration: 1.0, opacity: 0, x: -40, ease: 'power3.out'
       });
     });
 
     gsap.utils.toArray('.section-title').forEach(title => {
       gsap.from(title, {
-        scrollTrigger: {
-          trigger: title,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        },
-        duration: 1,
-        opacity: 0,
-        y: 40
+        scrollTrigger: { trigger: title, start: 'top 82%', toggleActions: 'play none none reverse' },
+        duration: 1.1, opacity: 0, y: 50, ease: 'back.out(1.5)'
       });
     });
 
+    // Cards enter with alternating directions & spring ease
     gsap.utils.toArray('.about-card, .tool-card, .lab-card, .project-card, .contact-card').forEach((card, index) => {
       gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        duration: 0.8,
+        scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
+        duration: 0.9,
         opacity: 0,
-        y: 50,
-        x: index % 2 === 0 ? -30 : 30,
-        delay: (index % 3) * 0.15
+        y: 60,
+        x: index % 3 === 0 ? -40 : index % 3 === 2 ? 40 : 0,
+        scale: 0.93,
+        delay: (index % 3) * 0.12,
+        ease: 'back.out(1.6)'
       });
     });
 
+    // Skill items spring wave
     gsap.utils.toArray('.skill-item').forEach((skill, index) => {
       gsap.from(skill, {
-        scrollTrigger: {
-          trigger: skill,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
+        scrollTrigger: { trigger: skill, start: 'top 88%', toggleActions: 'play none none reverse' },
         duration: 0.8,
         opacity: 0,
-        scale: 0.8,
-        delay: (index % 4) * 0.1
+        scale: 0.7,
+        y: 30,
+        delay: (index % 5) * 0.08,
+        ease: 'back.out(2.5)'
       });
+    });
+
+    // About intro paragraph reveal
+    gsap.from('.about-intro p', {
+      scrollTrigger: { trigger: '.about-intro', start: 'top 80%', toggleActions: 'play none none reverse' },
+      duration: 1.1, opacity: 0, y: 30, ease: 'power3.out'
+    });
+
+    // Terminal box entrance
+    gsap.from('.terminal', {
+      scrollTrigger: { trigger: '.terminal', start: 'top 85%', toggleActions: 'play none none reverse' },
+      duration: 1.2, opacity: 0, scale: 0.92, y: 40, ease: 'back.out(1.7)'
+    });
+
+    // Footer entrance
+    gsap.from('footer', {
+      scrollTrigger: { trigger: 'footer', start: 'top 90%', toggleActions: 'play none none reverse' },
+      duration: 1.0, opacity: 0, y: 40, ease: 'power3.out'
     });
 
     // ===============================
     // SMOOTH PROGRESS BAR
     // ===============================
-    gsap.to(window, {
-      scrollTo: { autoKill: false },
-      ease: 'none',
-      onUpdate: function() {
-        const scrollTop = window.scrollY;
-        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
-        gsap.to(progressBar, { width: `${progress}%`, duration: 0.1 });
-        
-        if (nav) nav.classList.toggle('scrolled', scrollTop > 40);
-      }
-    });
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      gsap.to(progressBar, { width: `${progress}%`, duration: 0.15, ease: 'power1.out' });
+      if (nav) nav.classList.toggle('scrolled', scrollTop > 40);
+    }, { passive: true });
 
     // ===============================
     // SMOOTH NAV LINK SCROLL
     // ===============================
     navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
+      link.addEventListener('click', function (e) {
         e.preventDefault();
         const href = this.getAttribute('href');
         const target = document.querySelector(href);
@@ -2726,14 +2910,16 @@ Location: Kollam, Kerala, India
     gsap.utils.toArray('.btn').forEach(btn => {
       const tl = gsap.timeline({ paused: true });
       tl.to(btn, { duration: 0.3, y: -5, boxShadow: '0 25px 70px rgba(0, 255, 136, 0.6)' }, 0);
-      
+
+      // Hover effects work on all devices
       btn.addEventListener('mouseenter', () => tl.play());
       btn.addEventListener('mouseleave', () => tl.reverse());
-      
+
+      // Touch feedback on top of hover
       btn.addEventListener('touchstart', () => {
         gsap.to(btn, { duration: 0.2, scale: 0.95 });
       }, { passive: true });
-      
+
       btn.addEventListener('touchend', () => {
         gsap.to(btn, { duration: 0.2, scale: 1 });
       }, { passive: true });
@@ -2745,49 +2931,43 @@ Location: Kollam, Kerala, India
     gsap.utils.toArray('.about-card, .tool-card, .lab-card, .project-card, .contact-card').forEach(card => {
       const tl = gsap.timeline({ paused: true });
       const icon = card.querySelector('[class*="-icon"]');
-      
+
       tl.to(card, { duration: 0.4, y: -10, boxShadow: '0 30px 60px rgba(0, 255, 136, 0.4)' }, 0);
       if (icon) tl.to(icon, { duration: 0.4, scale: 1.15, rotation: -10 }, 0);
-      
+
+      // Hover effects work on all devices
       card.addEventListener('mouseenter', () => tl.play());
       card.addEventListener('mouseleave', () => tl.reverse());
-      
+
+      // Touch feedback on top of hover
       card.addEventListener('touchstart', () => {
         gsap.to(card, { duration: 0.2, scale: 0.97 });
       }, { passive: true });
-      
+
       card.addEventListener('touchend', () => {
         gsap.to(card, { duration: 0.2, scale: 1 });
       }, { passive: true });
     });
 
     // ===============================
-    // SMOOTH CUSTOM CURSOR (All Devices)
+    // SMOOTH CUSTOM CURSOR (All Devices) — dual cursor
     // ===============================
+    const cursorDot = document.querySelector('.cursor-dot');
     if (cursor) {
-      let pointerX = window.innerWidth / 2;
-      let pointerY = window.innerHeight / 2;
+      let dotX = window.innerWidth / 2, dotY = window.innerHeight / 2;
+      let ringX = window.innerWidth / 2, ringY = window.innerHeight / 2;
 
       document.addEventListener('mousemove', (e) => {
-        pointerX = e.clientX;
-        pointerY = e.clientY;
-        gsap.to(cursor, { x: pointerX, y: pointerY, duration: 0.1, overwrite: 'auto' });
+        dotX = e.clientX;
+        dotY = e.clientY;
+        // Dot follows instantly, ring lags behind for a trailing effect
+        gsap.to(cursorDot, { x: dotX, y: dotY, duration: 0.05, overwrite: 'auto' });
+        gsap.to(cursor, { x: dotX, y: dotY, duration: 0.18, overwrite: 'auto', ease: 'power2.out' });
       });
-      
-      document.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-          const touch = e.touches[0];
-          pointerX = touch.clientX;
-          pointerY = touch.clientY;
-          gsap.to(cursor, { x: pointerX, y: pointerY, duration: 0.1, overwrite: 'auto' });
-        }
-      }, { passive: true });
 
       gsap.utils.toArray('a, button, .project-card, .skill-item, .about-card, .contact-card, .tool-card, .lab-card').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-        el.addEventListener('touchstart', () => cursor.classList.add('active'), { passive: true });
-        el.addEventListener('touchend', () => cursor.classList.remove('active'), { passive: true });
+        el.addEventListener('mouseenter', () => { cursor.classList.add('active'); gsap.to(cursorDot, { scale: 0.5, duration: 0.2 }); });
+        el.addEventListener('mouseleave', () => { cursor.classList.remove('active'); gsap.to(cursorDot, { scale: 1, duration: 0.2 }); });
       });
     }
 
@@ -2849,10 +3029,12 @@ Location: Kollam, Kerala, India
         animate();
       }
 
+      // Click events
       document.addEventListener('click', (e) => {
         createParticles(e.clientX, e.clientY);
       });
 
+      // Touch events for mobile
       document.addEventListener('touchstart', (e) => {
         if (e.touches.length > 0) {
           const touch = e.touches[0];
@@ -2865,6 +3047,163 @@ Location: Kollam, Kerala, India
         canvas.height = window.innerHeight;
       });
     }
+
+    // ===============================
+    // ADVANCED ACCELEROMETER — KALMAN FILTER
+    // ===============================
+    const acc = {
+      // Kalman state
+      estX: 0, estY: 0,
+      errX: 1, errY: 1,
+      kgX: 0.05, kgY: 0.05,
+      // Gravity
+      gX: 0, gY: 0,
+      // Velocity
+      vX: 0, vY: 0,
+      // Target rotation
+      tRotX: 0, tRotY: 0,
+      // Current rotation
+      cRotX: 0, cRotY: 0,
+      // Config
+      friction: 0.92,
+      maxVel: 25,
+      maxRot: 35,
+      baseSens: 2.5,
+      curSens: 2.5,
+      // State
+      active: false,
+      lastTime: 0,
+      timeout: null,
+      gSmooth: 0.95,
+      // Sensor support
+      hasDeviceMotion: 'ondevicemotion' in window,
+      hasDeviceOrientation: 'ondeviceorientation' in window,
+      isIOS: /iPhone|iPad|iPod/i.test(navigator.userAgent)
+    };
+
+    // Kalman filter step
+    function kalman(measurement, est, err, kg, mErr = 0.8) {
+      const priorErr = err + 0.001;
+      const gain = priorErr / (priorErr + mErr);
+      const newEst = est + gain * (measurement - est);
+      const newErr = (1 - gain) * priorErr;
+      return { est: newEst, err: newErr, gain };
+    }
+
+    // Tilt cards using accelerometer data
+    function applyAccelTilt(betaDeg, gammaDeg) {
+      const tiltCards = document.querySelectorAll(
+        '.about-card,.tool-card,.lab-card,.project-card,.skill-item,.contact-card'
+      );
+      const rx = Math.max(-acc.maxRot, Math.min(acc.maxRot, betaDeg * 0.3));
+      const ry = Math.max(-acc.maxRot, Math.min(acc.maxRot, gammaDeg * 0.3));
+      tiltCards.forEach(card => {
+        gsap.to(card, {
+          rotateX: rx, rotateY: ry,
+          transformPerspective: 900,
+          duration: 0.4, ease: 'power2.out', overwrite: 'auto'
+        });
+      });
+    }
+
+    // Main accelerometer handler
+    function handleDeviceMotion(e) {
+      const rawAcc = e.acceleration || e.accelerationIncludingGravity;
+      if (!rawAcc || rawAcc.x == null) return;
+
+      const now = Date.now();
+      const dt = acc.lastTime ? Math.min((now - acc.lastTime) / 1000, 0.1) : 0.016;
+      acc.lastTime = now;
+
+      // Gravity smoothing
+      acc.gX = acc.gX * acc.gSmooth + rawAcc.x * (1 - acc.gSmooth);
+      acc.gY = acc.gY * acc.gSmooth + rawAcc.y * (1 - acc.gSmooth);
+      const cleanX = rawAcc.x - acc.gX;
+      const cleanY = rawAcc.y - acc.gY;
+
+      // Kalman filter
+      const kx = kalman(cleanX, acc.estX, acc.errX, acc.kgX);
+      const ky = kalman(cleanY, acc.estY, acc.errY, acc.kgY);
+      acc.estX = kx.est; acc.errX = kx.err;
+      acc.estY = ky.est; acc.errY = ky.err;
+
+      // Adaptive sensitivity
+      const intensity = Math.sqrt(cleanX * cleanX + cleanY * cleanY) / 20;
+      acc.curSens = acc.baseSens * (1 - Math.min(intensity, 1) * 0.3);
+
+      // Velocity & momentum
+      acc.vX = Math.max(-acc.maxVel, Math.min(acc.maxVel,
+        (acc.vX + acc.estX * dt * acc.curSens) * acc.friction));
+      acc.vY = Math.max(-acc.maxVel, Math.min(acc.maxVel,
+        (acc.vY + acc.estY * dt * acc.curSens) * acc.friction));
+
+      // Target rotation
+      acc.tRotX = Math.max(-acc.maxRot, Math.min(acc.maxRot, acc.tRotX + acc.vY * dt * 5));
+      acc.tRotY = Math.max(-acc.maxRot, Math.min(acc.maxRot, acc.tRotY - acc.vX * dt * 5));
+
+      applyAccelTilt(acc.tRotX, acc.tRotY);
+
+      // Motion timeout — reset after 1.2s idle
+      clearTimeout(acc.timeout);
+      acc.timeout = setTimeout(() => {
+        acc.vX *= 0.5; acc.vY *= 0.5;
+        acc.tRotX = 0; acc.tRotY = 0;
+      }, 1200);
+    }
+
+    // DeviceOrientation fallback
+    function handleDeviceOrientation(e) {
+      if (e.beta == null) return;
+      const kx = kalman(e.beta, acc.estX, acc.errX, acc.kgX);
+      const ky = kalman(e.gamma, acc.estY, acc.errY, acc.kgY);
+      acc.estX = kx.est; acc.errX = kx.err;
+      acc.estY = ky.est; acc.errY = ky.err;
+      applyAccelTilt(acc.estX * 0.5, acc.estY * 0.5);
+    }
+
+    // Start sensors
+    function startSensors() {
+      if (acc.hasDeviceMotion) {
+        window.addEventListener('devicemotion', handleDeviceMotion);
+      } else if (acc.hasDeviceOrientation) {
+        window.addEventListener('deviceorientation', handleDeviceOrientation);
+      }
+    }
+
+    // iOS 13+ permission flow
+    if (acc.isIOS && typeof DeviceMotionEvent.requestPermission === 'function') {
+      const btn = document.createElement('div');
+      btn.innerHTML = '📱 Enable Motion Tilt<br><small style="font-size:0.65rem;opacity:0.8">Shake to calibrate</small>';
+      Object.assign(btn.style, {
+        position: 'fixed', bottom: '90px', right: '20px', zIndex: '9999',
+        background: 'linear-gradient(135deg,#00ff88,#00d4ff)',
+        color: '#050507', padding: '12px 18px', borderRadius: '50px',
+        fontFamily: "'Syne',sans-serif", fontWeight: '700', fontSize: '0.85rem',
+        cursor: 'pointer', textAlign: 'center', lineHeight: '1.4',
+        boxShadow: '0 10px 40px rgba(0,255,136,0.5)',
+        transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1)'
+      });
+      btn.onmouseenter = () => btn.style.transform = 'scale(1.05)';
+      btn.onmouseleave = () => btn.style.transform = 'scale(1)';
+      btn.onclick = () => {
+        DeviceMotionEvent.requestPermission().then(state => {
+          if (state === 'granted') {
+            startSensors();
+            gsap.to(btn, {
+              opacity: 0, y: 20, duration: 0.5,
+              onComplete: () => btn.remove()
+            });
+          }
+        }).catch(console.warn);
+      };
+      document.body.appendChild(btn);
+      // Auto-fade after 5 s
+      setTimeout(() => gsap.to(btn, { opacity: 0.35, duration: 1 }), 5000);
+    } else if (!acc.isIOS) {
+      // Android / non-iOS: auto-start
+      startSensors();
+    }
   </script>
 </body>
+
 </html>
